@@ -1,0 +1,1466 @@
+{
+  "settings": {
+    "overlayCaptionColor": "#B8FF65",
+    "subtitlePreset": "Bold punchy lower thirds",
+    "hookStylePreset": "Cold open reaction",
+    "tonePreset": "Funny but useful golf creator",
+    "platformPreset": "YouTube Shorts"
+  },
+  "projects": [
+    {
+      "id": "project-93fef651-0",
+      "title": "exam day",
+      "ideaInput": "exam day",
+      "createdAt": "2026-03-28T18:45:52.889Z",
+      "updatedAt": "2026-03-28T18:45:58.080Z",
+      "status": "fallback",
+      "sourceVideoIds": [
+        "upload-video-358e9c49-6"
+      ],
+      "shortDraftIds": [
+        "project-93fef651-0-primary-exam-day",
+        "project-93fef651-0-alt-exam-day-alt"
+      ],
+      "primaryShortId": "project-93fef651-0-primary-exam-day",
+      "textPackage": {
+        "conceptAngle": "Package the idea as a fast-cut golf short with one strong opener, one reaction beat, and one payoff. Transcript signal: This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff. That is why one long video ca.",
+        "hookOptions": [
+          "This idea gets good the second the first bad decision is spoken out loud.",
+          "The funniest line in \"exam day\" should land inside the first two seconds.",
+          "This short works best if the opener feels like a confession before the payoff hits."
+        ],
+        "captionOptions": [
+          "exam day but cut like a creator short so the story lands before anyone swipes away.",
+          "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+          "Golf content works best when the pain is relatable and the payoff arrives quickly."
+        ],
+        "hashtagOptions": [
+          "#GolfShorts",
+          "#GolfTok",
+          "#ScrubsAndClubs",
+          "#GolfReels",
+          "#GolfHumor"
+        ],
+        "ctaOptions": [
+          "Comment FULL if you want the whole round breakdown.",
+          "Save this before your next round.",
+          "Tag the friend who always says this on the course."
+        ],
+        "funnyCaptionIdeas": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "subtitleToneSuggestion": "Funny but useful golf creator",
+        "editingVibeSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "provider": "fallback",
+        "warning": "OpenRouter not configured or unavailable. Using fallback package generation."
+      },
+      "detectedMoments": [
+        {
+          "id": "upload-video-358e9c49-6-moment-2",
+          "projectId": "project-93fef651-0",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "label": "The funniest part is that the reaction lands e",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "The funniest part is that the reaction lands even before the payoff.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 79,
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-1",
+          "projectId": "project-93fef651-0",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "label": "This upload starts with a moment that tells yo",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "This upload starts with a moment that tells you exactly what kind of round it is.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 72,
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-3",
+          "projectId": "project-93fef651-0",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "label": "That is why one long video can become several ",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "That is why one long video can become several tight short drafts.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 70,
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "energy": "medium"
+        }
+      ],
+      "progressSteps": [
+        {
+          "id": "step-text",
+          "label": "Generating text package",
+          "status": "fallback"
+        },
+        {
+          "id": "step-transcribe",
+          "label": "Transcribing videos",
+          "status": "fallback"
+        },
+        {
+          "id": "step-moments",
+          "label": "Finding best moments",
+          "status": "complete"
+        },
+        {
+          "id": "step-plan",
+          "label": "Building short plan",
+          "status": "complete"
+        },
+        {
+          "id": "step-render",
+          "label": "Rendering preview",
+          "status": "complete"
+        }
+      ],
+      "summary": "Package the idea as a fast-cut golf short with one strong opener, one reaction beat, and one payoff. Transcript signal: This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff. That is why one long video ca.",
+      "warning": "One or more providers were unavailable, so the project used fallback generation for part of the pipeline."
+    },
+    {
+      "id": "project-78efdfea-2",
+      "title": "sample render verification",
+      "ideaInput": "sample render verification",
+      "createdAt": "2026-03-28T18:15:53.425Z",
+      "updatedAt": "2026-03-28T18:15:54.539Z",
+      "status": "fallback",
+      "sourceVideoIds": [
+        "upload-video-69acdde7-2"
+      ],
+      "shortDraftIds": [
+        "project-78efdfea-2-primary-sample-render-ve",
+        "project-78efdfea-2-alt-sample-render-ve"
+      ],
+      "primaryShortId": "project-78efdfea-2-primary-sample-render-ve",
+      "textPackage": {
+        "conceptAngle": "Package the idea as a fast-cut golf short with one strong opener, one reaction beat, and one payoff. Transcript signal: This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff. That is why one long video ca.",
+        "hookOptions": [
+          "This idea gets good the second the first bad decision is spoken out loud.",
+          "The funniest line in \"sample render verification\" should land inside the first two seconds.",
+          "This short works best if the opener feels like a confession before the payoff hits."
+        ],
+        "captionOptions": [
+          "sample render verification but cut like a creator short so the story lands before anyone swipes away.",
+          "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+          "Golf content works best when the pain is relatable and the payoff arrives quickly."
+        ],
+        "hashtagOptions": [
+          "#GolfShorts",
+          "#GolfTok",
+          "#ScrubsAndClubs",
+          "#GolfReels",
+          "#GolfHumor"
+        ],
+        "ctaOptions": [
+          "Comment FULL if you want the whole round breakdown.",
+          "Save this before your next round.",
+          "Tag the friend who always says this on the course."
+        ],
+        "funnyCaptionIdeas": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "subtitleToneSuggestion": "Funny but useful golf creator",
+        "editingVibeSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "provider": "fallback",
+        "warning": "OpenRouter not configured or unavailable. Using fallback package generation."
+      },
+      "detectedMoments": [
+        {
+          "id": "upload-video-69acdde7-2-moment-2",
+          "projectId": "project-78efdfea-2",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "label": "The funniest part is that the reaction lands e",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "The funniest part is that the reaction lands even before the payoff.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 79,
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-1",
+          "projectId": "project-78efdfea-2",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "label": "This upload starts with a moment that tells yo",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "This upload starts with a moment that tells you exactly what kind of round it is.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 72,
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-3",
+          "projectId": "project-78efdfea-2",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "label": "That is why one long video can become several ",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "That is why one long video can become several tight short drafts.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 70,
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "energy": "medium"
+        }
+      ],
+      "progressSteps": [
+        {
+          "id": "step-text",
+          "label": "Generating text package",
+          "status": "fallback"
+        },
+        {
+          "id": "step-transcribe",
+          "label": "Transcribing videos",
+          "status": "fallback"
+        },
+        {
+          "id": "step-moments",
+          "label": "Finding best moments",
+          "status": "complete"
+        },
+        {
+          "id": "step-plan",
+          "label": "Building short plan",
+          "status": "complete"
+        },
+        {
+          "id": "step-render",
+          "label": "Rendering preview",
+          "status": "complete"
+        }
+      ],
+      "summary": "Package the idea as a fast-cut golf short with one strong opener, one reaction beat, and one payoff.",
+      "warning": "One or more providers were unavailable, so the project used fallback generation for part of the pipeline."
+    },
+    {
+      "id": "project-1",
+      "title": "2 surgeons try to break 100",
+      "ideaInput": "2 surgeons try to break 100",
+      "createdAt": "2026-03-28T10:30:00.000Z",
+      "updatedAt": "2026-03-28T10:42:00.000Z",
+      "status": "ready",
+      "sourceVideoIds": [
+        "video-1",
+        "video-2"
+      ],
+      "primaryShortId": "short-project-1-primary",
+      "shortDraftIds": [
+        "short-project-1-primary",
+        "short-project-1-alt"
+      ],
+      "summary": "One idea turned into a multi-video stitched short with a cold open, punchline, and tension payoff.",
+      "textPackage": {
+        "conceptAngle": "Use the surgeon-golfer identity to frame relatable bad decisions as a funny challenge story.",
+        "hookOptions": [
+          "We knew this was the wrong club and still talked ourselves into it.",
+          "The diagnosis after this swing was somehow worse than the shot.",
+          "If this misses, the whole break-100 round changes."
+        ],
+        "captionOptions": [
+          "Golf confidence right before disaster is always elite.",
+          "The swing diagnosis hurt more than the actual shot.",
+          "This is exactly how a fun round turns into a challenge."
+        ],
+        "hashtagOptions": [
+          "#GolfShorts",
+          "#GolfTok",
+          "#ScrubsAndClubs",
+          "#GolfHumor",
+          "#Break100"
+        ],
+        "ctaOptions": [
+          "Comment FULL if you want the whole round.",
+          "Tag the friend who diagnoses every bad swing."
+        ],
+        "funnyCaptionIdeas": [
+          "Worst 5-wood idea ever",
+          "Doctor says it's bad",
+          "Break 100 still alive"
+        ],
+        "subtitleToneSuggestion": "Fast, bold, center-safe subtitles with emphasized golf words",
+        "editingVibeSuggestion": "Cold open reaction, quick cuts, then a tension beat before the payoff",
+        "provider": "fallback",
+        "warning": "Seeded sample package generated from local fallback logic."
+      },
+      "detectedMoments": [
+        {
+          "id": "moment-1",
+          "projectId": "project-1",
+          "sourceVideoId": "video-1",
+          "label": "Wrong-club confession",
+          "reason": "Immediate mistake language creates the hook and the payoff lands fast.",
+          "transcriptExcerpt": "We knew the 5-wood was wrong and still talked ourselves into it.",
+          "tags": [
+            "hook",
+            "mistake",
+            "relatable"
+          ],
+          "score": 96,
+          "start": "06:31",
+          "end": "06:39",
+          "startSeconds": 391,
+          "endSeconds": 399,
+          "energy": "high"
+        },
+        {
+          "id": "moment-2",
+          "projectId": "project-1",
+          "sourceVideoId": "video-2",
+          "label": "Surgical diagnosis punchline",
+          "reason": "The brand angle is funny, distinct, and works as a second-beat punchline.",
+          "transcriptExcerpt": "The diagnosis after that swing was somehow worse than the shot itself.",
+          "tags": [
+            "brand",
+            "funny",
+            "reaction"
+          ],
+          "score": 91,
+          "start": "03:09",
+          "end": "03:17",
+          "startSeconds": 189,
+          "endSeconds": 197,
+          "energy": "high"
+        },
+        {
+          "id": "moment-3",
+          "projectId": "project-1",
+          "sourceVideoId": "video-1",
+          "label": "Pressure putt setup",
+          "reason": "The consequence is immediately understandable, so retention stays high.",
+          "transcriptExcerpt": "If this putt misses, the whole break one hundred challenge changes.",
+          "tags": [
+            "tension",
+            "challenge",
+            "payoff"
+          ],
+          "score": 88,
+          "start": "14:19",
+          "end": "14:27",
+          "startSeconds": 859,
+          "endSeconds": 867,
+          "energy": "medium"
+        },
+        {
+          "id": "moment-4",
+          "projectId": "project-1",
+          "sourceVideoId": "video-2",
+          "label": "Frustration mutter",
+          "reason": "Relatable golf pain makes a strong alternate ending beat.",
+          "transcriptExcerpt": "Every golfer has muttered something like this after chunking one.",
+          "tags": [
+            "relatable",
+            "comedy"
+          ],
+          "score": 84,
+          "start": "09:41",
+          "end": "09:49",
+          "startSeconds": 581,
+          "endSeconds": 589,
+          "energy": "medium"
+        }
+      ],
+      "progressSteps": [
+        {
+          "id": "step-text",
+          "label": "Generating text package",
+          "status": "complete"
+        },
+        {
+          "id": "step-transcribe",
+          "label": "Transcribing videos",
+          "status": "fallback"
+        },
+        {
+          "id": "step-moments",
+          "label": "Finding best moments",
+          "status": "complete"
+        },
+        {
+          "id": "step-plan",
+          "label": "Building short plan",
+          "status": "complete"
+        },
+        {
+          "id": "step-render",
+          "label": "Rendering preview",
+          "status": "pending"
+        }
+      ],
+      "warning": "This seeded project uses simulated transcripts until real hosted STT is configured."
+    }
+  ],
+  "editedShorts": [
+    {
+      "id": "project-93fef651-0-alt-exam-day-alt",
+      "clipSuggestionId": "project-93fef651-0-synthetic-clip-2",
+      "sourceVideoId": "upload-video-358e9c49-6",
+      "sourceVideoIds": [
+        "upload-video-358e9c49-6"
+      ],
+      "projectId": "project-93fef651-0",
+      "primary": false,
+      "draftStatus": "generated",
+      "title": "exam day alt cut",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "The funniest line in \"exam day\" should land inside the first two seconds.",
+      "overlayText": [
+        "Worst club choice ever",
+        "Every golfer says this",
+        "This changed the whole round"
+      ],
+      "caption": "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+      "cta": "Save this before your next round.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs",
+        "#GolfReels",
+        "#GolfHumor"
+      ],
+      "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-1-subtitle-1",
+          "start": "00:00",
+          "end": "00:05",
+          "startSeconds": 0,
+          "endSeconds": 5,
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-3-subtitle-1",
+          "start": "00:05",
+          "end": "00:10",
+          "startSeconds": 5,
+          "endSeconds": 10,
+          "text": "That is why one long video can become several tight short drafts."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-2-subtitle-1",
+          "start": "00:10",
+          "end": "00:15",
+          "startSeconds": 10,
+          "endSeconds": 15,
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "generationSource": "automatic",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-358e9c49-6-moment-1-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-358e9c49-6-moment-1"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-3-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "purpose": "payoff",
+          "momentId": "upload-video-358e9c49-6-moment-3"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-2-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "purpose": "hook",
+          "momentId": "upload-video-358e9c49-6-moment-2"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-358e9c49-6-moment-1-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Worst club choice ever",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-3-segment-overlay",
+          "start": "00:05",
+          "end": "00:07",
+          "startSeconds": 5,
+          "endSeconds": 7,
+          "text": "Every golfer says this",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-2-segment-overlay",
+          "start": "00:10",
+          "end": "00:12",
+          "startSeconds": 10,
+          "endSeconds": 12,
+          "text": "This changed the whole round",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "exam day alt cut",
+        "sourceVideoId": "upload-video-358e9c49-6",
+        "start": "00:00",
+        "end": "00:15",
+        "subtitles": [
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-1-subtitle-1",
+            "start": "00:00",
+            "end": "00:05",
+            "startSeconds": 0,
+            "endSeconds": 5,
+            "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+          },
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-3-subtitle-1",
+            "start": "00:05",
+            "end": "00:10",
+            "startSeconds": 5,
+            "endSeconds": 10,
+            "text": "That is why one long video can become several tight short drafts."
+          },
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-2-subtitle-1",
+            "start": "00:10",
+            "end": "00:15",
+            "startSeconds": 10,
+            "endSeconds": 15,
+            "text": "The funniest part is that the reaction lands even before the payoff."
+          }
+        ],
+        "overlayText": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "introHook": "The funniest line in \"exam day\" should land inside the first two seconds.",
+        "caption": "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+        "cta": "Save this before your next round.",
+        "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      },
+      "previewUrl": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.mp4",
+      "renderedFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.mp4",
+      "subtitleFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.srt",
+      "captionFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt-caption.txt",
+      "briefFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt-capcut-brief.json"
+    },
+    {
+      "id": "project-93fef651-0-primary-exam-day",
+      "clipSuggestionId": "project-93fef651-0-synthetic-clip-1",
+      "sourceVideoId": "upload-video-358e9c49-6",
+      "sourceVideoIds": [
+        "upload-video-358e9c49-6"
+      ],
+      "projectId": "project-93fef651-0",
+      "primary": true,
+      "draftStatus": "generated",
+      "title": "exam day short",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "This idea gets good the second the first bad decision is spoken out loud.",
+      "overlayText": [
+        "Worst club choice ever",
+        "Every golfer says this",
+        "This changed the whole round"
+      ],
+      "caption": "exam day but cut like a creator short so the story lands before anyone swipes away.",
+      "cta": "Comment FULL if you want the whole round breakdown.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs",
+        "#GolfReels",
+        "#GolfHumor"
+      ],
+      "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-2-subtitle-1",
+          "start": "00:00",
+          "end": "00:05",
+          "startSeconds": 0,
+          "endSeconds": 5,
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-1-subtitle-1",
+          "start": "00:05",
+          "end": "00:10",
+          "startSeconds": 5,
+          "endSeconds": 10,
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-3-subtitle-1",
+          "start": "00:10",
+          "end": "00:15",
+          "startSeconds": 10,
+          "endSeconds": 15,
+          "text": "That is why one long video can become several tight short drafts."
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "generationSource": "automatic",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-358e9c49-6-moment-2-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "purpose": "hook",
+          "momentId": "upload-video-358e9c49-6-moment-2"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-1-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-358e9c49-6-moment-1"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-3-segment",
+          "sourceVideoId": "upload-video-358e9c49-6",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "purpose": "payoff",
+          "momentId": "upload-video-358e9c49-6-moment-3"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-358e9c49-6-moment-2-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Worst club choice ever",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-1-segment-overlay",
+          "start": "00:05",
+          "end": "00:07",
+          "startSeconds": 5,
+          "endSeconds": 7,
+          "text": "Every golfer says this",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-358e9c49-6-moment-3-segment-overlay",
+          "start": "00:10",
+          "end": "00:12",
+          "startSeconds": 10,
+          "endSeconds": 12,
+          "text": "This changed the whole round",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "exam day short",
+        "sourceVideoId": "upload-video-358e9c49-6",
+        "start": "00:00",
+        "end": "00:15",
+        "subtitles": [
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-2-subtitle-1",
+            "start": "00:00",
+            "end": "00:05",
+            "startSeconds": 0,
+            "endSeconds": 5,
+            "text": "The funniest part is that the reaction lands even before the payoff."
+          },
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-1-subtitle-1",
+            "start": "00:05",
+            "end": "00:10",
+            "startSeconds": 5,
+            "endSeconds": 10,
+            "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+          },
+          {
+            "id": "upload-video-358e9c49-6-fallback-transcript-3-subtitle-1",
+            "start": "00:10",
+            "end": "00:15",
+            "startSeconds": 10,
+            "endSeconds": 15,
+            "text": "That is why one long video can become several tight short drafts."
+          }
+        ],
+        "overlayText": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "introHook": "This idea gets good the second the first bad decision is spoken out loud.",
+        "caption": "exam day but cut like a creator short so the story lands before anyone swipes away.",
+        "cta": "Comment FULL if you want the whole round breakdown.",
+        "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      },
+      "previewUrl": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.mp4",
+      "renderedFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.mp4",
+      "subtitleFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.srt",
+      "captionFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day-caption.txt",
+      "briefFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day-capcut-brief.json"
+    },
+    {
+      "id": "project-78efdfea-2-alt-sample-render-ve",
+      "clipSuggestionId": "project-78efdfea-2-synthetic-clip-2",
+      "sourceVideoId": "upload-video-69acdde7-2",
+      "sourceVideoIds": [
+        "upload-video-69acdde7-2"
+      ],
+      "projectId": "project-78efdfea-2",
+      "primary": false,
+      "draftStatus": "generated",
+      "title": "sample render verification alt cut",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "The funniest line in \"sample render verification\" should land inside the first two seconds.",
+      "overlayText": [
+        "Worst club choice ever",
+        "Every golfer says this",
+        "This changed the whole round"
+      ],
+      "caption": "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+      "cta": "Save this before your next round.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs",
+        "#GolfReels",
+        "#GolfHumor"
+      ],
+      "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-1-subtitle-1",
+          "start": "00:00",
+          "end": "00:05",
+          "startSeconds": 0,
+          "endSeconds": 5,
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-3-subtitle-1",
+          "start": "00:05",
+          "end": "00:10",
+          "startSeconds": 5,
+          "endSeconds": 10,
+          "text": "That is why one long video can become several tight short drafts."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-2-subtitle-1",
+          "start": "00:10",
+          "end": "00:15",
+          "startSeconds": 10,
+          "endSeconds": 15,
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-69acdde7-2-moment-1-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-69acdde7-2-moment-1"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-3-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "purpose": "payoff",
+          "momentId": "upload-video-69acdde7-2-moment-3"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-2-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "purpose": "hook",
+          "momentId": "upload-video-69acdde7-2-moment-2"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-69acdde7-2-moment-1-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Worst club choice ever",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-3-segment-overlay",
+          "start": "00:05",
+          "end": "00:07",
+          "startSeconds": 5,
+          "endSeconds": 7,
+          "text": "Every golfer says this",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-2-segment-overlay",
+          "start": "00:10",
+          "end": "00:12",
+          "startSeconds": 10,
+          "endSeconds": 12,
+          "text": "This changed the whole round",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "sample render verification alt cut",
+        "sourceVideoId": "upload-video-69acdde7-2",
+        "start": "00:00",
+        "end": "00:15",
+        "subtitles": [
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-1-subtitle-1",
+            "start": "00:00",
+            "end": "00:05",
+            "startSeconds": 0,
+            "endSeconds": 5,
+            "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+          },
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-3-subtitle-1",
+            "start": "00:05",
+            "end": "00:10",
+            "startSeconds": 5,
+            "endSeconds": 10,
+            "text": "That is why one long video can become several tight short drafts."
+          },
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-2-subtitle-1",
+            "start": "00:10",
+            "end": "00:15",
+            "startSeconds": 10,
+            "endSeconds": 15,
+            "text": "The funniest part is that the reaction lands even before the payoff."
+          }
+        ],
+        "overlayText": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "introHook": "The funniest line in \"sample render verification\" should land inside the first two seconds.",
+        "caption": "The hook, the reaction, and the payoff are all right there if we keep the pacing tight.",
+        "cta": "Save this before your next round.",
+        "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      }
+    },
+    {
+      "id": "project-78efdfea-2-primary-sample-render-ve",
+      "clipSuggestionId": "project-78efdfea-2-synthetic-clip-1",
+      "sourceVideoId": "upload-video-69acdde7-2",
+      "sourceVideoIds": [
+        "upload-video-69acdde7-2"
+      ],
+      "projectId": "project-78efdfea-2",
+      "primary": true,
+      "draftStatus": "generated",
+      "title": "sample render verification short",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "This idea gets good the second the first bad decision is spoken out loud.",
+      "overlayText": [
+        "Worst club choice ever",
+        "Every golfer says this",
+        "This changed the whole round"
+      ],
+      "caption": "sample render verification but cut like a creator short so the story lands before anyone swipes away.",
+      "cta": "Comment FULL if you want the whole round breakdown.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs",
+        "#GolfReels",
+        "#GolfHumor"
+      ],
+      "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-2-subtitle-1",
+          "start": "00:00",
+          "end": "00:05",
+          "startSeconds": 0,
+          "endSeconds": 5,
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-1-subtitle-1",
+          "start": "00:05",
+          "end": "00:10",
+          "startSeconds": 5,
+          "endSeconds": 10,
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-3-subtitle-1",
+          "start": "00:10",
+          "end": "00:15",
+          "startSeconds": 10,
+          "endSeconds": 15,
+          "text": "That is why one long video can become several tight short drafts."
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+      "generationSource": "automatic",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-69acdde7-2-moment-2-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "purpose": "hook",
+          "momentId": "upload-video-69acdde7-2-moment-2"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-1-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-69acdde7-2-moment-1"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-3-segment",
+          "sourceVideoId": "upload-video-69acdde7-2",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "purpose": "payoff",
+          "momentId": "upload-video-69acdde7-2-moment-3"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-69acdde7-2-moment-2-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Worst club choice ever",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-1-segment-overlay",
+          "start": "00:05",
+          "end": "00:07",
+          "startSeconds": 5,
+          "endSeconds": 7,
+          "text": "Every golfer says this",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-69acdde7-2-moment-3-segment-overlay",
+          "start": "00:10",
+          "end": "00:12",
+          "startSeconds": 10,
+          "endSeconds": 12,
+          "text": "This changed the whole round",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "sample render verification short",
+        "sourceVideoId": "upload-video-69acdde7-2",
+        "start": "00:00",
+        "end": "00:15",
+        "subtitles": [
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-2-subtitle-1",
+            "start": "00:00",
+            "end": "00:05",
+            "startSeconds": 0,
+            "endSeconds": 5,
+            "text": "The funniest part is that the reaction lands even before the payoff."
+          },
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-1-subtitle-1",
+            "start": "00:05",
+            "end": "00:10",
+            "startSeconds": 5,
+            "endSeconds": 10,
+            "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+          },
+          {
+            "id": "upload-video-69acdde7-2-fallback-transcript-3-subtitle-1",
+            "start": "00:10",
+            "end": "00:15",
+            "startSeconds": 10,
+            "endSeconds": 15,
+            "text": "That is why one long video can become several tight short drafts."
+          }
+        ],
+        "overlayText": [
+          "Worst club choice ever",
+          "Every golfer says this",
+          "This changed the whole round"
+        ],
+        "introHook": "This idea gets good the second the first bad decision is spoken out loud.",
+        "caption": "sample render verification but cut like a creator short so the story lands before anyone swipes away.",
+        "cta": "Comment FULL if you want the whole round breakdown.",
+        "musicVibe": "Edit for YouTube Shorts with a cold open and fast retention pacing.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      },
+      "previewUrl": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.mp4",
+      "renderedFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.mp4",
+      "subtitleFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.srt",
+      "captionFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve-caption.txt",
+      "briefFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve-capcut-brief.json"
+    },
+    {
+      "id": "short-project-1-primary",
+      "clipSuggestionId": "clip-1",
+      "sourceVideoId": "video-1",
+      "sourceVideoIds": [
+        "video-1",
+        "video-2"
+      ],
+      "projectId": "project-1",
+      "primary": true,
+      "draftStatus": "generated",
+      "title": "Wrong club, surgical diagnosis, pressure putt",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "We knew this was the wrong club and still talked ourselves into it.",
+      "overlayText": [
+        "Worst 5-wood idea ever",
+        "Doctor says it's bad",
+        "Break 100 still alive"
+      ],
+      "caption": "Golf confidence before disaster is always elite, especially when the diagnosis is funnier than the shot.",
+      "cta": "Comment FULL if you want the whole round breakdown.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs",
+        "#GolfHumor"
+      ],
+      "musicVibe": "Fast comedic tension into a pressure payoff",
+      "notes": "Open instantly on the confession, punch into the diagnosis line, then let the putting tension breathe for one beat.",
+      "packageStatus": "generated",
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Keep the first subtitle inside the opening second and use one brand-color caption per beat.",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "segment-1",
+          "sourceVideoId": "video-1",
+          "start": "06:31",
+          "end": "06:39",
+          "startSeconds": 391,
+          "endSeconds": 399,
+          "purpose": "hook",
+          "momentId": "moment-1"
+        },
+        {
+          "id": "segment-2",
+          "sourceVideoId": "video-2",
+          "start": "03:09",
+          "end": "03:17",
+          "startSeconds": 189,
+          "endSeconds": 197,
+          "purpose": "reaction",
+          "momentId": "moment-2"
+        },
+        {
+          "id": "segment-3",
+          "sourceVideoId": "video-1",
+          "start": "14:19",
+          "end": "14:27",
+          "startSeconds": 859,
+          "endSeconds": 867,
+          "purpose": "payoff",
+          "momentId": "moment-3"
+        }
+      ],
+      "subtitleCues": [
+        {
+          "id": "subtitle-1",
+          "start": "00:00",
+          "end": "00:04",
+          "startSeconds": 0,
+          "endSeconds": 4,
+          "text": "We knew the 5-wood was wrong and still talked ourselves into it."
+        },
+        {
+          "id": "subtitle-2",
+          "start": "00:04",
+          "end": "00:08",
+          "startSeconds": 4,
+          "endSeconds": 8,
+          "text": "The diagnosis after that swing was somehow worse than the shot itself."
+        },
+        {
+          "id": "subtitle-3",
+          "start": "00:08",
+          "end": "00:12",
+          "startSeconds": 8,
+          "endSeconds": 12,
+          "text": "If this putt misses, the whole break one hundred challenge changes."
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "overlay-1",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Worst 5-wood idea ever",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "overlay-2",
+          "start": "00:04",
+          "end": "00:06",
+          "startSeconds": 4,
+          "endSeconds": 6,
+          "text": "Doctor says it's bad",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "overlay-3",
+          "start": "00:08",
+          "end": "00:10",
+          "startSeconds": 8,
+          "endSeconds": 10,
+          "text": "Break 100 still alive",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "Wrong club, surgical diagnosis, pressure putt",
+        "sourceVideoId": "video-1",
+        "start": "00:00",
+        "end": "00:12",
+        "subtitles": [
+          {
+            "id": "subtitle-1",
+            "start": "00:00",
+            "end": "00:04",
+            "text": "We knew the 5-wood was wrong and still talked ourselves into it."
+          }
+        ],
+        "overlayText": [
+          "Worst 5-wood idea ever",
+          "Doctor says it's bad",
+          "Break 100 still alive"
+        ],
+        "introHook": "We knew this was the wrong club and still talked ourselves into it.",
+        "caption": "Golf confidence before disaster is always elite, especially when the diagnosis is funnier than the shot.",
+        "cta": "Comment FULL if you want the whole round breakdown.",
+        "musicVibe": "Fast comedic tension into a pressure payoff",
+        "editingNotes": [
+          "Use a cold open on the confession line.",
+          "Hit the diagnosis with the brand color caption.",
+          "Leave half a beat of silence before the putt lands."
+        ]
+      }
+    },
+    {
+      "id": "short-project-1-alt",
+      "clipSuggestionId": "clip-2",
+      "sourceVideoId": "video-2",
+      "sourceVideoIds": [
+        "video-1",
+        "video-2"
+      ],
+      "projectId": "project-1",
+      "primary": false,
+      "draftStatus": "generated",
+      "title": "Diagnosis first, disaster second",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "The diagnosis after this swing was somehow worse than the shot.",
+      "overlayText": [
+        "Doctor says it's bad",
+        "Worst club choice ever",
+        "Every golfer says this"
+      ],
+      "caption": "The brand-angle version leads with the joke, then backs it up with the bad decision and relatable mutter.",
+      "cta": "Tag the friend who diagnoses every swing.",
+      "hashtags": [
+        "#GolfHumor",
+        "#GolfReels",
+        "#ScrubsAndClubs"
+      ],
+      "musicVibe": "Comedic bounce with a sharp cold open",
+      "notes": "Lead with the punchline for faster retention on Reels and TikTok.",
+      "packageStatus": "generated",
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Prioritize the funniest line first, then compress the setup.",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "segment-4",
+          "sourceVideoId": "video-2",
+          "start": "03:09",
+          "end": "03:17",
+          "startSeconds": 189,
+          "endSeconds": 197,
+          "purpose": "hook",
+          "momentId": "moment-2"
+        },
+        {
+          "id": "segment-5",
+          "sourceVideoId": "video-1",
+          "start": "06:31",
+          "end": "06:39",
+          "startSeconds": 391,
+          "endSeconds": 399,
+          "purpose": "setup",
+          "momentId": "moment-1"
+        },
+        {
+          "id": "segment-6",
+          "sourceVideoId": "video-2",
+          "start": "09:41",
+          "end": "09:49",
+          "startSeconds": 581,
+          "endSeconds": 589,
+          "purpose": "payoff",
+          "momentId": "moment-4"
+        }
+      ],
+      "subtitleCues": [
+        {
+          "id": "subtitle-4",
+          "start": "00:00",
+          "end": "00:04",
+          "startSeconds": 0,
+          "endSeconds": 4,
+          "text": "The diagnosis after that swing was somehow worse than the shot itself."
+        },
+        {
+          "id": "subtitle-5",
+          "start": "00:04",
+          "end": "00:08",
+          "startSeconds": 4,
+          "endSeconds": 8,
+          "text": "We knew the 5-wood was wrong and still talked ourselves into it."
+        },
+        {
+          "id": "subtitle-6",
+          "start": "00:08",
+          "end": "00:12",
+          "startSeconds": 8,
+          "endSeconds": 12,
+          "text": "Every golfer has muttered something like this after chunking one."
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "overlay-4",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Doctor says it's bad",
+          "color": "#B8FF65",
+          "style": "punchline"
+        }
+      ]
+    }
+  ],
+  "publishingQueue": [
+    {
+      "id": "pub-1",
+      "shortId": "short-project-1-primary",
+      "projectId": "project-1",
+      "shortTitle": "Wrong club, surgical diagnosis, pressure putt",
+      "platform": "YouTube Shorts",
+      "scheduledDate": "2026-03-31 19:30",
+      "hook": "We knew this was the wrong club and still talked ourselves into it.",
+      "caption": "Golf confidence before disaster is always elite.",
+      "cta": "Comment FULL if you want the whole round.",
+      "hashtags": [
+        "#GolfShorts",
+        "#GolfTok",
+        "#ScrubsAndClubs"
+      ],
+      "overlayText": [
+        "Worst 5-wood idea ever",
+        "Doctor says it's bad"
+      ],
+      "musicVibe": "Fast comedic tension into a pressure payoff",
+      "readyForMetricool": true
+    }
+  ]
+}

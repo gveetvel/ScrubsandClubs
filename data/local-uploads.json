@@ -1,0 +1,323 @@
+{
+  "mediaAssets": [
+    {
+      "id": "upload-asset-5b07429b-f",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "exam day",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-83e867f3.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-93fef651-0"
+    },
+    {
+      "id": "upload-asset-8bd39ea7-a",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "Uploaded videos",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-e2304e73.mp4",
+      "uploadStatus": "uploaded"
+    },
+    {
+      "id": "upload-asset-bff1dc42-3",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "Uploaded videos",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-e7e8bfca.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-75v38c"
+    },
+    {
+      "id": "upload-asset-36105b07-5",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "Uploaded videos",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-d0630784.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-c27x12"
+    },
+    {
+      "id": "upload-asset-2d1fc59d-b",
+      "filename": "sample-render-source.mp4",
+      "duration": "00:08",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "sample render verification",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 170859,
+      "storagePath": "/uploads/sample-render-source-19fa8ac1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-78efdfea-2"
+    },
+    {
+      "id": "upload-asset-b6af506d-5",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "Uploaded videos",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-cceccb54.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-8y2d9j"
+    },
+    {
+      "id": "upload-asset-9d041c1d-a",
+      "filename": "JP EXAM DAY WEEK 5_.mp4",
+      "duration": "02:17",
+      "uploadDate": "2026-03-28",
+      "tags": [
+        "local upload",
+        "source video"
+      ],
+      "sourceFolder": "Local uploads",
+      "project": "Uploaded videos",
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-0090f2fc.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-mk0x0j"
+    }
+  ],
+  "sourceVideos": [
+    {
+      "id": "upload-video-358e9c49-6",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "02:17",
+      "transcriptStatus": "fallback",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-5b07429b-f",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-83e867f3.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-93fef651-0",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-1",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "source": "simulated",
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-2",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "source": "simulated",
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        },
+        {
+          "id": "upload-video-358e9c49-6-fallback-transcript-3",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "source": "simulated",
+          "text": "That is why one long video can become several tight short drafts."
+        }
+      ],
+      "transcriptPreview": "This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff.",
+      "transcriptSource": "simulated",
+      "transcriptionProvider": "fallback",
+      "transcriptWarning": "Hosted transcription unavailable. Using simulated transcript fallback."
+    },
+    {
+      "id": "upload-video-9abcec34-2",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "Uploaded locally and ready for AI-assisted short generation.",
+      "duration": "02:17",
+      "transcriptStatus": "not_started",
+      "analysisStatus": "not_started",
+      "assetId": "upload-asset-8bd39ea7-a",
+      "ideaIds": [],
+      "shortsExtracted": 0,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-e2304e73.mp4",
+      "uploadStatus": "uploaded"
+    },
+    {
+      "id": "upload-video-284d2c4a-a",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "Uploaded locally and ready for mock clip analysis.",
+      "duration": "02:17",
+      "transcriptStatus": "pending",
+      "analysisStatus": "queued",
+      "assetId": "upload-asset-bff1dc42-3",
+      "ideaIds": [
+        "idea-75v38c"
+      ],
+      "shortsExtracted": 0,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-e7e8bfca.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-75v38c"
+    },
+    {
+      "id": "upload-video-44994594-d",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "Uploaded locally and ready for mock clip analysis.",
+      "duration": "02:17",
+      "transcriptStatus": "pending",
+      "analysisStatus": "queued",
+      "assetId": "upload-asset-36105b07-5",
+      "ideaIds": [
+        "idea-c27x12"
+      ],
+      "shortsExtracted": 0,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-d0630784.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-c27x12"
+    },
+    {
+      "id": "upload-video-69acdde7-2",
+      "title": "sample-render-source",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "00:08",
+      "transcriptStatus": "fallback",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-2d1fc59d-b",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 170859,
+      "storagePath": "/uploads/sample-render-source-19fa8ac1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-78efdfea-2",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-1",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "source": "simulated",
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-2",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "source": "simulated",
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        },
+        {
+          "id": "upload-video-69acdde7-2-fallback-transcript-3",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "source": "simulated",
+          "text": "That is why one long video can become several tight short drafts."
+        }
+      ],
+      "transcriptPreview": "This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff.",
+      "transcriptSource": "simulated",
+      "transcriptionProvider": "fallback",
+      "transcriptWarning": "Hosted transcription unavailable. Using simulated transcript fallback."
+    },
+    {
+      "id": "upload-video-f4e58df5-1",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "Uploaded locally and ready for mock clip analysis.",
+      "duration": "02:17",
+      "transcriptStatus": "pending",
+      "analysisStatus": "queued",
+      "assetId": "upload-asset-b6af506d-5",
+      "ideaIds": [
+        "idea-8y2d9j"
+      ],
+      "shortsExtracted": 0,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-cceccb54.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-8y2d9j"
+    },
+    {
+      "id": "upload-video-7446f8f9-3",
+      "title": "JP EXAM DAY WEEK 5_",
+      "description": "Uploaded locally and ready for mock clip analysis.",
+      "duration": "02:17",
+      "transcriptStatus": "pending",
+      "analysisStatus": "queued",
+      "assetId": "upload-asset-9d041c1d-a",
+      "ideaIds": [
+        "idea-mk0x0j"
+      ],
+      "shortsExtracted": 0,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 261636070,
+      "storagePath": "/uploads/JP-EXAM-DAY-WEEK-5_-0090f2fc.mp4",
+      "uploadStatus": "uploaded",
+      "linkedIdeaId": "idea-mk0x0j"
+    }
+  ]
+}

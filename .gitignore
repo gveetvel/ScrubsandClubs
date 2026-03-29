@@ -1,0 +1,10 @@
+.next
+node_modules
+.env
+dist
+coverage
+prisma/dev.db
+*.log
+public/uploads
+public/rendered-exports
+*.mp4

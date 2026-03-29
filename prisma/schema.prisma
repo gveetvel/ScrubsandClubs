@@ -1,0 +1,397 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentStatus {
+  IDEA
+  RAW_FOOTAGE_AVAILABLE
+  CLIP_SELECTED
+  EDITING
+  READY_TO_POST
+  SCHEDULED
+  POSTED
+}
+
+enum ClipStatus {
+  SUGGESTED
+  ACCEPTED
+  REJECTED
+  EDITING
+  READY
+  PUBLISHED
+}
+
+enum PlatformType {
+  YOUTUBE_SHORTS
+  INSTAGRAM_REELS
+  TIKTOK
+}
+
+enum IntegrationType {
+  GOOGLE_DRIVE
+  CAPCUT
+  METRICOOL
+}
+
+enum SourceType {
+  LOCAL_UPLOAD
+  GOOGLE_DRIVE
+  FUTURE_EXTERNAL
+}
+
+enum ProjectStatus {
+  DRAFT
+  GENERATING
+  READY
+  FALLBACK
+  FAILED
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  memberships  BrandMember[]
+  createdIdeas ContentIdea[]
+}
+
+model Brand {
+  id              String                  @id @default(cuid())
+  name            String
+  slug            String                  @unique
+  description     String?
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime                @updatedAt
+  members         BrandMember[]
+  campaigns       Campaign[]
+  ideas           ContentIdea[]
+  mediaAssets     MediaAsset[]
+  sourceVideos    SourceVideo[]
+  editedShorts    EditedShort[]
+  integrations    IntegrationConnection[]
+  calendarItems   CalendarItem[]
+  publishingPlans PublishingPlan[]
+  projects        Project[]
+  styleSettings   BrandStyleSettings?
+}
+
+model BrandMember {
+  id        String   @id @default(cuid())
+  role      String
+  brandId   String
+  userId    String
+  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([brandId, userId])
+}
+
+model Campaign {
+  id            String         @id @default(cuid())
+  brandId       String
+  name          String
+  slug          String
+  description   String?
+  color         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  brand         Brand          @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  ideas         ContentIdea[]
+  calendarItems CalendarItem[]
+
+  @@unique([brandId, slug])
+}
+
+model ContentIdea {
+  id              String        @id @default(cuid())
+  brandId         String
+  campaignId      String?
+  createdById     String?
+  title           String
+  category        String
+  hook            String
+  concept         String
+  viralityAngle   String
+  callToAction    String
+  overlayText     String
+  thumbnailText   String
+  status          ContentStatus @default(IDEA)
+  targetPlatforms PlatformType[]
+  sourceVideoId   String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  brand           Brand         @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  campaign        Campaign?     @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  createdBy       User?         @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  sourceVideo     SourceVideo?  @relation(fields: [sourceVideoId], references: [id], onDelete: SetNull)
+  editedShorts    EditedShort[]
+}
+
+model MediaAsset {
+  id              String      @id @default(cuid())
+  brandId         String
+  providerAssetId String
+  providerType    String
+  sourceType      SourceType   @default(LOCAL_UPLOAD)
+  filename        String
+  mimeType        String?
+  filePath        String?
+  sizeBytes       Int?
+  uploadStatus    String?
+  durationSeconds Int?
+  sourceFolder    String?
+  driveUrl        String?
+  thumbnailUrl    String?
+  tags            String[]
+  metadata        Json?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  brand           Brand       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  sourceVideos    SourceVideo[]
+
+  @@unique([providerType, providerAssetId])
+}
+
+model SourceVideo {
+  id               String           @id @default(cuid())
+  brandId          String
+  projectId        String?
+  mediaAssetId     String
+  sourceType       SourceType       @default(LOCAL_UPLOAD)
+  title            String
+  description      String?
+  linkedIdeaId     String?
+  mimeType         String?
+  filePath         String?
+  sizeBytes        Int?
+  uploadStatus     String?
+  transcriptStatus String           @default("not_started")
+  analysisStatus   String           @default("mock_ready")
+  notes            String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  brand            Brand            @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  mediaAsset       MediaAsset       @relation(fields: [mediaAssetId], references: [id], onDelete: Cascade)
+  project          Project?         @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  ideas            ContentIdea[]
+  clipSuggestions  ClipSuggestion[]
+  transcript       Transcript?
+  detectedMoments  DetectedMoment[]
+  shortPlanSegments ShortPlanSegment[]
+}
+
+model ClipSuggestion {
+  id             String       @id @default(cuid())
+  sourceVideoId  String
+  title          String
+  hook           String
+  startSeconds   Int
+  endSeconds     Int
+  reasonToWork   String
+  caption        String
+  overlayText    String
+  subtitleStyle  String
+  musicVibe      String
+  viralFormat    String
+  status         ClipStatus   @default(SUGGESTED)
+  packagingNotes Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  sourceVideo    SourceVideo  @relation(fields: [sourceVideoId], references: [id], onDelete: Cascade)
+  editedShort    EditedShort?
+}
+
+model EditedShort {
+  id              String          @id @default(cuid())
+  brandId         String
+  projectId       String?
+  contentIdeaId   String?
+  clipSuggestionId String?         @unique
+  title           String
+  status          ContentStatus   @default(CLIP_SELECTED)
+  editPackageJson Json?
+  editorChecklist Json?
+  finalAssetUrl   String?
+  previewFilePath String?
+  renderedFilePath String?
+  subtitleData    Json?
+  overlayTextData Json?
+  renderStatus    String?
+  exportStatus    String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  brand           Brand           @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  project         Project?        @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  contentIdea     ContentIdea?    @relation(fields: [contentIdeaId], references: [id], onDelete: SetNull)
+  clipSuggestion  ClipSuggestion? @relation(fields: [clipSuggestionId], references: [id], onDelete: SetNull)
+  captions        CaptionVariant[]
+  publishingPlans PublishingPlan[]
+  shortPlanSegments ShortPlanSegment[]
+  overlayCaptions OverlayCaptionCue[]
+}
+
+model CaptionVariant {
+  id           String       @id @default(cuid())
+  editedShortId String
+  platform     PlatformType
+  caption      String
+  hashtags     String[]
+  callToAction String?
+  createdAt    DateTime     @default(now())
+  editedShort  EditedShort  @relation(fields: [editedShortId], references: [id], onDelete: Cascade)
+}
+
+model PublishingPlan {
+  id              String         @id @default(cuid())
+  brandId         String
+  editedShortId   String
+  platform        PlatformType
+  scheduledFor    DateTime?
+  status          ContentStatus  @default(READY_TO_POST)
+  caption         String
+  hashtags        String[]
+  metricoolPayload Json?
+  exportPayload   Json?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  brand           Brand          @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  editedShort     EditedShort    @relation(fields: [editedShortId], references: [id], onDelete: Cascade)
+}
+
+model CalendarItem {
+  id            String         @id @default(cuid())
+  brandId       String
+  campaignId    String?
+  title         String
+  date          DateTime
+  status        ContentStatus
+  platform      PlatformType?
+  linkedIdeaId  String?
+  linkedShortId String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  brand         Brand          @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  campaign      Campaign?      @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+}
+
+model IntegrationConnection {
+  id           String          @id @default(cuid())
+  brandId      String
+  type         IntegrationType
+  status       String
+  accountLabel String?
+  metadata     Json?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  brand        Brand           @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@unique([brandId, type])
+}
+
+model Project {
+  id               String            @id @default(cuid())
+  brandId          String
+  title            String
+  ideaInput        String
+  status           ProjectStatus     @default(DRAFT)
+  textPackageJson  Json?
+  summary          String?
+  warning          String?
+  primaryShortId   String?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  brand            Brand             @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  sourceVideos     SourceVideo[]
+  editedShorts     EditedShort[]
+  detectedMoments  DetectedMoment[]
+}
+
+model Transcript {
+  id            String                  @id @default(cuid())
+  sourceVideoId String                  @unique
+  provider      String?
+  status        String?
+  sourceType    String?
+  warning       String?
+  fullText      String?
+  createdAt     DateTime                @default(now())
+  updatedAt     DateTime                @updatedAt
+  sourceVideo   SourceVideo             @relation(fields: [sourceVideoId], references: [id], onDelete: Cascade)
+  segments      TranscriptSegmentRecord[]
+}
+
+model TranscriptSegmentRecord {
+  id            String      @id @default(cuid())
+  transcriptId  String
+  startSeconds  Float
+  endSeconds    Float
+  text          String
+  createdAt     DateTime    @default(now())
+  transcript    Transcript  @relation(fields: [transcriptId], references: [id], onDelete: Cascade)
+}
+
+model DetectedMoment {
+  id              String       @id @default(cuid())
+  projectId       String
+  sourceVideoId   String
+  label           String
+  reason          String
+  transcriptText  String
+  score           Float
+  startSeconds    Float
+  endSeconds      Float
+  tags            String[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  project         Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  sourceVideo     SourceVideo  @relation(fields: [sourceVideoId], references: [id], onDelete: Cascade)
+  shortPlanSegments ShortPlanSegment[]
+}
+
+model ShortPlanSegment {
+  id               String         @id @default(cuid())
+  editedShortId    String
+  sourceVideoId    String
+  detectedMomentId String?
+  purpose          String
+  startSeconds     Float
+  endSeconds       Float
+  sortOrder        Int
+  createdAt        DateTime       @default(now())
+  editedShort      EditedShort    @relation(fields: [editedShortId], references: [id], onDelete: Cascade)
+  sourceVideo      SourceVideo    @relation(fields: [sourceVideoId], references: [id], onDelete: Cascade)
+  detectedMoment   DetectedMoment? @relation(fields: [detectedMomentId], references: [id], onDelete: SetNull)
+}
+
+model OverlayCaptionCue {
+  id            String       @id @default(cuid())
+  editedShortId String
+  startSeconds  Float
+  endSeconds    Float
+  text          String
+  color         String?
+  style         String?
+  createdAt     DateTime     @default(now())
+  editedShort   EditedShort  @relation(fields: [editedShortId], references: [id], onDelete: Cascade)
+}
+
+model BrandStyleSettings {
+  id                  String    @id @default(cuid())
+  brandId             String    @unique
+  overlayCaptionColor String?
+  subtitlePreset      String?
+  hookStylePreset     String?
+  tonePreset          String?
+  platformPreset      String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  brand               Brand     @relation(fields: [brandId], references: [id], onDelete: Cascade)
+}

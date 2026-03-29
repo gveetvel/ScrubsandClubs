@@ -1,0 +1,70 @@
+{
+  "drafts": [
+    {
+      "id": "project-93fef651-0-alt-exam-day-alt",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.mp4",
+      "renderedFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.mp4",
+      "subtitleFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt.srt",
+      "captionFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt-caption.txt",
+      "briefFilePath": "/api/renders/assets/exam-day-alt-cut-project-93fef651-0-alt-exam-day-alt-capcut-brief.json"
+    },
+    {
+      "id": "project-93fef651-0-primary-exam-day",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.mp4",
+      "renderedFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.mp4",
+      "subtitleFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day.srt",
+      "captionFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day-caption.txt",
+      "briefFilePath": "/api/renders/assets/exam-day-short-project-93fef651-0-primary-exam-day-capcut-brief.json"
+    },
+    {
+      "id": "project-78efdfea-2-primary-sample-render-ve",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.mp4",
+      "renderedFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.mp4",
+      "subtitleFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve.srt",
+      "captionFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve-caption.txt",
+      "briefFilePath": "/api/renders/assets/sample-render-verification-short-project-78efdfea-2-primary-sample-render-ve-capcut-brief.json"
+    },
+    {
+      "id": "upload-video-284d2c4a-a-auto-short-1",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/opening-hook-upload-video-284d2c4a-a-auto-short-1.mp4",
+      "renderedFilePath": "/api/renders/assets/opening-hook-upload-video-284d2c4a-a-auto-short-1.mp4",
+      "subtitleFilePath": "/api/renders/assets/opening-hook-upload-video-284d2c4a-a-auto-short-1.srt",
+      "captionFilePath": "/api/renders/assets/opening-hook-upload-video-284d2c4a-a-auto-short-1-caption.txt",
+      "briefFilePath": "/api/renders/assets/opening-hook-upload-video-284d2c4a-a-auto-short-1-capcut-brief.json"
+    },
+    {
+      "id": "upload-video-44994594-d-auto-short-1",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/opening-hook-upload-video-44994594-d-auto-short-1.mp4",
+      "renderedFilePath": "/api/renders/assets/opening-hook-upload-video-44994594-d-auto-short-1.mp4",
+      "subtitleFilePath": "/api/renders/assets/opening-hook-upload-video-44994594-d-auto-short-1.srt",
+      "captionFilePath": "/api/renders/assets/opening-hook-upload-video-44994594-d-auto-short-1-caption.txt",
+      "briefFilePath": "/api/renders/assets/opening-hook-upload-video-44994594-d-auto-short-1-capcut-brief.json"
+    },
+    {
+      "id": "upload-video-5f497ef4-f-auto-short-1",
+      "renderStatus": "failed",
+      "exportStatus": "not_ready",
+      "renderError": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers\r\n  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)\r\n  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband\r\n  libavutil      58. 29.100 / 58. 29.100\r\n  libavcodec     60. 31.102 / 60. 31.102\r\n  libavformat    60. 16.100 / 60. 16.100\r\n  libavdevice    60.  3.100 / 60.  3.100\r\n  libavfilter     9. 12.100 /  9. 12.100\r\n  libswscale      7.  5.100 /  7.  5.100\r\n  libswresample   4. 12.100 /  4. 12.100\r\n  libpostproc    57.  3.100 / 57.  3.100\r\n[mov,mp4,m4a,3gp,3g2,mj2 @ 00000206b56b1140] Format mov,mp4,m4a,3gp,3g2,mj2 detected only with low score of 1, misdetection possible!\r\n[mov,mp4,m4a,3gp,3g2,mj2 @ 00000206b56b1140] moov atom not found\r\n[in#0 @ 00000206b56b0fc0] Error opening input: Invalid data found when processing input\r\nError opening input file C:\\Users\\gille\\Desktop\\PROJECTS\\GOLF Channel\\public\\uploads\\sample-upload-6aa9e0c1.mp4.\r\nError opening input files: Invalid data found when processing input\r\n"
+    },
+    {
+      "id": "upload-video-69acdde7-2-auto-short-1",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/opening-hook-upload-video-69acdde7-2-auto-short-1.mp4",
+      "renderedFilePath": "/api/renders/assets/opening-hook-upload-video-69acdde7-2-auto-short-1.mp4",
+      "subtitleFilePath": "/api/renders/assets/opening-hook-upload-video-69acdde7-2-auto-short-1.srt",
+      "captionFilePath": "/api/renders/assets/opening-hook-upload-video-69acdde7-2-auto-short-1-caption.txt",
+      "briefFilePath": "/api/renders/assets/opening-hook-upload-video-69acdde7-2-auto-short-1-capcut-brief.json"
+    }
+  ]
+}

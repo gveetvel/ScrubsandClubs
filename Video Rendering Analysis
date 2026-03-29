@@ -1,0 +1,43 @@
+# Video Rendering APIs: Shotstack vs Creatomate
+
+To replace the local ffmpeg pipeline with a cloud-based renderer that supports complex animations and dynamic effects for your shorts, we evaluated **Shotstack** and **Creatomate**.
+
+## 1. Shotstack (The Developer's Choice)
+Shotstack is an API-first video infrastructure platform. You build the video timeline programmatically using JSON. 
+
+* **How it works:** You send a JSON payload detailing every asset, transition, and text track on a timeline. It renders the final video in the cloud.
+* **Pros:**
+  * **Infinite Flexibility:** Excellent for dynamically timed content. If you are generating word-by-word subtitles from your Groq transcripts, you can precisely map each word's start and end time programmatically.
+  * **Scalability:** Built for high-volume SaaS architectures. The pricing is usage-based (pay per minute of rendered video), which controls costs at scale.
+  * **Dynamic Lengths:** Handles variable-length clips and dynamic trimming effortlessly since you construct the timeline in code.
+* **Cons:**
+  * Less visual out of the box; designing complex animated text effects requires writing code or JSON properties rather than dragging and dropping in a GUI.
+
+## 2. Creatomate (The Designer's Choice)
+Creatomate is a template-driven automation tool. You design the "look" of the video in a browser-based editor, turning layers into dynamic variables.
+
+* **How it works:** You build a template in their Canva-like web studio. Through the API, you pass a JSON object simply stating `"Text_Element": "New Title"`, and it replaces that element and renders.
+* **Pros:**
+  * **Ease of Design:** Creating stunning, high-retention text animations (like bounce, glitch, or highlight effects) is incredibly easy. 
+  * **Rapid Iteration:** You can tweak the design visually without touching your app's codebase.
+  * **Built for Social:** Very geared toward standard social media marketing automations.
+* **Cons:**
+  * **Rigid Timelines:** Since it relies heavily on pre-built templates, dynamically adjusting the timeline (e.g., stitching 4 clips one time, and 2 clips the next time, based on AI moment detection) can be more convoluted than Shotstack.
+  * **Pricing:** Subscription-based tiers can become expensive faster if you only render occasionally or in bursts.
+
+---
+
+## 🏆 Recommendation for Scrubs & Clubs
+
+**We recommend Shotstack.**
+
+While Creatomate's visual editor is tempting for designing cool text effects, **Scrubs & Clubs is a dynamic SaaS app, not a static marketing workflow.** 
+
+Here is why Shotstack fits better:
+1. **Dynamic Subtitles & NLP Integration:** Your app uses Groq Whisper for transcriptions and Gemini (or OpenRouter) for moment detection. Shotstack allows you to take those dynamic transcript timestamps and programmatically inject them as word-by-word, styled subtitle tracks.
+2. **Variable Clip Splicing:** You are extracting varying numbers of "highlight moments" from uploaded videos. Shotstack’s JSON timeline lets your backend smoothly stitch an unpredictable number of clips together with dynamic transitions.
+3. **App Architecture:** Your Node.js backend (`route.ts`) is perfectly suited to construct Shotstack's JSON payloads. You can programmatically inject the AI-generated `clickbaitTitleOptions`, `hashtagOptions`, and `hook` logic into the Shotstack timeline directly from your existing TypeScript data objects.
+
+### How this improves engagement
+* **Retention-focused pacing:** You can write a utility function that automatically trims silence or adds fast zooms (via Shotstack's motion effects) during the "hook" phase of the transcript, which is proven to increase TikTok/Shorts retention.
+* **Premium Text Overlays:** Shotstack allows you to layer dynamic HTML/CSS or built-in text styles to render the "Surgeon-golfer comedy" captions beautifully, keeping viewers engaged without the unpolished look of raw ffmpeg text filters.

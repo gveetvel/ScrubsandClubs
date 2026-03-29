@@ -1,0 +1,59 @@
+# Google Drive Integration Plan
+
+This plan outlines the architecture for connecting the local MVP to Google Drive, allowing users to import raw video footage directly and push rendered shorts back smoothly.
+
+## User Review Required
+
+> [!IMPORTANT]
+> Please complete the Google Cloud Setup as described in [google-drive-integration.md](file:///d:/GithubLocal/ScrubsandClubs/google-drive-integration.md) and add your **Client ID** and **Client Secret** to your `.env` file before we proceed. Once you have pasted them in and saved the `.env` file, please confirm!
+
+```bash
+# Required in .env
+GOOGLE_CLIENT_ID="..."
+GOOGLE_CLIENT_SECRET="..."
+GOOGLE_REDIRECT_URI="http://localhost:3000/api/integrations/google-drive/callback"
+```
+
+## Proposed Changes
+
+### OAuth Backend
+We will use the official `googleapis` package to manage the OAuth 2.0 flow securely.
+
+#### [NEW] `src/app/api/integrations/google-drive/auth/route.ts`
+- Initiates the OAuth flow by redirecting the user to `https://accounts.google.com/o/oauth2/v2/auth` with the correct scopes (`drive.file` and `drive.readonly`).
+
+#### [NEW] [src/app/api/integrations/google-drive/callback/route.ts](file:///d:/GithubLocal/ScrubsandClubs/src/app/api/integrations/google-drive/callback/route.ts)
+- Captures the `code` parameter from the redirect.
+- Exchanges the code for an Access Token and Refresh Token.
+- Saves the tokens locally to `data/google-tokens.json` to keep the user signed in across sessions.
+
+### Google Drive Service
+#### [NEW] `src/lib/server/google-drive.ts`
+- A utility file that initializes the `google.auth.OAuth2` client using the saved tokens.
+- Exposes methods:
+  - `listFiles()`: Searches for `.mp4` and `.mov` files available to import.
+  - `downloadFile({ id, fileName })`: Downloads the selected Google Drive file straight into the local `public/uploads` directory.
+  - `uploadRenderedShort()`: Pushes the final `.mp4` and text assets (Clickbait, Subtitles) back into a Drive folder.
+
+### Frontend UI Integrations
+
+#### [NEW] [src/app/settings/page.tsx](file:///d:/GithubLocal/ScrubsandClubs/src/app/settings/page.tsx)
+- A new settings route providing a dedicated place for the user to click **"Connect Google Drive"** and see their connection status.
+
+#### [MODIFY] [src/app/page.tsx](file:///d:/GithubLocal/ScrubsandClubs/src/app/page.tsx) (Create Project)
+- Add a "Browse Google Drive" button next to the standard file upload.
+- This will open a modal or dedicated page listing the available videos from Drive, letting the user select one to import.
+
+#### [MODIFY] [src/app/shorts/[id]/page.tsx](file:///d:/GithubLocal/ScrubsandClubs/src/app/shorts/%5Bid%5D/page.tsx)
+- Add an "Export to Google Drive" button in the Social Media Kit section.
+
+## Verification Plan
+
+### Automated Tests
+- Ensure `npm run build` passes with the new `googleapis` imports.
+
+### Manual Verification
+- Go to `/settings` and click "Connect Google Drive". Accept the OAuth prompt as a Test User.
+- Confirm it redirects back and states "Connected".
+- Use the "Browse Drive" button to successfully import a raw `.mp4` into the local system.
+- Render a short and use "Export to Drive" to verify the final file lands in the Drive account.

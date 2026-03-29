@@ -40,6 +40,16 @@ function fallbackPackage({ idea, transcriptSummary, tonePreset, platformPreset }
     funnyCaptionIdeas: surgeonAngle
       ? ["Doctor says it's bad", "Swing status: unstable", "Diagnosis confirmed"]
       : ["Worst club choice ever", "Every golfer says this", "This changed the whole round"],
+    clickbaitTitleOptions: [
+      `The bunker shot NO ONE expected 🤯`,
+      `Is this the worst decision in golf history?`,
+      `How to fix your swing in 5 seconds flat`
+    ],
+    firstCommentOptions: [
+      `Would you have used a 56 or a 60 degree wedge here?`,
+      `Tag the friend who always does this on the course.`,
+      `What's your biggest weakness right now: driving or putting?`
+    ],
     subtitleToneSuggestion: tonePreset ?? "Bold, quick subtitles with emphasized golf words",
     editingVibeSuggestion: platformPreset ? `Edit for ${platformPreset} with a cold open and fast retention pacing.` : "Use a cold open, fast cuts, and one beat of tension before the payoff.",
     provider: "fallback",
@@ -119,6 +129,8 @@ Rules:
     const parsed = extractJson(content);
     return {
       conceptAngle: parsed.conceptAngle ?? fallbackPackage(payload).conceptAngle,
+      clickbaitTitleOptions: parsed.clickbaitTitleOptions?.filter(Boolean) ?? fallbackPackage(payload).clickbaitTitleOptions,
+      firstCommentOptions: parsed.firstCommentOptions?.filter(Boolean) ?? fallbackPackage(payload).firstCommentOptions,
       hookOptions: parsed.hookOptions?.filter(Boolean) ?? fallbackPackage(payload).hookOptions,
       captionOptions: parsed.captionOptions?.filter(Boolean) ?? fallbackPackage(payload).captionOptions,
       hashtagOptions: parsed.hashtagOptions?.filter(Boolean) ?? fallbackPackage(payload).hashtagOptions,

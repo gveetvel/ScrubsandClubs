@@ -150,6 +150,62 @@ export default function ShortDraftPage() {
             </div>
           )}
 
+          {short.renderStatus === "ready" && (
+            <div className="rounded-3xl border-2 border-emerald-100 bg-emerald-50/30 p-5">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-emerald-900">Social Media Kit</h3>
+                  <p className="text-sm text-emerald-700">One-click copy for Metricool or manual posting.</p>
+                </div>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-emerald-900">Thumbnail</p>
+                  {short.thumbnailUrl ? (
+                    <div className="group relative overflow-hidden rounded-2xl bg-black">
+                      <img src={short.thumbnailUrl} alt="Generated thumbnail" className="aspect-[9/16] w-full object-contain" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 transition-opacity group-hover:opacity-100">
+                        <a href={short.thumbnailUrl} download className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink">Download</a>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex aspect-[9/16] w-full items-center justify-center rounded-2xl bg-black/5 text-sm text-slate-500">
+                      No thumbnail
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-emerald-200 bg-white p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-semibold text-emerald-900">Clickbait Title</p>
+                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(short.clickbaitTitle || short.title)}>Copy</Button>
+                    </div>
+                    <p className="text-sm text-slate-700">{short.clickbaitTitle || short.title}</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-emerald-200 bg-white p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-semibold text-emerald-900">Caption & Hashtags</p>
+                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(`${short.caption}\n\n${short.hashtags.join(" ")}`)}>Copy</Button>
+                    </div>
+                    <p className="text-sm whitespace-pre-wrap text-slate-700">{short.caption}</p>
+                    <p className="mt-2 text-sm text-emerald-700">{short.hashtags.join(" ")}</p>
+                  </div>
+
+                  <div className="rounded-2xl border border-emerald-200 bg-white p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-semibold text-emerald-900">Pinned First Comment</p>
+                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(short.firstComment || "Thoughts?")}>Copy</Button>
+                    </div>
+                    <p className="text-sm text-slate-700">{short.firstComment}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="grid gap-4 md:grid-cols-2">
             <label className="space-y-2">
               <span className="text-sm font-semibold text-ink">Title</span>

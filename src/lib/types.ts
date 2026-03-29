@@ -128,6 +128,8 @@ export interface TextGenerationPackage {
   captionOptions: string[];
   hashtagOptions: string[];
   ctaOptions: string[];
+  clickbaitTitleOptions: string[];
+  firstCommentOptions: string[];
   funnyCaptionIdeas: string[];
   subtitleToneSuggestion: string;
   editingVibeSuggestion: string;
@@ -237,6 +239,7 @@ export interface EditedShort {
   subtitleFilePath?: string;
   captionFilePath?: string;
   briefFilePath?: string;
+  thumbnailUrl?: string;
   renderError?: string;
   projectId?: string;
   primary?: boolean;
@@ -244,6 +247,8 @@ export interface EditedShort {
   shortPlanSegments?: ShortPlanSegment[];
   overlayCaptions?: OverlayCaptionCue[];
   sourceVideoIds?: string[];
+  clickbaitTitle?: string;
+  firstComment?: string;
 }
 
 export interface Project {

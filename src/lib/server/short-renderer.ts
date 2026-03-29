@@ -85,6 +85,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   const captionFile = path.join(exportsDir, `${baseName}-caption.txt`);
   const hookFile = path.join(exportsDir, `${baseName}-hook.txt`);
   const briefFile = path.join(exportsDir, `${baseName}-capcut-brief.json`);
+  const thumbnailFile = path.join(exportsDir, `${baseName}-thumbnail.jpg`);
 
   const subtitles = short.subtitleCues ?? [];
   const subtitleContent = buildSrt(subtitles);
@@ -293,6 +294,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
       subtitleFilePath: undefined,
       captionFilePath: undefined,
       briefFilePath: undefined,
+      thumbnailUrl: undefined,
       renderError: message
     };
     await upsertRenderedDraft({ id: short.id, ...savedFailure });
@@ -300,10 +302,34 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     throw new Error(message);
   }
 
+  // --- Thumbnail Generation ---
+  try {
+    const rawTitle = short.clickbaitTitle || short.title || "Watch This!";
+    // Split long titles into two lines for better thumbnail fit
+    const words = rawTitle.split(" ");
+    const half = Math.ceil(words.length / 2);
+    const line1 = words.slice(0, half).join(" ");
+    const line2 = words.slice(half).join(" ");
+    const titleText = words.length > 4 ? `${line1}\n${line2}` : rawTitle;
+
+    await runFfmpeg([
+      "-y",
+      "-ss", "0.5", // grab frame 0.5s into the hook
+      "-i", stitchedFile,
+      "-vframes", "1",
+      "-vf", `drawtext=fontfile='${fontPath}':text='${escapeDrawText(titleText)}':fontcolor=white:fontsize=80:box=1:boxcolor=${brandColor}@0.9:boxborderw=32:x=(w-text_w)/2:y=(h-text_h)/2:align=center`,
+      "-q:v", "2", // high quality jpeg
+      thumbnailFile
+    ]);
+  } catch (error) {
+    console.warn("Failed to generate thumbnail, proceeding without it", error);
+  }
+
   const outputUrl = `/api/renders/assets/${path.basename(outputFile)}`;
   const subtitleUrl = `/api/renders/assets/${path.basename(subtitleFile)}`;
   const captionUrl = `/api/renders/assets/${path.basename(captionFile)}`;
   const briefUrl = `/api/renders/assets/${path.basename(briefFile)}`;
+  const thumbnailUrl = `/api/renders/assets/${path.basename(thumbnailFile)}`;
 
   const saved = {
     id: short.id,
@@ -314,6 +340,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     subtitleFilePath: subtitleUrl,
     captionFilePath: captionUrl,
     briefFilePath: briefUrl,
+    thumbnailUrl,
     renderError: undefined
   };
 

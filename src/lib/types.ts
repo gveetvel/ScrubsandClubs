@@ -28,7 +28,7 @@ export type IdeaCategory =
 
 export type ProjectStatus = "draft" | "generating" | "ready" | "fallback" | "failed";
 export type ProgressStepStatus = "pending" | "active" | "complete" | "fallback" | "failed";
-export type SegmentPurpose = "hook" | "setup" | "lesson" | "reaction" | "payoff" | "cta";
+export type SegmentPurpose = "hook" | "setup" | "lesson" | "reaction" | "payoff" | "montage" | "cta";
 export type OverlayCaptionStyle = "funny" | "label" | "punchline" | "callout";
 export type DraftStatus = "generated" | "approved" | "rejected" | "queued";
 
@@ -326,4 +326,4 @@ export interface AppState {
   calendarEntries: CalendarEntry[];
 }
 
-export interface MockAppState extends AppState {}
+export interface MockAppState extends AppState { }

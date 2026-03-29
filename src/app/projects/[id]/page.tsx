@@ -47,6 +47,20 @@ export default function ProjectPage() {
         }
       />
 
+      {project.status === "fallback" || project.warning ? (
+        <div className="rounded-2xl border border-amber-300 bg-amber-50 p-4">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 text-xl">⚠️</span>
+            <div>
+              <p className="font-semibold text-amber-900">Parts of this project used fallback generation</p>
+              <p className="mt-1 text-sm text-amber-800">
+                {project.warning ?? "One or more AI providers were unavailable. Some content was generated using local templates instead of AI. Check the progress steps below for details."}
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <section className="grid gap-4 xl:grid-cols-[0.82fr_1.18fr]">
         <Panel className="space-y-5">
           <div>
@@ -78,13 +92,21 @@ export default function ProjectPage() {
 
           <div className="space-y-3">
             {project.progressSteps.map((step) => (
-              <div key={step.id} className="flex items-center justify-between rounded-2xl border border-slate-200 p-4">
+              <div key={step.id} className={`flex items-center justify-between rounded-2xl border p-4 ${step.status === "fallback" ? "border-amber-300 bg-amber-50/50" : "border-slate-200"}`}>
                 <div>
                   <p className="font-semibold text-ink">{step.label}</p>
-                  <p className="text-sm text-slate-600">
-                    {step.id === "step-transcribe"
-                      ? "Hosted STT is used when configured, otherwise the app falls back to simulated transcript data."
-                      : "This step is now owned by the in-app generation pipeline."}
+                  <p className={`text-sm ${step.status === "fallback" ? "text-amber-700" : "text-slate-600"}`}>
+                    {step.status === "fallback" && step.id === "step-text"
+                      ? "⚠️ OpenRouter was unavailable. Fallback text templates were used instead of AI-generated content."
+                      : step.status === "fallback" && step.id === "step-transcribe"
+                        ? "⚠️ Transcription API was unavailable. Simulated transcript data was used — subtitles may not match actual audio."
+                        : step.status === "fallback" && step.id === "step-vision"
+                          ? "⚠️ Vision AI was unavailable. Moments were detected using keyword matching instead of video analysis."
+                          : step.id === "step-transcribe"
+                            ? "Audio was transcribed using a hosted speech-to-text service."
+                            : step.id === "step-vision"
+                              ? "Video content was analyzed by AI to find the strongest visual and audio moments."
+                              : "This step is now owned by the in-app generation pipeline."}
                   </p>
                 </div>
                 <StatusPill label={step.status} />
@@ -108,6 +130,9 @@ export default function ProjectPage() {
                   <div className="flex flex-col gap-2">
                     <StatusPill label={video.transcriptStatus} />
                     <StatusPill label={video.analysisStatus} />
+                    {video.transcriptSource && video.transcriptSource !== "hosted" ? (
+                      <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">⚠️ simulated transcript</span>
+                    ) : null}
                   </div>
                 </div>
                 {video.transcriptPreview ? <p className="mt-3 text-sm text-slate-700">"{video.transcriptPreview}"</p> : null}

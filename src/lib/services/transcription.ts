@@ -88,8 +88,8 @@ async function extractCompressedAudio(sourceAbsolutePath: string) {
 }
 
 export async function transcribeSourceVideo(video: SourceVideo): Promise<TranscriptionResult> {
-  const apiKey = process.env.OPENAI_API_KEY;
-  const model = process.env.OPENAI_TRANSCRIPTION_MODEL ?? "whisper-1";
+  const apiKey = process.env.GROQ_API_KEY;
+  const model = process.env.GROQ_TRANSCRIPTION_MODEL ?? "whisper-large-v3-turbo";
 
   if (!apiKey || !video.storagePath) {
     return fallbackTranscript(video);
@@ -106,7 +106,7 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
     formData.append("timestamp_granularities[]", "segment");
     formData.append("file", new Blob([audioBuffer], { type: "audio/mpeg" }), path.basename(audioPath));
 
-    const baseUrl = process.env.OPENAI_TRANSCRIPTION_BASE_URL ?? "https://api.openai.com/v1";
+    const baseUrl = process.env.GROQ_TRANSCRIPTION_BASE_URL ?? "https://api.groq.com/openai/v1";
     const response = await fetch(`${baseUrl}/audio/transcriptions`, {
       method: "POST",
       headers: {
@@ -160,7 +160,7 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
     }
 
     return {
-      provider: "openai",
+      provider: "groq",
       source: "hosted",
       transcriptSegments
     };

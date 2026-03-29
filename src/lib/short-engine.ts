@@ -42,6 +42,7 @@ export function buildProgressSteps(statuses?: Partial<Record<ProjectProgressStep
   return [
     { id: "step-text", label: "Generating text package", status: statuses?.["step-text"] ?? "pending" },
     { id: "step-transcribe", label: "Transcribing videos", status: statuses?.["step-transcribe"] ?? "pending" },
+    { id: "step-vision", label: "Analyzing video with AI", status: statuses?.["step-vision"] ?? "pending" },
     { id: "step-moments", label: "Finding best moments", status: statuses?.["step-moments"] ?? "pending" },
     { id: "step-plan", label: "Building short plan", status: statuses?.["step-plan"] ?? "pending" },
     { id: "step-render", label: "Rendering preview", status: statuses?.["step-render"] ?? "pending" }
@@ -56,7 +57,7 @@ export function summarizeTranscript(videos: SourceVideo[]) {
     .join(" ");
 }
 
-export function detectMoments(projectId: string, videos: SourceVideo[]): DetectedMoment[] {
+export function detectMomentsFallback(projectId: string, videos: SourceVideo[]): DetectedMoment[] {
   const moments = videos.flatMap((video) =>
     (video.transcriptSegments ?? []).map((segment, index) => {
       const startSeconds = segment.startSeconds ?? index * 6;
@@ -84,6 +85,9 @@ export function detectMoments(projectId: string, videos: SourceVideo[]): Detecte
   return moments.sort((a, b) => b.score - a.score).slice(0, 8);
 }
 
+const MAX_SEGMENTS = 8;
+const MAX_SEGMENT_DURATION_SECONDS = 6;
+
 function uniqueMomentSelection(moments: DetectedMoment[]) {
   const selected: DetectedMoment[] = [];
   const usedVideoMomentKeys = new Set<string>();
@@ -95,7 +99,7 @@ function uniqueMomentSelection(moments: DetectedMoment[]) {
     }
     selected.push(moment);
     usedVideoMomentKeys.add(key);
-    if (selected.length >= 4) {
+    if (selected.length >= MAX_SEGMENTS) {
       break;
     }
   }
@@ -103,24 +107,46 @@ function uniqueMomentSelection(moments: DetectedMoment[]) {
   return selected;
 }
 
-function purposeForIndex(index: number): ShortPlanSegment["purpose"] {
+function purposeForMoment(moment: DetectedMoment, index: number, total: number): ShortPlanSegment["purpose"] {
+  // First segment is always the hook
   if (index === 0) return "hook";
-  if (index === 1) return "reaction";
-  if (index === 2) return "payoff";
-  return "cta";
+  // Last segment is always the payoff/closer
+  if (index === total - 1) return "payoff";
+
+  // Use AI tags if available
+  const tags = moment.tags ?? [];
+  if (tags.includes("reaction") || tags.includes("comedy")) return "reaction";
+  if (tags.includes("setup") || tags.includes("lesson")) return "setup";
+
+  // Short clips (≤3s) in the middle become montage cuts
+  const duration = (moment.endSeconds ?? 0) - (moment.startSeconds ?? 0);
+  if (duration <= 3) return "montage";
+
+  // Default middle segments alternate between reaction and montage
+  return index % 2 === 1 ? "reaction" : "montage";
 }
 
 export function buildShortPlanSegments(moments: DetectedMoment[]) {
-  return uniqueMomentSelection(moments).map((moment, index) => ({
-    id: `${moment.id}-segment`,
-    sourceVideoId: moment.sourceVideoId,
-    start: moment.start,
-    end: moment.end,
-    startSeconds: moment.startSeconds,
-    endSeconds: moment.endSeconds,
-    purpose: purposeForIndex(index),
-    momentId: moment.id
-  }));
+  const selected = uniqueMomentSelection(moments);
+
+  return selected.map((moment, index) => {
+    // Cap each segment at MAX_SEGMENT_DURATION_SECONDS
+    const rawDuration = moment.endSeconds - moment.startSeconds;
+    const cappedEnd = rawDuration > MAX_SEGMENT_DURATION_SECONDS
+      ? moment.startSeconds + MAX_SEGMENT_DURATION_SECONDS
+      : moment.endSeconds;
+
+    return {
+      id: `${moment.id}-segment`,
+      sourceVideoId: moment.sourceVideoId,
+      start: moment.start,
+      end: formatTime(cappedEnd),
+      startSeconds: moment.startSeconds,
+      endSeconds: cappedEnd,
+      purpose: purposeForMoment(moment, index, selected.length),
+      momentId: moment.id
+    };
+  });
 }
 
 function shiftCue(cue: TranscriptSegment, segmentStart: number, segmentOffset: number, index: number): SubtitleCue | null {

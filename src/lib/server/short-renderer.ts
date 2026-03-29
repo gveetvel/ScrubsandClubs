@@ -109,7 +109,29 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   await writeFile(hookFile, short.hook, "utf8");
   await writeFile(briefFile, JSON.stringify(capcutPackage, null, 2), "utf8");
 
-  const inputArgs = sourceInputs.flatMap((input) => [
+  // --- Dead-air trimming: shave silence off clip boundaries ---
+  const trimmedInputs = sourceInputs.map((input) => {
+    const purpose = short.shortPlanSegments?.find(
+      (s) => s.sourceVideoId === input.sourceVideoId && s.startSeconds === input.startSeconds
+    )?.purpose ?? "montage";
+
+    // Trim 0.2s from boundaries on clips longer than 4s
+    let trimmedStart = input.startSeconds;
+    let trimmedDuration = input.durationSeconds;
+    if (input.durationSeconds > 4) {
+      trimmedStart += 0.2;
+      trimmedDuration -= 0.4;
+    }
+
+    return {
+      ...input,
+      startSeconds: trimmedStart,
+      durationSeconds: Math.max(1, trimmedDuration),
+      purpose
+    };
+  });
+
+  const inputArgs = trimmedInputs.flatMap((input) => [
     "-ss",
     String(input.startSeconds),
     "-t",
@@ -118,21 +140,95 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     input.sourceAbsolutePath
   ]);
 
-  const concatFilter = sourceInputs
-    .map((_, index) => {
-      return [
-        `[${index}:v]scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1[v${index}]`,
+  // --- Build per-segment video filters with effects ---
+  const TRANSITION_DURATION = 0.15;
+  const segmentFilters: string[] = [];
+  const segmentAudioFilters: string[] = [];
+
+  trimmedInputs.forEach((input, index) => {
+    const baseScale = `scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1`;
+
+    if (input.purpose === "hook" || input.purpose === "reaction") {
+      // Zoom punch-in: subtle 1.08x zoom, centered
+      segmentFilters.push(
+        `[${index}:v]${baseScale},zoompan=z='min(zoom+0.001\\,1.08)':d=1:s=720x1280:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':fps=30[v${index}]`
+      );
+    } else if (input.purpose === "setup" || input.purpose === "lesson") {
+      // Speed ramp: 1.18x faster to keep pacing tight
+      segmentFilters.push(
+        `[${index}:v]${baseScale},setpts=0.85*PTS[v${index}]`
+      );
+      segmentAudioFilters.push(
+        `[${index}:a]aresample=44100,atempo=1.18[a${index}]`
+      );
+    } else {
+      segmentFilters.push(
+        `[${index}:v]${baseScale}[v${index}]`
+      );
+    }
+
+    // Default audio filter if not already set by speed ramp
+    if (!segmentAudioFilters.some((f) => f.startsWith(`[${index}:a]`))) {
+      segmentAudioFilters.push(
         `[${index}:a]aresample=44100[a${index}]`
-      ].join(";");
-    })
-    .concat(`${sourceInputs.map((_, index) => `[v${index}][a${index}]`).join("")}concat=n=${sourceInputs.length}:v=1:a=1[v][a]`)
-    .join(";");
+      );
+    }
+  });
+
+  // --- Build xfade transition chain ---
+  let videoChain = "";
+  let audioChain = "";
+
+  if (trimmedInputs.length === 1) {
+    // Single segment: no transitions needed
+    videoChain = segmentFilters.join(";");
+    audioChain = segmentAudioFilters.join(";");
+    videoChain += `;[v0]null[v]`;
+    audioChain += `;[a0]anull[a]`;
+  } else {
+    // Multiple segments: chain xfade transitions
+    const allFilters = [...segmentFilters, ...segmentAudioFilters];
+
+    // Video xfade chain
+    let cumulativeDuration = trimmedInputs[0].durationSeconds;
+    let prevVideoLabel = "v0";
+
+    for (let i = 1; i < trimmedInputs.length; i++) {
+      const offset = Math.max(0, cumulativeDuration - TRANSITION_DURATION);
+      const outLabel = i === trimmedInputs.length - 1 ? "v" : `vt${i}`;
+      // Use fadewhite for hook transition, fadeblack for others
+      const transition = i === 1 ? "fadewhite" : "fadewhite";
+      allFilters.push(
+        `[${prevVideoLabel}][v${i}]xfade=transition=${transition}:duration=${TRANSITION_DURATION}:offset=${offset.toFixed(3)}[${outLabel}]`
+      );
+      cumulativeDuration += trimmedInputs[i].durationSeconds - TRANSITION_DURATION;
+      prevVideoLabel = outLabel;
+    }
+
+    // Audio crossfade chain
+    let prevAudioLabel = "a0";
+    let audioCumulativeDuration = trimmedInputs[0].durationSeconds;
+
+    for (let i = 1; i < trimmedInputs.length; i++) {
+      const outLabel = i === trimmedInputs.length - 1 ? "a" : `at${i}`;
+      allFilters.push(
+        `[${prevAudioLabel}][a${i}]acrossfade=d=${TRANSITION_DURATION}:c1=tri:c2=tri[${outLabel}]`
+      );
+      audioCumulativeDuration += trimmedInputs[i].durationSeconds - TRANSITION_DURATION;
+      prevAudioLabel = outLabel;
+    }
+
+    videoChain = allFilters.join(";");
+    audioChain = "";
+  }
+
+  const fullFilterComplex = audioChain ? `${videoChain};${audioChain}` : videoChain;
 
   await runFfmpeg([
     "-y",
     ...inputArgs,
     "-filter_complex",
-    concatFilter,
+    fullFilterComplex,
     "-map",
     "[v]",
     "-map",
@@ -156,15 +252,16 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   const brandColor = hexToFfmpegColor(settings.overlayCaptionColor);
 
   const overlayFilters =
-    short.overlayCaptions?.map((caption) => {
+    short.overlayCaptions?.map((caption, captionIndex) => {
       const text = escapeDrawText(caption.text);
-      return `drawtext=fontfile='${fontPath}':text='${text}':fontcolor=${brandColor}:fontsize=30:box=1:boxcolor=black@0.55:boxborderw=16:x=(w-text_w)/2:y=210:enable='between(t,${caption.startSeconds},${caption.endSeconds})'`;
+      const yPos = captionIndex % 2 === 0 ? 200 : 240;
+      return `drawtext=fontfile='${fontPath}':text='${text}':fontcolor=${brandColor}:fontsize=34:box=1:boxcolor=black@0.6:boxborderw=18:x=(w-text_w)/2:y=${yPos}:enable='between(t,${caption.startSeconds},${caption.endSeconds})'`;
     }) ?? [];
 
   const filter = [
-    `drawtext=fontfile='${fontPath}':textfile='${hookPath}':fontcolor=white:fontsize=40:box=1:boxcolor=black@0.65:boxborderw=20:x=(w-text_w)/2:y=90:enable='between(t,0,2.8)'`,
+    `drawtext=fontfile='${fontPath}':textfile='${hookPath}':fontcolor=white:fontsize=56:box=1:boxcolor=black@0.7:boxborderw=22:x=(w-text_w)/2:y=80:enable='between(t,0,2.2)'`,
     ...overlayFilters,
-    `subtitles='${subtitlePath}':force_style='FontName=Arial,FontSize=18,PrimaryColour=&HFFFFFF&,OutlineColour=&H000000&,BorderStyle=3,Outline=1,Shadow=0,MarginV=110'`
+    `subtitles='${subtitlePath}':force_style='FontName=Arial,FontSize=22,PrimaryColour=&HFFFFFF&,OutlineColour=&H000000&,BorderStyle=3,Outline=1,Shadow=0,MarginV=100'`
   ].join(",");
 
   try {

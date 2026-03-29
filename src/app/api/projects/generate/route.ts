@@ -1,12 +1,13 @@
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
-import { buildProgressSteps, buildShortDrafts, detectMoments, summarizeTranscript } from "@/lib/short-engine";
-import { renderShortDraft } from "@/lib/server/short-renderer";
+import { buildProgressSteps, buildShortDrafts, detectMomentsFallback, summarizeTranscript } from "@/lib/short-engine";
 import { assignVideosToProject, getLocalUploadByVideoId, updateVideoAnalysis } from "@/lib/server/local-upload-repository";
 import { listProjectState, upsertProject, upsertShortDraft } from "@/lib/server/project-repository";
+import { renderShortDraft } from "@/lib/server/short-renderer";
 import { generateTextPackage } from "@/lib/services/openrouter";
 import { transcribeSourceVideo } from "@/lib/services/transcription";
-import { Project, SourceVideo } from "@/lib/types";
+import { detectMomentsWithVision } from "@/lib/services/vision-ai";
+import { DetectedMoment, Project, SourceVideo } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -83,9 +84,50 @@ export async function POST(request: NextRequest) {
     platformPreset: settings.platformPreset
   });
 
-  const detectedMoments = detectMoments(projectId, updatedVideos);
+  // --- Vision AI moment detection (Gemini) with fallback to heuristic ---
+  let detectedMoments: DetectedMoment[] = [];
+  let usedFallbackVision = false;
+  const transcriptText = updatedVideos
+    .flatMap((video) => video.transcriptSegments ?? [])
+    .map((segment) => `[${segment.start}-${segment.end}] ${segment.text}`)
+    .join("\n");
+
+  for (const video of updatedVideos) {
+    if (video.storagePath) {
+      const visionResult = await detectMomentsWithVision(
+        projectId,
+        video.id,
+        video.storagePath,
+        title,
+        transcriptText
+      );
+
+      if (visionResult.provider === "gemini" && visionResult.moments.length > 0) {
+        detectedMoments.push(...visionResult.moments);
+      } else {
+        usedFallbackVision = true;
+      }
+    } else {
+      usedFallbackVision = true;
+    }
+  }
+
+  // If vision AI returned nothing for any video, supplement with heuristic fallback
+  if (detectedMoments.length === 0) {
+    usedFallbackVision = true;
+    detectedMoments = detectMomentsFallback(projectId, updatedVideos);
+  }
+
+  // Sort all moments by score and keep the top 8
+  detectedMoments = detectedMoments.sort((a, b) => b.score - a.score).slice(0, 8);
+
   const usedFallbackTranscript = updatedVideos.some((video) => video.transcriptSource !== "hosted");
   const usedFallbackText = refinedTextPackage.provider !== "openrouter";
+
+  const warnings: string[] = [];
+  if (usedFallbackText) warnings.push("Text generation used fallback templates (OpenRouter unavailable).");
+  if (usedFallbackTranscript) warnings.push("Transcription used simulated data (Groq API unavailable).");
+  if (usedFallbackVision) warnings.push("Video analysis used keyword matching (Gemini API unavailable).");
 
   let project: Project = {
     id: projectId,
@@ -93,7 +135,7 @@ export async function POST(request: NextRequest) {
     ideaInput: title,
     createdAt,
     updatedAt: createdAt,
-    status: usedFallbackTranscript || usedFallbackText ? "fallback" : "ready",
+    status: usedFallbackTranscript || usedFallbackText || usedFallbackVision ? "fallback" : "ready",
     sourceVideoIds,
     shortDraftIds: [],
     primaryShortId: undefined,
@@ -102,15 +144,13 @@ export async function POST(request: NextRequest) {
     progressSteps: buildProgressSteps({
       "step-text": usedFallbackText ? "fallback" : "complete",
       "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
+      "step-vision": usedFallbackVision ? "fallback" : "complete",
       "step-moments": "complete",
       "step-plan": "complete",
       "step-render": "active"
     }),
     summary: refinedTextPackage.conceptAngle,
-    warning:
-      usedFallbackTranscript || usedFallbackText
-        ? "One or more providers were unavailable, so the project used fallback generation for part of the pipeline."
-        : undefined
+    warning: warnings.length > 0 ? warnings.join(" ") : undefined
   };
 
   const shortDrafts = buildShortDrafts(project, updatedVideos, settings);
@@ -133,6 +173,7 @@ export async function POST(request: NextRequest) {
     });
   }
 
+  // --- Auto-render the primary draft into a finished MP4 ---
   let renderedPrimary = null;
   try {
     if (shortDrafts[0]) {
@@ -144,6 +185,7 @@ export async function POST(request: NextRequest) {
       progressSteps: buildProgressSteps({
         "step-text": usedFallbackText ? "fallback" : "complete",
         "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
+        "step-vision": usedFallbackVision ? "fallback" : "complete",
         "step-moments": "complete",
         "step-plan": "complete",
         "step-render": "complete"
@@ -154,10 +196,11 @@ export async function POST(request: NextRequest) {
     project = {
       ...project,
       updatedAt: new Date().toISOString(),
-      warning: error instanceof Error ? error.message : project.warning,
+      warning: [project.warning, error instanceof Error ? error.message : "Render failed."].filter(Boolean).join(" "),
       progressSteps: buildProgressSteps({
         "step-text": usedFallbackText ? "fallback" : "complete",
         "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
+        "step-vision": usedFallbackVision ? "fallback" : "complete",
         "step-moments": "complete",
         "step-plan": "complete",
         "step-render": "failed"

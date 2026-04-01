@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { buildProgressSteps, buildShortDrafts, detectMomentsFallback, summarizeTranscript } from "@/lib/short-engine";
 import { assignVideosToProject, getLocalUploadByVideoId, updateVideoAnalysis } from "@/lib/server/local-upload-repository";
 import { listProjectState, upsertProject, upsertShortDraft } from "@/lib/server/project-repository";
-import { renderShortDraft } from "@/lib/server/short-renderer";
 import { generateTextPackage } from "@/lib/services/openrouter";
 import { transcribeSourceVideo } from "@/lib/services/transcription";
 import { detectMomentsWithVision } from "@/lib/services/vision-ai";
@@ -147,7 +146,7 @@ export async function POST(request: NextRequest) {
       "step-vision": usedFallbackVision ? "fallback" : "complete",
       "step-moments": "complete",
       "step-plan": "complete",
-      "step-render": "active"
+      "step-render": "pending"
     }),
     summary: refinedTextPackage.conceptAngle,
     warning: warnings.length > 0 ? warnings.join(" ") : undefined
@@ -173,48 +172,10 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  // --- Auto-render the primary draft into a finished MP4 ---
-  let renderedPrimary = null;
-  try {
-    if (shortDrafts[0]) {
-      renderedPrimary = await renderShortDraft(shortDrafts[0], settings);
-    }
-    project = {
-      ...project,
-      updatedAt: new Date().toISOString(),
-      progressSteps: buildProgressSteps({
-        "step-text": usedFallbackText ? "fallback" : "complete",
-        "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
-        "step-vision": usedFallbackVision ? "fallback" : "complete",
-        "step-moments": "complete",
-        "step-plan": "complete",
-        "step-render": "complete"
-      })
-    };
-    await upsertProject(project);
-  } catch (error) {
-    project = {
-      ...project,
-      updatedAt: new Date().toISOString(),
-      warning: [project.warning, error instanceof Error ? error.message : "Render failed."].filter(Boolean).join(" "),
-      progressSteps: buildProgressSteps({
-        "step-text": usedFallbackText ? "fallback" : "complete",
-        "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
-        "step-vision": usedFallbackVision ? "fallback" : "complete",
-        "step-moments": "complete",
-        "step-plan": "complete",
-        "step-render": "failed"
-      })
-    };
-    await upsertProject(project);
-  }
-
   return NextResponse.json({
     data: {
       project,
-      shortDrafts: shortDrafts.map((draft) =>
-        draft.id === shortDrafts[0]?.id && renderedPrimary ? { ...draft, ...renderedPrimary } : draft
-      )
+      shortDrafts
     }
   });
 }

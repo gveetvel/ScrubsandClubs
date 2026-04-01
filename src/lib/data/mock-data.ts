@@ -323,6 +323,8 @@ export const projects: Project[] = [
       hashtagOptions: ["#GolfShorts", "#GolfTok", "#ScrubsAndClubs", "#GolfHumor", "#Break100"],
       ctaOptions: ["Comment FULL if you want the whole round.", "Tag the friend who diagnoses every bad swing."],
       funnyCaptionIdeas: ["Worst 5-wood idea ever", "Doctor says it's bad", "Break 100 still alive"],
+      clickbaitTitleOptions: ["Surgeons try to break 100 but misdiagnose a 5-wood", "This decision ruined our round"],
+      firstCommentOptions: ["What club would you have hit here?", "Tag a friend who makes this exact mistake."],
       subtitleToneSuggestion: "Fast, bold, center-safe subtitles with emphasized golf words",
       editingVibeSuggestion: "Cold open reaction, quick cuts, then a tension beat before the payoff",
       provider: "fallback",
@@ -330,9 +332,10 @@ export const projects: Project[] = [
     },
     detectedMoments: primaryMoments,
     progressSteps: [
-      { id: "step-text", label: "Generating text package", status: "complete" },
-      { id: "step-transcribe", label: "Transcribing videos", status: "fallback" },
-      { id: "step-moments", label: "Finding best moments", status: "complete" },
+      { id: "step-text", label: "Generating text package", status: "complete" as const },
+      { id: "step-transcribe", label: "Transcribing videos", status: "complete" as const },
+      { id: "step-vision", label: "Analyzing video with AI", status: "complete" as const },
+      { id: "step-moments", label: "Finding best moments", status: "complete" as const },
       { id: "step-plan", label: "Building short plan", status: "complete" },
       { id: "step-render", label: "Rendering preview", status: "pending" }
     ],
@@ -549,7 +552,7 @@ export const integrations: IntegrationConnection[] = [
     name: "Hosted transcription",
     status: "needs setup",
     summary: "Used for exact transcript-driven subtitles and moment selection.",
-    nextStep: "Add OPENAI_API_KEY to enable hosted speech-to-text with fallback extraction."
+    nextStep: "Add GROQ_API_KEY to enable hosted speech-to-text with fallback extraction."
   },
   {
     id: "int-capcut",

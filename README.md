@@ -29,8 +29,9 @@ Instead of acting like a broad content-ops dashboard, the MVP now focuses on gen
 - Next.js App Router
 - TypeScript
 - Tailwind CSS
-- Prisma + PostgreSQL schema
+- JSON file-based persistence (no database required)
 - ffmpeg-static for local rendering
+- Google Drive integration (OAuth, optional)
 
 ## Local setup
 
@@ -46,17 +47,11 @@ npm install
 cp .env.example .env
 ```
 
-3. Generate Prisma client if you want the schema ready locally
-
-```bash
-npm run prisma:generate
-```
-
-4. Build and run
+3. Build and run
 
 ```bash
 npm run build
-npm run start
+npm run dev
 ```
 
 Then open:
@@ -68,11 +63,10 @@ http://127.0.0.1:3000
 ## Windows quick run
 
 ```powershell
-cd /d "C:\Users\gille\Desktop\PROJECTS\GOLF Channel"
+cd /d "D:\GithubLocal\ScrubsandClubs"
 Copy-Item .env.example .env -Force
 npm.cmd install
-npm.cmd run build
-npm.cmd run start
+npm.cmd run dev
 ```
 
 ## How to go from idea to exported video
@@ -209,9 +203,9 @@ METRICOOL_API_KEY=
 METRICOOL_API_BASE_URL=
 ```
 
-### Optional future Google Drive path
+### Google Drive integration (optional)
 
-Google Drive remains in the codebase but is no longer part of the main MVP workflow.
+Google Drive allows importing source footage and exporting finished shorts. Requires OAuth setup.
 
 ```env
 GOOGLE_CLIENT_ID=

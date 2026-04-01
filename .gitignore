@@ -8,3 +8,5 @@ prisma/dev.db
 public/uploads
 public/rendered-exports
 *.mp4
+data/*.json
+.env

@@ -3,19 +3,13 @@ import path from "path";
 import { randomUUID } from "crypto";
 import { SourceVideo, TranscriptSegment, TranscriptSource } from "@/lib/types";
 import { runFfmpeg, tempDir } from "@/lib/server/ffmpeg";
+import { formatTime, toSeconds } from "@/lib/format-utils";
 
 interface TranscriptionResult {
   provider: string;
   source: TranscriptSource;
   warning?: string;
   transcriptSegments: TranscriptSegment[];
-}
-
-function formatTime(totalSeconds: number) {
-  const safe = Math.max(0, Math.round(totalSeconds));
-  const minutes = String(Math.floor(safe / 60)).padStart(2, "0");
-  const seconds = String(safe % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
 }
 
 function transcriptTemplates(title: string) {
@@ -139,7 +133,7 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
 
     if (transcriptSegments.length === 0 && data.text) {
       return {
-        provider: "openai",
+        provider: "groq",
         source: "hosted",
         transcriptSegments: [
           {
@@ -147,7 +141,7 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
             start: "00:00",
             end: video.duration,
             startSeconds: 0,
-            endSeconds: undefined,
+            endSeconds: toSeconds(video.duration) || 30,
             source: "hosted",
             text: data.text.trim()
           }

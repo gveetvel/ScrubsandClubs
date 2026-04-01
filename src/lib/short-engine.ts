@@ -12,16 +12,7 @@ import {
   TranscriptSegment
 } from "@/lib/types";
 
-function slugify(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
-
-export function formatTime(totalSeconds: number) {
-  const safe = Math.max(0, Math.round(totalSeconds));
-  const minutes = String(Math.floor(safe / 60)).padStart(2, "0");
-  const seconds = String(safe % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
-}
+import { slugify, formatTime } from "@/lib/format-utils";
 
 function keywordBonus(text: string) {
   const normalized = text.toLowerCase();

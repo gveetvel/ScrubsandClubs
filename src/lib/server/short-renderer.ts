@@ -5,6 +5,7 @@ import { getLocalUploadByVideoId } from "@/lib/server/local-upload-repository";
 import { getRenderedExportsDir, upsertRenderedDraft } from "@/lib/server/rendered-short-repository";
 import { getShortDraftById, listProjectState, updateShortDraft } from "@/lib/server/project-repository";
 import { runFfmpeg } from "@/lib/server/ffmpeg";
+import { slugify as sanitize } from "@/lib/format-utils";
 
 function toSrtTimestamp(value: string) {
   const parts = value.split(":");
@@ -18,10 +19,6 @@ function buildSrt(cues: SubtitleCue[]) {
   return cues
     .map((cue, index) => `${index + 1}\n${toSrtTimestamp(cue.start)} --> ${toSrtTimestamp(cue.end)}\n${cue.text.replace(/\r/g, "").trim()}\n`)
     .join("\n");
-}
-
-function sanitize(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 }
 
 function subtitleFilterPath(filePath: string) {
@@ -198,7 +195,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
       const offset = Math.max(0, cumulativeDuration - TRANSITION_DURATION);
       const outLabel = i === trimmedInputs.length - 1 ? "v" : `vt${i}`;
       // Use fadewhite for hook transition, fadeblack for others
-      const transition = i === 1 ? "fadewhite" : "fadewhite";
+      const transition = i === 1 ? "fadewhite" : "fadeblack";
       allFilters.push(
         `[${prevVideoLabel}][v${i}]xfade=transition=${transition}:duration=${TRANSITION_DURATION}:offset=${offset.toFixed(3)}[${outLabel}]`
       );
@@ -220,10 +217,10 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     }
 
     videoChain = allFilters.join(";");
-    audioChain = "";
   }
 
   const fullFilterComplex = audioChain ? `${videoChain};${audioChain}` : videoChain;
+
 
   await runFfmpeg([
     "-y",

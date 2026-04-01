@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Panel } from "@/components/ui/panel";
 import { StatusPill } from "@/components/ui/status-pill";
 import { usePageReady } from "@/lib/use-page-ready";
+import { GoogleDriveImport } from "@/components/google-drive-import";
 
 interface PendingUpload {
   file: File;
@@ -72,7 +73,7 @@ export default function CreatePage() {
   const [generationStarted, setGenerationStarted] = useState(false);
 
   const localVideos = useMemo(
-    () => state.sourceVideos.filter((video) => video.sourceType === "local_upload" || video.storagePath?.startsWith("/uploads/")),
+    () => [...state.sourceVideos].reverse().filter((video) => video.sourceType === "local_upload" || video.storagePath?.startsWith("/uploads/")),
     [state.sourceVideos]
   );
 
@@ -255,6 +256,11 @@ export default function CreatePage() {
               </Button>
             </div>
           </div>
+
+          <GoogleDriveImport onImportComplete={(_url, _name, sourceVideo) => {
+            importLocalUploadPayload({ assets: [], sourceVideos: [sourceVideo] });
+            setSelectedExistingIds(curr => [...curr, sourceVideo.id]);
+          }} />
 
           {pendingUploads.length === 0 ? (
             <EmptyState title="No new uploads queued" detail="Drag files here or pick them from your computer to build a new short project." />

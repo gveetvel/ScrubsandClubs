@@ -1,29 +1,6 @@
 import { CapCutHandoffPackage, ClipSuggestion, EditedShort, SourceVideo, SubtitleCue, TranscriptSegment } from "@/lib/types";
 
-function slugify(input: string) {
-  return input.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
-
-function toSeconds(value: string) {
-  const parts = value.split(":").map((item) => Number(item));
-  if (parts.some((item) => Number.isNaN(item))) {
-    return 0;
-  }
-  if (parts.length === 2) {
-    return parts[0] * 60 + parts[1];
-  }
-  if (parts.length === 3) {
-    return parts[0] * 3600 + parts[1] * 60 + parts[2];
-  }
-  return 0;
-}
-
-function formatTime(totalSeconds: number) {
-  const safe = Math.max(0, Math.round(totalSeconds));
-  const minutes = String(Math.floor(safe / 60)).padStart(2, "0");
-  const seconds = String(safe % 60).padStart(2, "0");
-  return `${minutes}:${seconds}`;
-}
+import { slugify, toSeconds, formatTime } from "@/lib/format-utils";
 
 function videoDurationSeconds(video: SourceVideo) {
   return Math.max(toSeconds(video.duration), 75);
@@ -76,6 +53,8 @@ export function simulateTranscript(video: SourceVideo): TranscriptSegment[] {
       id: `${video.id}-transcript-${index + 1}`,
       start: formatTime(startSeconds),
       end: formatTime(endSeconds),
+      startSeconds,
+      endSeconds,
       text
     };
   });

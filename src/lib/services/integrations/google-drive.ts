@@ -6,7 +6,7 @@ import { MediaAsset, SourceVideo } from "@/lib/types";
 const GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
 const GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const GOOGLE_DRIVE_FILES_URL = "https://www.googleapis.com/drive/v3/files";
-const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.metadata.readonly";
+const DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.file";
 
 const ACCESS_COOKIE = "scs_gdrive_access_token";
 const REFRESH_COOKIE = "scs_gdrive_refresh_token";

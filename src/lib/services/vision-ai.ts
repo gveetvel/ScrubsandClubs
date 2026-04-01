@@ -1,7 +1,7 @@
 import { readFile, stat } from "fs/promises";
 import path from "path";
 import { DetectedMoment } from "@/lib/types";
-import { formatTime } from "@/lib/short-engine";
+import { formatTime } from "@/lib/format-utils";
 
 interface GeminiFileUploadResponse {
     file: {

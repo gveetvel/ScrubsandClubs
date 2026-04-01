@@ -10,10 +10,12 @@ export async function ensureTempDir() {
   return TEMP_DIR;
 }
 
+const FFMPEG_TIMEOUT_MS = 120_000;
+
 export async function runFfmpeg(args: string[]) {
   await ensureTempDir();
 
-  return new Promise<void>((resolve, reject) => {
+  const ffmpegPromise = new Promise<void>((resolve, reject) => {
     const ffmpeg = spawn(FFMPEG_PATH, args, { stdio: ["ignore", "pipe", "pipe"] });
     let errorOutput = "";
 
@@ -34,6 +36,12 @@ export async function runFfmpeg(args: string[]) {
       reject(new Error(errorOutput || `ffmpeg exited with code ${code}`));
     });
   });
+
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error("ffmpeg timed out after 120 seconds")), FFMPEG_TIMEOUT_MS)
+  );
+
+  return Promise.race([ffmpegPromise, timeoutPromise]);
 }
 
 export function tempDir() {

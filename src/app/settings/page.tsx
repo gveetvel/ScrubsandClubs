@@ -17,10 +17,20 @@ const renderNotes = [
   "CapCut is optional finishing, not a dependency for draft generation."
 ];
 
+type ProviderStatus = { openrouter: boolean; groq: boolean; gemini: boolean };
+
 export default function SettingsPage() {
   const ready = usePageReady();
   const { state, saveBrandSettings } = useMockApp();
   const [draftSettings, setDraftSettings] = useState(state.brandSettings);
+  const [providerStatus, setProviderStatus] = useState<ProviderStatus | null>(null);
+
+  useEffect(() => {
+    void fetch("/api/settings/providers")
+      .then((res) => res.json() as Promise<ProviderStatus>)
+      .then(setProviderStatus)
+      .catch(() => undefined);
+  }, []);
 
   useEffect(() => {
     setDraftSettings(state.brandSettings);
@@ -110,25 +120,32 @@ export default function SettingsPage() {
           </div>
 
           <div className="space-y-3">
-            {state.integrations.map((integration) => (
-              <div key={integration.id} className="rounded-2xl border border-slate-200 p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="space-y-2">
-                    <p className="font-semibold text-ink">{integration.name}</p>
-                    <p className="text-sm text-slate-600">{integration.summary}</p>
-                    <p className="text-sm text-slate-500">{integration.nextStep}</p>
+            {state.integrations.map((integration) => {
+              let liveStatus = integration.status;
+              if (providerStatus) {
+                if (integration.id === "int-openrouter") liveStatus = providerStatus.openrouter ? "connected" : "needs setup";
+                if (integration.id === "int-stt") liveStatus = providerStatus.groq ? "connected" : "needs setup";
+              }
+              return (
+                <div key={integration.id} className="rounded-2xl border border-slate-200 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-2">
+                      <p className="font-semibold text-ink">{integration.name}</p>
+                      <p className="text-sm text-slate-600">{integration.summary}</p>
+                      <p className="text-sm text-slate-500">{integration.nextStep}</p>
+                    </div>
+                    <StatusPill label={liveStatus} />
                   </div>
-                  <StatusPill label={integration.status} />
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="rounded-3xl border border-slate-200 p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Environment variables to configure</p>
             <div className="mt-4 space-y-2 text-sm text-slate-700">
               <p><span className="font-semibold text-ink">OpenRouter:</span> OPENROUTER_API_KEY, OPENROUTER_MODEL</p>
-              <p><span className="font-semibold text-ink">Hosted STT:</span> OPENAI_API_KEY, OPENAI_TRANSCRIPTION_MODEL</p>
+              <p><span className="font-semibold text-ink">Hosted STT:</span> GROQ_API_KEY, GROQ_TRANSCRIPTION_MODEL</p>
               <p><span className="font-semibold text-ink">Uploads:</span> LOCAL_UPLOAD_MAX_MB</p>
               <p><span className="font-semibold text-ink">Optional future:</span> CAPCUT_API_KEY, METRICOOL_API_KEY</p>
             </div>

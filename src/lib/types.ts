@@ -1,8 +1,8 @@
 export type Platform = "YouTube Shorts" | "Instagram Reels" | "TikTok";
 export type SourceType = "local_upload" | "google_drive" | "future_external";
 export type UploadStatus = "uploaded" | "processing" | "failed";
-export type TranscriptStatus = "not_started" | "transcribing" | "available" | "fallback" | "failed";
-export type AnalysisStatus = "not_started" | "analyzing" | "ready" | "fallback" | "failed";
+export type TranscriptStatus = "not_started" | "pending" | "transcribing" | "available" | "fallback" | "failed";
+export type AnalysisStatus = "not_started" | "queued" | "analyzing" | "ready" | "fallback" | "failed";
 export type RenderStatus = "not_started" | "rendering" | "ready" | "failed";
 export type GenerationSource = "openrouter" | "fallback";
 export type TranscriptSource = "hosted" | "simulated";
@@ -157,8 +157,8 @@ export interface SourceVideo {
   title: string;
   description: string;
   duration: string;
-  transcriptStatus: TranscriptStatus | "available" | "pending" | "not available";
-  analysisStatus: AnalysisStatus | "ready" | "queued" | "needs transcript";
+  transcriptStatus: TranscriptStatus;
+  analysisStatus: AnalysisStatus;
   assetId: string;
   ideaIds: string[];
   shortsExtracted: number;

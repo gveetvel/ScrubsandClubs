@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Panel } from "@/components/ui/panel";
 import { StatusPill } from "@/components/ui/status-pill";
 import { usePageReady } from "@/lib/use-page-ready";
+import { GoogleDriveExport } from "@/components/google-drive-export";
 
 export default function ShortDraftPage() {
   const params = useParams<{ id: string }>();
@@ -180,15 +181,15 @@ export default function ShortDraftPage() {
                   <div className="rounded-2xl border border-emerald-200 bg-white p-4">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm font-semibold text-emerald-900">Clickbait Title</p>
-                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(short.clickbaitTitle || short.title)}>Copy</Button>
+                      <Button variant="secondary" onClick={() => void navigator.clipboard.writeText(short.clickbaitTitle ?? short.title)}>Copy</Button>
                     </div>
-                    <p className="text-sm text-slate-700">{short.clickbaitTitle || short.title}</p>
+                    <p className="text-sm text-slate-700">{short.clickbaitTitle ?? short.title}</p>
                   </div>
 
                   <div className="rounded-2xl border border-emerald-200 bg-white p-4">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm font-semibold text-emerald-900">Caption & Hashtags</p>
-                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(`${short.caption}\n\n${short.hashtags.join(" ")}`)}>Copy</Button>
+                      <Button variant="secondary" onClick={() => void navigator.clipboard.writeText(`${short.caption}\n\n${short.hashtags.join(" ")}`)}>Copy</Button>
                     </div>
                     <p className="text-sm whitespace-pre-wrap text-slate-700">{short.caption}</p>
                     <p className="mt-2 text-sm text-emerald-700">{short.hashtags.join(" ")}</p>
@@ -197,10 +198,19 @@ export default function ShortDraftPage() {
                   <div className="rounded-2xl border border-emerald-200 bg-white p-4">
                     <div className="flex items-center justify-between mb-2">
                       <p className="text-sm font-semibold text-emerald-900">Pinned First Comment</p>
-                      <Button variant="secondary" size="sm" onClick={() => void navigator.clipboard.writeText(short.firstComment || "Thoughts?")}>Copy</Button>
+                      <Button variant="secondary" onClick={() => void navigator.clipboard.writeText(short.firstComment ?? "Thoughts?")}>Copy</Button>
                     </div>
-                    <p className="text-sm text-slate-700">{short.firstComment}</p>
+                    <p className="text-sm text-slate-700">{short.firstComment ?? "Thoughts?"}</p>
                   </div>
+
+                  {short.renderStatus === "ready" && short.previewUrl && (
+                    <GoogleDriveExport 
+                      shortName={short.title} 
+                      mp4Path={short.previewUrl}
+                      thumbnailPath={short.thumbnailUrl}
+                      textContent={`Title: ${short.clickbaitTitle ?? short.title}\n\nCaption:\n${short.caption}\n\nHashtags:\n${short.hashtags.join(" ")}\n\nPinned Comment:\n${short.firstComment ?? "Thoughts?"}`}
+                    />
+                  )}
                 </div>
               </div>
             </div>

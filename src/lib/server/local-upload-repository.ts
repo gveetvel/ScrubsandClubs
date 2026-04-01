@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { randomUUID } from "crypto";
 import { MediaAsset, SourceVideo, TranscriptSegment } from "@/lib/types";
+import { sanitizeFilename } from "@/lib/format-utils";
 
 interface UploadManifest {
   mediaAssets: MediaAsset[];
@@ -30,10 +31,6 @@ async function readManifest(): Promise<UploadManifest> {
 async function writeManifest(manifest: UploadManifest) {
   await ensureStorage();
   await writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 2), "utf8");
-}
-
-function sanitizeFilename(filename: string) {
-  return filename.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/-+/g, "-");
 }
 
 function formatDuration(seconds?: number | null) {
@@ -129,6 +126,60 @@ export async function saveUploadedVideos(input: {
 
   await writeManifest(nextManifest);
   return { mediaAssets: createdAssets, sourceVideos: createdVideos };
+}
+
+export async function registerDownloadedVideo(input: {
+  fileName: string;
+  storagePath: string;
+  title: string;
+  sourceType?: string;
+}) {
+  await ensureStorage();
+  const manifest = await readManifest();
+
+  const assetId = `upload-asset-${randomUUID().slice(0, 10)}`;
+  const videoId = `upload-video-${randomUUID().slice(0, 10)}`;
+  const uploadDate = new Date().toISOString().slice(0, 10);
+
+  const asset: MediaAsset = {
+    id: assetId,
+    filename: input.fileName,
+    duration: "Unknown",
+    uploadDate,
+    tags: ["google drive import", "source video"],
+    sourceFolder: "Google Drive",
+    project: "Uploaded videos",
+    sourceType: (input.sourceType ?? "google_drive") as MediaAsset["sourceType"],
+    mimeType: "video/mp4",
+    sizeBytes: 0,
+    storagePath: input.storagePath,
+    uploadStatus: "uploaded"
+  };
+
+  const sourceVideo: SourceVideo = {
+    id: videoId,
+    title: input.title,
+    description: "Imported from Google Drive",
+    duration: "Unknown",
+    transcriptStatus: "not_started",
+    analysisStatus: "not_started",
+    assetId,
+    ideaIds: [],
+    shortsExtracted: 0,
+    sourceType: "local_upload",
+    mimeType: "video/mp4",
+    sizeBytes: 0,
+    storagePath: input.storagePath,
+    uploadStatus: "uploaded"
+  };
+
+  const nextManifest: UploadManifest = {
+    mediaAssets: [asset, ...manifest.mediaAssets],
+    sourceVideos: [sourceVideo, ...manifest.sourceVideos]
+  };
+
+  await writeManifest(nextManifest);
+  return { asset, sourceVideo };
 }
 
 export async function updateLocalUploadLink(videoId: string, linkedIdeaId: string | null) {

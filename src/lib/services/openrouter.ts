@@ -78,7 +78,7 @@ export async function generateTextPackage(payload: OpenRouterPayload): Promise<T
   const systemPrompt =
     "You generate creator-ready short-form golf video packages. Respond with strict JSON only. Keep hooks punchy, captions platform-aware, hashtags relevant, and funny caption ideas social-native.";
 
-  const userPrompt = `Create a JSON object with keys: conceptAngle, hookOptions, captionOptions, hashtagOptions, ctaOptions, funnyCaptionIdeas, subtitleToneSuggestion, editingVibeSuggestion.
+  const userPrompt = `Create a JSON object with keys: conceptAngle, hookOptions, captionOptions, hashtagOptions, ctaOptions, funnyCaptionIdeas, clickbaitTitleOptions, firstCommentOptions, subtitleToneSuggestion, editingVibeSuggestion.
 
 Idea/title: ${payload.idea}
 Tone preset: ${payload.tonePreset ?? "Funny but useful golf creator"}
@@ -87,10 +87,12 @@ Transcript summary: ${payload.transcriptSummary ?? "No transcript summary availa
 
 Rules:
 - hookOptions: 3 to 5 items
-- captionOptions: 3 items
+- captionOptions: exactly 3 items
 - hashtagOptions: 4 to 6 items, include leading #
 - ctaOptions: 2 to 3 items
 - funnyCaptionIdeas: 3 to 5 items
+- clickbaitTitleOptions: exactly 3 short punchy titles (under 60 chars each, emoji allowed)
+- firstCommentOptions: exactly 3 engagement-driving first comments (questions or prompts)
 - Keep output creator-friendly, high-retention, and golf-specific.
 - Output JSON only.`;
 
@@ -127,17 +129,18 @@ Rules:
     }
 
     const parsed = extractJson(content);
+    const fb = fallbackPackage(payload);
     return {
-      conceptAngle: parsed.conceptAngle ?? fallbackPackage(payload).conceptAngle,
-      clickbaitTitleOptions: parsed.clickbaitTitleOptions?.filter(Boolean) ?? fallbackPackage(payload).clickbaitTitleOptions,
-      firstCommentOptions: parsed.firstCommentOptions?.filter(Boolean) ?? fallbackPackage(payload).firstCommentOptions,
-      hookOptions: parsed.hookOptions?.filter(Boolean) ?? fallbackPackage(payload).hookOptions,
-      captionOptions: parsed.captionOptions?.filter(Boolean) ?? fallbackPackage(payload).captionOptions,
-      hashtagOptions: parsed.hashtagOptions?.filter(Boolean) ?? fallbackPackage(payload).hashtagOptions,
-      ctaOptions: parsed.ctaOptions?.filter(Boolean) ?? fallbackPackage(payload).ctaOptions,
-      funnyCaptionIdeas: parsed.funnyCaptionIdeas?.filter(Boolean) ?? fallbackPackage(payload).funnyCaptionIdeas,
-      subtitleToneSuggestion: parsed.subtitleToneSuggestion ?? fallbackPackage(payload).subtitleToneSuggestion,
-      editingVibeSuggestion: parsed.editingVibeSuggestion ?? fallbackPackage(payload).editingVibeSuggestion,
+      conceptAngle: parsed.conceptAngle ?? fb.conceptAngle,
+      clickbaitTitleOptions: parsed.clickbaitTitleOptions?.filter(Boolean) ?? fb.clickbaitTitleOptions,
+      firstCommentOptions: parsed.firstCommentOptions?.filter(Boolean) ?? fb.firstCommentOptions,
+      hookOptions: parsed.hookOptions?.filter(Boolean) ?? fb.hookOptions,
+      captionOptions: parsed.captionOptions?.filter(Boolean) ?? fb.captionOptions,
+      hashtagOptions: parsed.hashtagOptions?.filter(Boolean) ?? fb.hashtagOptions,
+      ctaOptions: parsed.ctaOptions?.filter(Boolean) ?? fb.ctaOptions,
+      funnyCaptionIdeas: parsed.funnyCaptionIdeas?.filter(Boolean) ?? fb.funnyCaptionIdeas,
+      subtitleToneSuggestion: parsed.subtitleToneSuggestion ?? fb.subtitleToneSuggestion,
+      editingVibeSuggestion: parsed.editingVibeSuggestion ?? fb.editingVibeSuggestion,
       provider: "openrouter" satisfies GenerationSource,
       model
     };

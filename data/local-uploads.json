@@ -1,4 +1,190 @@
 {
-  "mediaAssets": [],
-  "sourceVideos": []
+  "mediaAssets": [
+    {
+      "id": "upload-asset-b07abea3-0",
+      "filename": "1775026707202-Challenge_of_the_week_1.mp4",
+      "duration": "Unknown",
+      "uploadDate": "2026-04-01",
+      "tags": [
+        "google drive import",
+        "source video"
+      ],
+      "sourceFolder": "Google Drive",
+      "project": "Testing",
+      "sourceType": "google_drive",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-e9d67316-5"
+    }
+  ],
+  "sourceVideos": [
+    {
+      "id": "upload-video-3aacfbcf-2",
+      "title": "Challenge of the week 1",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "Unknown",
+      "transcriptStatus": "available",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-b07abea3-0",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-e9d67316-5",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-0",
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "source": "hosted",
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-1",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "source": "hosted",
+          "text": "One."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "source": "hosted",
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-3",
+          "start": "00:19",
+          "end": "00:29",
+          "startSeconds": 19,
+          "endSeconds": 29,
+          "source": "hosted",
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-4",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "source": "hosted",
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-5",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "source": "hosted",
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-6",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "source": "hosted",
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-7",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "source": "hosted",
+          "text": "The ball can go back and go back to the head"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-8",
+          "start": "00:36",
+          "end": "00:37",
+          "startSeconds": 36,
+          "endSeconds": 37,
+          "source": "hosted",
+          "text": "To the head of the head"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-9",
+          "start": "00:47",
+          "end": "00:49",
+          "startSeconds": 47,
+          "endSeconds": 49,
+          "source": "hosted",
+          "text": "This will be a fantastic film"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-10",
+          "start": "00:49",
+          "end": "00:53",
+          "startSeconds": 49,
+          "endSeconds": 53,
+          "source": "hosted",
+          "text": "The more you hit, the better you can film"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-11",
+          "start": "00:59",
+          "end": "01:04",
+          "startSeconds": 59,
+          "endSeconds": 64,
+          "source": "hosted",
+          "text": "Can you fly the balls?"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-12",
+          "start": "01:04",
+          "end": "01:06",
+          "startSeconds": 64,
+          "endSeconds": 66,
+          "source": "hosted",
+          "text": "I'll see you."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-13",
+          "start": "01:12",
+          "end": "01:15",
+          "startSeconds": 72,
+          "endSeconds": 75,
+          "source": "hosted",
+          "text": "Not super, but..."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-14",
+          "start": "01:15",
+          "end": "01:18",
+          "startSeconds": 75,
+          "endSeconds": 78,
+          "source": "hosted",
+          "text": "That's important for this sort."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-15",
+          "start": "01:25",
+          "end": "01:27",
+          "startSeconds": 85,
+          "endSeconds": 87.22,
+          "source": "hosted",
+          "text": "I don't know."
+        }
+      ],
+      "transcriptPreview": "Challenge of the week. How many shots do you need to hit the Japanese flag? One.",
+      "transcriptSource": "hosted",
+      "transcriptionProvider": "groq"
+    }
+  ]
 }

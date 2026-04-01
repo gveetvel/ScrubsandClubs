@@ -150,6 +150,7 @@ export interface ProjectProgressStep {
   id: string;
   label: string;
   status: ProgressStepStatus;
+  message?: string;
 }
 
 export interface SourceVideo {

@@ -82,7 +82,14 @@ async function getFileMimeType(filePath: string): Promise<string> {
 async function uploadVideoToGemini(
     filePath: string,
     apiKey: string
-): Promise<string> {
+): Promise<{ uri: string; mimeType: string }> {
+    // Verify file exists before attempting upload
+    try {
+        await stat(filePath);
+    } catch {
+        throw new Error(`Video file not found at: ${filePath}`);
+    }
+
     const fileBuffer = await readFile(filePath);
     const fileSize = (await stat(filePath)).size;
     const mimeType = await getFileMimeType(filePath);
@@ -107,8 +114,9 @@ async function uploadVideoToGemini(
     );
 
     if (!startResponse.ok) {
+        const errorBody = await startResponse.text().catch(() => "(unreadable)");
         throw new Error(
-            `Gemini file upload start failed: ${startResponse.status}`
+            `Gemini file upload start failed: ${startResponse.status} — ${errorBody}`
         );
     }
 
@@ -129,8 +137,9 @@ async function uploadVideoToGemini(
     });
 
     if (!uploadResponse.ok) {
+        const errorBody = await uploadResponse.text().catch(() => "(unreadable)");
         throw new Error(
-            `Gemini file upload failed: ${uploadResponse.status}`
+            `Gemini file upload failed: ${uploadResponse.status} — ${errorBody}`
         );
     }
 
@@ -141,9 +150,14 @@ async function uploadVideoToGemini(
     }
 
     // Step 3: Wait for file to become ACTIVE (Gemini processes the video)
+    // Up to 60 attempts × 5 s = 300 s (matches maxDuration)
     const fileName = uploadResult.file.name;
-    for (let attempt = 0; attempt < 30; attempt++) {
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+    for (let attempt = 0; attempt < 60; attempt++) {
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+
+        if (attempt > 0 && attempt % 10 === 0) {
+            console.log(`[vision-ai] Waiting for Gemini to process video (attempt ${attempt}/60)...`);
+        }
 
         const statusResponse = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/${fileName}?key=${apiKey}`
@@ -152,7 +166,7 @@ async function uploadVideoToGemini(
         if (statusResponse.ok) {
             const statusData = (await statusResponse.json()) as { state?: string; uri?: string };
             if (statusData.state === "ACTIVE") {
-                return statusData.uri ?? fileUri;
+                return { uri: statusData.uri ?? fileUri, mimeType };
             }
             if (statusData.state === "FAILED") {
                 throw new Error("Gemini video processing failed.");
@@ -160,7 +174,7 @@ async function uploadVideoToGemini(
         }
     }
 
-    throw new Error("Gemini video processing timed out after 90 seconds.");
+    throw new Error("Gemini video processing timed out after 300 seconds.");
 }
 
 function extractJsonArray(text: string): VisionMomentRaw[] {
@@ -204,7 +218,7 @@ export async function detectMomentsWithVision(
     );
 
     try {
-        const fileUri = await uploadVideoToGemini(absolutePath, apiKey);
+        const { uri: fileUri, mimeType } = await uploadVideoToGemini(absolutePath, apiKey);
 
         const prompt = buildVisionPrompt(projectTitle, transcript);
 
@@ -219,7 +233,7 @@ export async function detectMomentsWithVision(
                             parts: [
                                 {
                                     file_data: {
-                                        mime_type: "video/mp4",
+                                        mime_type: mimeType,
                                         file_uri: fileUri,
                                     },
                                 },
@@ -236,7 +250,8 @@ export async function detectMomentsWithVision(
         );
 
         if (!response.ok) {
-            throw new Error(`Gemini API returned ${response.status}`);
+            const errorBody = await response.text().catch(() => "(unreadable)");
+            throw new Error(`Gemini API returned ${response.status} — ${errorBody}`);
         }
 
         const data = (await response.json()) as GeminiGenerateResponse;
@@ -246,7 +261,13 @@ export async function detectMomentsWithVision(
             throw new Error("Gemini returned no content.");
         }
 
-        const rawMoments = extractJsonArray(content);
+        let rawMoments: VisionMomentRaw[];
+        try {
+            rawMoments = extractJsonArray(content);
+        } catch (parseError) {
+            console.error("[vision-ai] Failed to parse Gemini response. Raw content:", content.slice(0, 500));
+            throw parseError;
+        }
 
         const moments: DetectedMoment[] = rawMoments
             .filter(
@@ -279,12 +300,13 @@ export async function detectMomentsWithVision(
             provider: "gemini",
             moments: moments.sort((a, b) => b.score - a.score).slice(0, 8),
         };
-    } catch {
+    } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error("[vision-ai] detectMomentsWithVision failed for video %s: %s", sourceVideoId, message);
         return {
             provider: "fallback",
             moments: [],
-            warning:
-                "Gemini video analysis failed. Falling back to transcript-based moment detection.",
+            warning: `Gemini video analysis failed: ${message}`,
         };
     }
 }

@@ -6,7 +6,1791 @@
     "tonePreset": "Funny but useful golf creator",
     "platformPreset": "YouTube Shorts"
   },
-  "projects": [],
-  "editedShorts": [],
+  "projects": [
+    {
+      "id": "project-e9d67316-5",
+      "title": "Testing",
+      "ideaInput": "Testing",
+      "createdAt": "2026-04-01T07:27:12.929Z",
+      "updatedAt": "2026-04-01T07:27:12.929Z",
+      "status": "fallback",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "shortDraftIds": [
+        "project-e9d67316-5-primary-testing",
+        "project-e9d67316-5-alt-testing-alt"
+      ],
+      "primaryShortId": "project-e9d67316-5-primary-testing",
+      "textPackage": {
+        "conceptAngle": "A weekly golf challenge where the creator attempts difficult precision shots, documenting both the technical approach and humorous reactions to the outcomes, focusing on the Japanese flag shot challenge.",
+        "clickbaitTitleOptions": [
+          "I Tried to Hit the Japanese Flag in ONE Shot 🇯🇵",
+          "Golfer Attempts IMPOSSIBLE Flag Shot!",
+          "When Precision Golf Becomes Comedy 🤪"
+        ],
+        "firstCommentOptions": [
+          "What's the most ridiculous target you've ever tried to hit on the golf course?",
+          "Should I try this again next week or retire from flag shooting forever?",
+          "Tag someone who needs to see this level of golf determination (or lack thereof)!"
+        ],
+        "hookOptions": [
+          "Can I actually hit this Japanese flag in one shot? Let's find out!",
+          "The ultimate precision test: Japanese flag challenge. Is it possible?",
+          "One shot. One target. One Japanese flag. Can I do it?",
+          "The most ridiculous golf challenge yet: Japanese flag precision shot!",
+          "What happens when I try to hit a Japanese flag with one golf shot? Spoiler: it's not pretty!"
+        ],
+        "captionOptions": [
+          "When the Japanese flag looks more like a target practice than a golf shot. #GolfChallenge",
+          "One shot, one flag, and a whole lot of determination. How would you approach this?",
+          "Precision golf at its finest... or at its most ridiculous. You decide!"
+        ],
+        "hashtagOptions": [
+          "#GolfChallenge",
+          "#GolfHumor",
+          "#PrecisionGolf",
+          "#GolfFails",
+          "#GolfTips",
+          "#JapaneseFlagChallenge"
+        ],
+        "ctaOptions": [
+          "Drop your best precision shot in the comments! What's your most challenging target?",
+          "Like this video if you enjoy funny golf challenges! Subscribe for more weekly challenges.",
+          "Tag a golf buddy who needs to see this ridiculous precision test!"
+        ],
+        "funnyCaptionIdeas": [
+          "When your golf ball has better navigation skills than your GPS",
+          "The Japanese flag: 15 yards away and 1000 miles out of reach",
+          "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+          "Professional golfers: precision. Me: pure comedy.",
+          "That moment when your 'one shot' becomes a 'one hundred shots' journey"
+        ],
+        "subtitleToneSuggestion": "Casual, self-deprecating humor with occasional technical insights. Use on-screen text to emphasize funny moments and golf terminology that adds to the comedy while still being informative for viewers.",
+        "editingVibeSuggestion": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+        "provider": "openrouter",
+        "model": "openrouter/free"
+      },
+      "detectedMoments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Challenge of the week",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Challenge of the week. How many shots do you need to hit the Japanese flag?",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 76,
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Oh",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Oh, I'm so content!",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 74,
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "It's gonna be a long day",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "It's gonna be a long day!",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 73,
+          "start": "00:19",
+          "end": "00:29",
+          "startSeconds": 19,
+          "endSeconds": 29,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "One",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "One.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 71,
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "It will be a long video",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "It will be a long video",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 68,
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Go back",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Go back, go back",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 67,
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "No",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "No, no, no, no",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 66,
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8",
+          "projectId": "project-e9d67316-5",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "The ball can go back and go back to the head",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "The ball can go back and go back to the head",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 65,
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "energy": "medium"
+        }
+      ],
+      "progressSteps": [
+        {
+          "id": "step-text",
+          "label": "Generating text package",
+          "status": "complete"
+        },
+        {
+          "id": "step-transcribe",
+          "label": "Transcribing videos",
+          "status": "complete"
+        },
+        {
+          "id": "step-vision",
+          "label": "Analyzing video with AI",
+          "status": "fallback"
+        },
+        {
+          "id": "step-moments",
+          "label": "Finding best moments",
+          "status": "complete"
+        },
+        {
+          "id": "step-plan",
+          "label": "Building short plan",
+          "status": "complete"
+        },
+        {
+          "id": "step-render",
+          "label": "Rendering preview",
+          "status": "pending"
+        }
+      ],
+      "summary": "A weekly golf challenge where the creator attempts difficult precision shots, documenting both the technical approach and humorous reactions to the outcomes, focusing on the Japanese flag shot challenge.",
+      "warning": "Video analysis used keyword matching (Gemini API unavailable)."
+    },
+    {
+      "id": "project-cd36eb1b-c",
+      "title": "Challenge of the week: hit the japanese flag on the course",
+      "ideaInput": "Challenge of the week: hit the japanese flag on the course",
+      "createdAt": "2026-04-01T06:59:01.846Z",
+      "updatedAt": "2026-04-01T06:59:01.846Z",
+      "status": "fallback",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "shortDraftIds": [
+        "project-cd36eb1b-c-primary-challenge-of-the",
+        "project-cd36eb1b-c-alt-challenge-of-the"
+      ],
+      "primaryShortId": "project-cd36eb1b-c-primary-challenge-of-the",
+      "textPackage": {
+        "conceptAngle": "Challenge of the week: Hit the Japanese flag on the course!",
+        "clickbaitTitleOptions": [
+          "Hit the Japanese Flag!",
+          "Can You Hit the Flag?",
+          "Golf Enthusiasts: This Challenge"
+        ],
+        "firstCommentOptions": [
+          "What was the hardest shot?",
+          "Tell me your golf secret!",
+          "Count me in! 👇"
+        ],
+        "hookOptions": [
+          "Need a new golf trick? 🎯",
+          "What if I hit the flag? 🤔",
+          "Golf tip: Flags = points? 😅"
+        ],
+        "captionOptions": [
+          "Ready to make a statement? 🏌️‍♂️",
+          "This flag challenge is for you! 🌟",
+          "Golf isn’t just a game—here comes the flag! 🎉"
+        ],
+        "hashtagOptions": [
+          "#GolfChallenge",
+          "#FlagGoal",
+          "#ShortAndFun",
+          "#LearnGolf"
+        ],
+        "ctaOptions": [
+          "Hit that flag!",
+          "Comment below your goal",
+          "Share your swing!"
+        ],
+        "funnyCaptionIdeas": [
+          "Hit the flag, not just the ball!",
+          "Golfers, unite for the flag!",
+          "Why do golfers always miss the flag?"
+        ],
+        "subtitleToneSuggestion": "Funny yet helpful, perfect for a laugh and a lesson",
+        "editingVibeSuggestion": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+        "provider": "openrouter",
+        "model": "openrouter/free"
+      },
+      "detectedMoments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Challenge of the week",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Challenge of the week. How many shots do you need to hit the Japanese flag?",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 76,
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Oh",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Oh, I'm so content!",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 74,
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "It's gonna be a long day",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "It's gonna be a long day!",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 73,
+          "start": "00:19",
+          "end": "00:29",
+          "startSeconds": 19,
+          "endSeconds": 29,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "One",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "One.",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 71,
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "It will be a long video",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "It will be a long video",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 68,
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "Go back",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "Go back, go back",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 67,
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "No",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "No, no, no, no",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 66,
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "energy": "medium"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8",
+          "projectId": "project-cd36eb1b-c",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "label": "The ball can go back and go back to the head",
+          "reason": "Useful transcript beat with short-form pacing potential.",
+          "transcriptExcerpt": "The ball can go back and go back to the head",
+          "tags": [
+            "reaction",
+            "teaching"
+          ],
+          "score": 65,
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "energy": "medium"
+        }
+      ],
+      "progressSteps": [
+        {
+          "id": "step-text",
+          "label": "Generating text package",
+          "status": "complete"
+        },
+        {
+          "id": "step-transcribe",
+          "label": "Transcribing videos",
+          "status": "complete"
+        },
+        {
+          "id": "step-vision",
+          "label": "Analyzing video with AI",
+          "status": "fallback"
+        },
+        {
+          "id": "step-moments",
+          "label": "Finding best moments",
+          "status": "complete"
+        },
+        {
+          "id": "step-plan",
+          "label": "Building short plan",
+          "status": "complete"
+        },
+        {
+          "id": "step-render",
+          "label": "Rendering preview",
+          "status": "pending"
+        }
+      ],
+      "summary": "Challenge of the week: Hit the Japanese flag on the course!",
+      "warning": "Video analysis used keyword matching (Gemini API unavailable)."
+    }
+  ],
+  "editedShorts": [
+    {
+      "id": "project-e9d67316-5-alt-testing-alt",
+      "clipSuggestionId": "project-e9d67316-5-synthetic-clip-2",
+      "sourceVideoId": "upload-video-3aacfbcf-2",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "projectId": "project-e9d67316-5",
+      "primary": false,
+      "draftStatus": "generated",
+      "title": "Testing alt cut",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "The ultimate precision test: Japanese flag challenge. Is it possible?",
+      "overlayText": [
+        "When your golf ball has better navigation skills than your GPS",
+        "The Japanese flag: 15 yards away and 1000 miles out of reach",
+        "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+        "Professional golfers: precision. Me: pure comedy.",
+        "That moment when your 'one shot' becomes a 'one hundred shots' journey"
+      ],
+      "caption": "One shot, one flag, and a whole lot of determination. How would you approach this?",
+      "cta": "Like this video if you enjoy funny golf challenges! Subscribe for more weekly challenges.",
+      "clickbaitTitle": "Golfer Attempts IMPOSSIBLE Flag Shot!",
+      "firstComment": "Should I try this again next week or retire from flag shooting forever?",
+      "hashtags": [
+        "#GolfChallenge",
+        "#GolfHumor",
+        "#PrecisionGolf",
+        "#GolfFails",
+        "#GolfTips",
+        "#JapaneseFlagChallenge"
+      ],
+      "musicVibe": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+          "start": "00:06",
+          "end": "00:16",
+          "startSeconds": 6,
+          "endSeconds": 16,
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+          "start": "00:12",
+          "end": "00:18",
+          "startSeconds": 12,
+          "endSeconds": 18,
+          "text": "One."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+          "start": "00:18",
+          "end": "00:20",
+          "startSeconds": 18,
+          "endSeconds": 20,
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+          "start": "00:20",
+          "end": "00:22",
+          "startSeconds": 20,
+          "endSeconds": 22,
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+          "start": "00:22",
+          "end": "00:23",
+          "startSeconds": 22,
+          "endSeconds": 23,
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+          "start": "00:23",
+          "end": "00:25",
+          "startSeconds": 23,
+          "endSeconds": 25,
+          "text": "The ball can go back and go back to the head"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+          "start": "00:25",
+          "end": "00:32",
+          "startSeconds": 25,
+          "endSeconds": 32,
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-3"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:19",
+          "end": "00:25",
+          "startSeconds": 19,
+          "endSeconds": 25,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-4"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-2"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-5"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-6"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-7"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "purpose": "payoff",
+          "momentId": "upload-video-3aacfbcf-2-moment-8"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "purpose": "hook",
+          "momentId": "upload-video-3aacfbcf-2-moment-1"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "When your golf ball has better navigation skills than your GPS",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment-overlay",
+          "start": "00:06",
+          "end": "00:08",
+          "startSeconds": 6,
+          "endSeconds": 8,
+          "text": "The Japanese flag: 15 yards away and 1000 miles out of reach",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment-overlay",
+          "start": "00:12",
+          "end": "00:14",
+          "startSeconds": 12,
+          "endSeconds": 14,
+          "text": "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+          "color": "#B8FF65",
+          "style": "callout"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment-overlay",
+          "start": "00:18",
+          "end": "00:20",
+          "startSeconds": 18,
+          "endSeconds": 20,
+          "text": "Professional golfers: precision. Me: pure comedy.",
+          "color": "#B8FF65",
+          "style": "callout"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6-segment-overlay",
+          "start": "00:20",
+          "end": "00:22",
+          "startSeconds": 20,
+          "endSeconds": 22,
+          "text": "That moment when your 'one shot' becomes a 'one hundred shots' journey",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "Testing alt cut",
+        "sourceVideoId": "upload-video-3aacfbcf-2",
+        "start": "00:00",
+        "end": "00:32",
+        "subtitles": [
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+            "start": "00:00",
+            "end": "00:06",
+            "startSeconds": 0,
+            "endSeconds": 6,
+            "text": "Oh, I'm so content!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+            "start": "00:06",
+            "end": "00:16",
+            "startSeconds": 6,
+            "endSeconds": 16,
+            "text": "It's gonna be a long day!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+            "start": "00:12",
+            "end": "00:18",
+            "startSeconds": 12,
+            "endSeconds": 18,
+            "text": "One."
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+            "start": "00:18",
+            "end": "00:20",
+            "startSeconds": 18,
+            "endSeconds": 20,
+            "text": "It will be a long video"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+            "start": "00:20",
+            "end": "00:22",
+            "startSeconds": 20,
+            "endSeconds": 22,
+            "text": "Go back, go back"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+            "start": "00:22",
+            "end": "00:23",
+            "startSeconds": 22,
+            "endSeconds": 23,
+            "text": "No, no, no, no"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+            "start": "00:23",
+            "end": "00:25",
+            "startSeconds": 23,
+            "endSeconds": 25,
+            "text": "The ball can go back and go back to the head"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+            "start": "00:25",
+            "end": "00:32",
+            "startSeconds": 25,
+            "endSeconds": 32,
+            "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+          }
+        ],
+        "overlayText": [
+          "When your golf ball has better navigation skills than your GPS",
+          "The Japanese flag: 15 yards away and 1000 miles out of reach",
+          "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+          "Professional golfers: precision. Me: pure comedy.",
+          "That moment when your 'one shot' becomes a 'one hundred shots' journey"
+        ],
+        "introHook": "The ultimate precision test: Japanese flag challenge. Is it possible?",
+        "caption": "One shot, one flag, and a whole lot of determination. How would you approach this?",
+        "cta": "Like this video if you enjoy funny golf challenges! Subscribe for more weekly challenges.",
+        "musicVibe": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      }
+    },
+    {
+      "id": "project-e9d67316-5-primary-testing",
+      "clipSuggestionId": "project-e9d67316-5-synthetic-clip-1",
+      "sourceVideoId": "upload-video-3aacfbcf-2",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "projectId": "project-e9d67316-5",
+      "primary": true,
+      "draftStatus": "generated",
+      "title": "Testing short",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "Can I actually hit this Japanese flag in one shot? Let's find out!",
+      "overlayText": [
+        "When your golf ball has better navigation skills than your GPS",
+        "The Japanese flag: 15 yards away and 1000 miles out of reach",
+        "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+        "Professional golfers: precision. Me: pure comedy.",
+        "That moment when your 'one shot' becomes a 'one hundred shots' journey"
+      ],
+      "caption": "When the Japanese flag looks more like a target practice than a golf shot. #GolfChallenge",
+      "cta": "Drop your best precision shot in the comments! What's your most challenging target?",
+      "clickbaitTitle": "I Tried to Hit the Japanese Flag in ONE Shot 🇯🇵",
+      "firstComment": "What's the most ridiculous target you've ever tried to hit on the golf course?",
+      "hashtags": [
+        "#GolfChallenge",
+        "#GolfHumor",
+        "#PrecisionGolf",
+        "#GolfFails",
+        "#GolfTips",
+        "#JapaneseFlagChallenge"
+      ],
+      "musicVibe": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+          "start": "00:06",
+          "end": "00:12",
+          "startSeconds": 6,
+          "endSeconds": 12,
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+          "start": "00:12",
+          "end": "00:22",
+          "startSeconds": 12,
+          "endSeconds": 22,
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+          "start": "00:18",
+          "end": "00:24",
+          "startSeconds": 18,
+          "endSeconds": 24,
+          "text": "One."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+          "start": "00:24",
+          "end": "00:26",
+          "startSeconds": 24,
+          "endSeconds": 26,
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+          "start": "00:26",
+          "end": "00:28",
+          "startSeconds": 26,
+          "endSeconds": 28,
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+          "start": "00:28",
+          "end": "00:29",
+          "startSeconds": 28,
+          "endSeconds": 29,
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "text": "The ball can go back and go back to the head"
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "purpose": "hook",
+          "momentId": "upload-video-3aacfbcf-2-moment-1"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-3"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:19",
+          "end": "00:25",
+          "startSeconds": 19,
+          "endSeconds": 25,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-4"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-2"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-5"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-6"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-7"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "purpose": "payoff",
+          "momentId": "upload-video-3aacfbcf-2-moment-8"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "When your golf ball has better navigation skills than your GPS",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment-overlay",
+          "start": "00:06",
+          "end": "00:08",
+          "startSeconds": 6,
+          "endSeconds": 8,
+          "text": "The Japanese flag: 15 yards away and 1000 miles out of reach",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment-overlay",
+          "start": "00:12",
+          "end": "00:14",
+          "startSeconds": 12,
+          "endSeconds": 14,
+          "text": "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+          "color": "#B8FF65",
+          "style": "callout"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment-overlay",
+          "start": "00:18",
+          "end": "00:20",
+          "startSeconds": 18,
+          "endSeconds": 20,
+          "text": "Professional golfers: precision. Me: pure comedy.",
+          "color": "#B8FF65",
+          "style": "callout"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment-overlay",
+          "start": "00:24",
+          "end": "00:26",
+          "startSeconds": 24,
+          "endSeconds": 26,
+          "text": "That moment when your 'one shot' becomes a 'one hundred shots' journey",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "Testing short",
+        "sourceVideoId": "upload-video-3aacfbcf-2",
+        "start": "00:00",
+        "end": "00:31",
+        "subtitles": [
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+            "start": "00:00",
+            "end": "00:07",
+            "startSeconds": 0,
+            "endSeconds": 7,
+            "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+            "start": "00:06",
+            "end": "00:12",
+            "startSeconds": 6,
+            "endSeconds": 12,
+            "text": "Oh, I'm so content!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+            "start": "00:12",
+            "end": "00:22",
+            "startSeconds": 12,
+            "endSeconds": 22,
+            "text": "It's gonna be a long day!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+            "start": "00:18",
+            "end": "00:24",
+            "startSeconds": 18,
+            "endSeconds": 24,
+            "text": "One."
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+            "start": "00:24",
+            "end": "00:26",
+            "startSeconds": 24,
+            "endSeconds": 26,
+            "text": "It will be a long video"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+            "start": "00:26",
+            "end": "00:28",
+            "startSeconds": 26,
+            "endSeconds": 28,
+            "text": "Go back, go back"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+            "start": "00:28",
+            "end": "00:29",
+            "startSeconds": 28,
+            "endSeconds": 29,
+            "text": "No, no, no, no"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+            "start": "00:29",
+            "end": "00:31",
+            "startSeconds": 29,
+            "endSeconds": 31,
+            "text": "The ball can go back and go back to the head"
+          }
+        ],
+        "overlayText": [
+          "When your golf ball has better navigation skills than your GPS",
+          "The Japanese flag: 15 yards away and 1000 miles out of reach",
+          "My golf ball's reaction when I told it to hit the flag: 'Nope.'",
+          "Professional golfers: precision. Me: pure comedy.",
+          "That moment when your 'one shot' becomes a 'one hundred shots' journey"
+        ],
+        "introHook": "Can I actually hit this Japanese flag in one shot? Let's find out!",
+        "caption": "When the Japanese flag looks more like a target practice than a golf shot. #GolfChallenge",
+        "cta": "Drop your best precision shot in the comments! What's your most challenging target?",
+        "musicVibe": "Fast-paced cuts between setup, swing attempts, and reactions. Use slow-motion for key moments, add text overlays for humorous commentary, and incorporate trending audio that matches the light-hearted tone. Keep the energy high throughout to maintain engagement.",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      }
+    },
+    {
+      "id": "project-cd36eb1b-c-alt-challenge-of-the",
+      "clipSuggestionId": "project-cd36eb1b-c-synthetic-clip-2",
+      "sourceVideoId": "upload-video-3aacfbcf-2",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "projectId": "project-cd36eb1b-c",
+      "primary": false,
+      "draftStatus": "generated",
+      "title": "Challenge of the week: hit the japanese flag on the course alt cut",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "What if I hit the flag? 🤔",
+      "overlayText": [
+        "Hit the flag, not just the ball!",
+        "Golfers, unite for the flag!",
+        "Why do golfers always miss the flag?"
+      ],
+      "caption": "This flag challenge is for you! 🌟",
+      "cta": "Comment below your goal",
+      "clickbaitTitle": "Can You Hit the Flag?",
+      "firstComment": "Tell me your golf secret!",
+      "hashtags": [
+        "#GolfChallenge",
+        "#FlagGoal",
+        "#ShortAndFun",
+        "#LearnGolf"
+      ],
+      "musicVibe": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+          "start": "00:06",
+          "end": "00:16",
+          "startSeconds": 6,
+          "endSeconds": 16,
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+          "start": "00:12",
+          "end": "00:18",
+          "startSeconds": 12,
+          "endSeconds": 18,
+          "text": "One."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+          "start": "00:18",
+          "end": "00:20",
+          "startSeconds": 18,
+          "endSeconds": 20,
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+          "start": "00:20",
+          "end": "00:22",
+          "startSeconds": 20,
+          "endSeconds": 22,
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+          "start": "00:22",
+          "end": "00:23",
+          "startSeconds": 22,
+          "endSeconds": 23,
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+          "start": "00:23",
+          "end": "00:25",
+          "startSeconds": 23,
+          "endSeconds": 25,
+          "text": "The ball can go back and go back to the head"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+          "start": "00:25",
+          "end": "00:32",
+          "startSeconds": 25,
+          "endSeconds": 32,
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+      "generationSource": "automatic",
+      "renderStatus": "not_started",
+      "exportStatus": "not_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-3"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:19",
+          "end": "00:25",
+          "startSeconds": 19,
+          "endSeconds": 25,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-4"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-2"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-5"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-6"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-7"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "purpose": "payoff",
+          "momentId": "upload-video-3aacfbcf-2-moment-8"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "purpose": "hook",
+          "momentId": "upload-video-3aacfbcf-2-moment-1"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Hit the flag, not just the ball!",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment-overlay",
+          "start": "00:06",
+          "end": "00:08",
+          "startSeconds": 6,
+          "endSeconds": 8,
+          "text": "Golfers, unite for the flag!",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment-overlay",
+          "start": "00:12",
+          "end": "00:14",
+          "startSeconds": 12,
+          "endSeconds": 14,
+          "text": "Why do golfers always miss the flag?",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "Challenge of the week: hit the japanese flag on the course alt cut",
+        "sourceVideoId": "upload-video-3aacfbcf-2",
+        "start": "00:00",
+        "end": "00:32",
+        "subtitles": [
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+            "start": "00:00",
+            "end": "00:06",
+            "startSeconds": 0,
+            "endSeconds": 6,
+            "text": "Oh, I'm so content!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+            "start": "00:06",
+            "end": "00:16",
+            "startSeconds": 6,
+            "endSeconds": 16,
+            "text": "It's gonna be a long day!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+            "start": "00:12",
+            "end": "00:18",
+            "startSeconds": 12,
+            "endSeconds": 18,
+            "text": "One."
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+            "start": "00:18",
+            "end": "00:20",
+            "startSeconds": 18,
+            "endSeconds": 20,
+            "text": "It will be a long video"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+            "start": "00:20",
+            "end": "00:22",
+            "startSeconds": 20,
+            "endSeconds": 22,
+            "text": "Go back, go back"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+            "start": "00:22",
+            "end": "00:23",
+            "startSeconds": 22,
+            "endSeconds": 23,
+            "text": "No, no, no, no"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+            "start": "00:23",
+            "end": "00:25",
+            "startSeconds": 23,
+            "endSeconds": 25,
+            "text": "The ball can go back and go back to the head"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+            "start": "00:25",
+            "end": "00:32",
+            "startSeconds": 25,
+            "endSeconds": 32,
+            "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+          }
+        ],
+        "overlayText": [
+          "Hit the flag, not just the ball!",
+          "Golfers, unite for the flag!",
+          "Why do golfers always miss the flag?"
+        ],
+        "introHook": "What if I hit the flag? 🤔",
+        "caption": "This flag challenge is for you! 🌟",
+        "cta": "Comment below your goal",
+        "musicVibe": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      }
+    },
+    {
+      "id": "project-cd36eb1b-c-primary-challenge-of-the",
+      "clipSuggestionId": "project-cd36eb1b-c-synthetic-clip-1",
+      "sourceVideoId": "upload-video-3aacfbcf-2",
+      "sourceVideoIds": [
+        "upload-video-3aacfbcf-2"
+      ],
+      "projectId": "project-cd36eb1b-c",
+      "primary": true,
+      "draftStatus": "generated",
+      "title": "Challenge of the week: hit the japanese flag on the course short",
+      "status": "editing",
+      "platforms": [
+        "YouTube Shorts",
+        "Instagram Reels",
+        "TikTok"
+      ],
+      "readyForMetricool": false,
+      "hook": "Need a new golf trick? 🎯",
+      "overlayText": [
+        "Hit the flag, not just the ball!",
+        "Golfers, unite for the flag!",
+        "Why do golfers always miss the flag?"
+      ],
+      "caption": "Ready to make a statement? 🏌️‍♂️",
+      "cta": "Hit that flag!",
+      "clickbaitTitle": "Hit the Japanese Flag!",
+      "firstComment": "What was the hardest shot?",
+      "hashtags": [
+        "#GolfChallenge",
+        "#FlagGoal",
+        "#ShortAndFun",
+        "#LearnGolf"
+      ],
+      "musicVibe": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+      "notes": "Generated by the in-app short engine from detected transcript-driven moments.",
+      "packageStatus": "generated",
+      "subtitleCues": [
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+          "start": "00:06",
+          "end": "00:12",
+          "startSeconds": 6,
+          "endSeconds": 12,
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+          "start": "00:12",
+          "end": "00:22",
+          "startSeconds": 12,
+          "endSeconds": 22,
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+          "start": "00:18",
+          "end": "00:24",
+          "startSeconds": 18,
+          "endSeconds": 24,
+          "text": "One."
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+          "start": "00:24",
+          "end": "00:26",
+          "startSeconds": 24,
+          "endSeconds": 26,
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+          "start": "00:26",
+          "end": "00:28",
+          "startSeconds": 26,
+          "endSeconds": 28,
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+          "start": "00:28",
+          "end": "00:29",
+          "startSeconds": 28,
+          "endSeconds": 29,
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "text": "The ball can go back and go back to the head"
+        }
+      ],
+      "subtitleStyle": "Bold punchy lower thirds",
+      "styleSuggestion": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+      "generationSource": "automatic",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "shortPlanSegments": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:00",
+          "end": "00:06",
+          "startSeconds": 0,
+          "endSeconds": 6,
+          "purpose": "hook",
+          "momentId": "upload-video-3aacfbcf-2-moment-1"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-3"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:19",
+          "end": "00:25",
+          "startSeconds": 19,
+          "endSeconds": 25,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-4"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-2-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-2"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-5-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-5"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-6-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-6"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-7-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "purpose": "reaction",
+          "momentId": "upload-video-3aacfbcf-2-moment-7"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-8-segment",
+          "sourceVideoId": "upload-video-3aacfbcf-2",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "purpose": "payoff",
+          "momentId": "upload-video-3aacfbcf-2-moment-8"
+        }
+      ],
+      "overlayCaptions": [
+        {
+          "id": "upload-video-3aacfbcf-2-moment-1-segment-overlay",
+          "start": "00:00",
+          "end": "00:02",
+          "startSeconds": 0,
+          "endSeconds": 2,
+          "text": "Hit the flag, not just the ball!",
+          "color": "#B8FF65",
+          "style": "funny"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-3-segment-overlay",
+          "start": "00:06",
+          "end": "00:08",
+          "startSeconds": 6,
+          "endSeconds": 8,
+          "text": "Golfers, unite for the flag!",
+          "color": "#B8FF65",
+          "style": "punchline"
+        },
+        {
+          "id": "upload-video-3aacfbcf-2-moment-4-segment-overlay",
+          "start": "00:12",
+          "end": "00:14",
+          "startSeconds": 12,
+          "endSeconds": 14,
+          "text": "Why do golfers always miss the flag?",
+          "color": "#B8FF65",
+          "style": "callout"
+        }
+      ],
+      "capcutPackage": {
+        "format": "9:16",
+        "clipTitle": "Challenge of the week: hit the japanese flag on the course short",
+        "sourceVideoId": "upload-video-3aacfbcf-2",
+        "start": "00:00",
+        "end": "00:31",
+        "subtitles": [
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-0-subtitle-1",
+            "start": "00:00",
+            "end": "00:07",
+            "startSeconds": 0,
+            "endSeconds": 7,
+            "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-2-subtitle-1",
+            "start": "00:06",
+            "end": "00:12",
+            "startSeconds": 6,
+            "endSeconds": 12,
+            "text": "Oh, I'm so content!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-3-subtitle-1",
+            "start": "00:12",
+            "end": "00:22",
+            "startSeconds": 12,
+            "endSeconds": 22,
+            "text": "It's gonna be a long day!"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-1-subtitle-1",
+            "start": "00:18",
+            "end": "00:24",
+            "startSeconds": 18,
+            "endSeconds": 24,
+            "text": "One."
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-4-subtitle-1",
+            "start": "00:24",
+            "end": "00:26",
+            "startSeconds": 24,
+            "endSeconds": 26,
+            "text": "It will be a long video"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-5-subtitle-1",
+            "start": "00:26",
+            "end": "00:28",
+            "startSeconds": 26,
+            "endSeconds": 28,
+            "text": "Go back, go back"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-6-subtitle-1",
+            "start": "00:28",
+            "end": "00:29",
+            "startSeconds": 28,
+            "endSeconds": 29,
+            "text": "No, no, no, no"
+          },
+          {
+            "id": "upload-video-3aacfbcf-2-transcript-7-subtitle-1",
+            "start": "00:29",
+            "end": "00:31",
+            "startSeconds": 29,
+            "endSeconds": 31,
+            "text": "The ball can go back and go back to the head"
+          }
+        ],
+        "overlayText": [
+          "Hit the flag, not just the ball!",
+          "Golfers, unite for the flag!",
+          "Why do golfers always miss the flag?"
+        ],
+        "introHook": "Need a new golf trick? 🎯",
+        "caption": "Ready to make a statement? 🏌️‍♂️",
+        "cta": "Hit that flag!",
+        "musicVibe": "Bright colors, quick cuts, upbeat music, and a silly voiceover",
+        "editingNotes": [
+          "Keep the opening beat inside the first second.",
+          "Use brand-color overlay captions for the biggest funny beats.",
+          "Cut dead air between segments so the pacing stays social-first."
+        ]
+      },
+      "previewUrl": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.mp4",
+      "renderedFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.mp4",
+      "subtitleFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.srt",
+      "captionFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-caption.txt",
+      "briefFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-capcut-brief.json",
+      "thumbnailUrl": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-thumbnail.jpg"
+    }
+  ],
   "publishingQueue": []
 }

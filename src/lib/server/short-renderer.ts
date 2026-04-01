@@ -144,7 +144,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   const segmentAudioFilters: string[] = [];
 
   trimmedInputs.forEach((input, index) => {
-    const baseScale = `scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1`;
+    const baseScale = `scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30`;
 
     if (input.purpose === "hook" || input.purpose === "reaction") {
       // Zoom punch-in: subtle 1.08x zoom, centered

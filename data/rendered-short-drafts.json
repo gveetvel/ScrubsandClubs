@@ -1,3 +1,15 @@
 {
-  "drafts": []
+  "drafts": [
+    {
+      "id": "project-cd36eb1b-c-primary-challenge-of-the",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.mp4",
+      "renderedFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.mp4",
+      "subtitleFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the.srt",
+      "captionFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-caption.txt",
+      "briefFilePath": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-capcut-brief.json",
+      "thumbnailUrl": "/api/renders/assets/challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-cd36eb1b-c-primary-challenge-of-the-thumbnail.jpg"
+    }
+  ]
 }

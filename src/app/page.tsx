@@ -13,19 +13,13 @@ import { Panel } from "@/components/ui/panel";
 import { StatusPill } from "@/components/ui/status-pill";
 import { usePageReady } from "@/lib/use-page-ready";
 import { GoogleDriveImport } from "@/components/google-drive-import";
+import { buildProgressSteps } from "@/lib/short-engine";
+import { ProjectProgressStep, ProgressStepStatus } from "@/lib/types";
 
 interface PendingUpload {
   file: File;
   durationSeconds: number | null;
 }
-
-const progressLabels = [
-  "Generating text package",
-  "Transcribing videos",
-  "Finding best moments",
-  "Building short plan",
-  "Rendering preview"
-];
 
 async function readVideoDuration(file: File) {
   return new Promise<number | null>((resolve) => {
@@ -71,6 +65,7 @@ export default function CreatePage() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [generationStarted, setGenerationStarted] = useState(false);
+  const [liveSteps, setLiveSteps] = useState<ProjectProgressStep[]>(buildProgressSteps());
 
   const localVideos = useMemo(
     () => [...state.sourceVideos].reverse().filter((video) => video.sourceType === "local_upload" || video.storagePath?.startsWith("/uploads/")),
@@ -123,6 +118,12 @@ export default function CreatePage() {
 
     setError(null);
     setGenerationStarted(true);
+    setLiveSteps(buildProgressSteps());
+
+    const handleStepUpdate = (stepId: string, status: ProgressStepStatus) => {
+      const resolvedId = stepId === "step-text-refine" ? "step-text" : stepId;
+      setLiveSteps((prev) => prev.map((s) => s.id === resolvedId ? { ...s, status } : s));
+    };
 
     let sourceVideoIds = [...selectedExistingIds];
 
@@ -164,7 +165,7 @@ export default function CreatePage() {
       sourceVideoIds = [...sourceVideoIds, ...payload.data.sourceVideos.map((video) => video.id)];
     }
 
-    const projectId = await generateProject(title, sourceVideoIds);
+    const projectId = await generateProject(title, sourceVideoIds, handleStepUpdate);
     if (projectId) {
       router.push(`/projects/${projectId}`);
       return;
@@ -323,15 +324,12 @@ export default function CreatePage() {
           <div className="rounded-3xl bg-slate-50 p-5">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500">Generation pipeline</p>
             <div className="mt-4 space-y-3">
-              {progressLabels.map((label, index) => {
-                const active = generationStarted && (loadingPage === "generate-project" ? index < 4 : false);
-                return (
-                  <div key={label} className="flex items-center justify-between rounded-2xl bg-white p-3">
-                    <p className="text-sm font-medium text-ink">{label}</p>
-                    <StatusPill label={generationStarted ? (index === progressLabels.length - 1 && loadingPage === "generate-project" ? "working" : active ? "working" : "pending") : "pending"} />
-                  </div>
-                );
-              })}
+              {liveSteps.map((step) => (
+                <div key={step.id} className="flex items-center justify-between rounded-2xl bg-white p-3">
+                  <p className="text-sm font-medium text-ink">{step.label}</p>
+                  <StatusPill label={step.status === "active" ? "working" : step.status} />
+                </div>
+              ))}
             </div>
           </div>
         </Panel>

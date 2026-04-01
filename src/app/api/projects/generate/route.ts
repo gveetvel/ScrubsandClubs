@@ -6,7 +6,7 @@ import { listProjectState, upsertProject, upsertShortDraft } from "@/lib/server/
 import { generateTextPackage } from "@/lib/services/openrouter";
 import { transcribeSourceVideo } from "@/lib/services/transcription";
 import { detectMomentsWithVision } from "@/lib/services/vision-ai";
-import { DetectedMoment, Project, SourceVideo } from "@/lib/types";
+import { DetectedMoment, Project, ProgressStepStatus, SourceVideo } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,6 +16,11 @@ type GenerateRequestBody = {
   title?: string;
   sourceVideoIds?: string[];
 };
+
+type StepEvent = { type: "step"; stepId: string; status: ProgressStepStatus };
+type DoneEvent = { type: "done"; projectId: string; project: Project; shortDrafts: ReturnType<typeof buildShortDrafts> };
+type ErrorEvent = { type: "error"; message: string };
+type SSEEvent = StepEvent | DoneEvent | ErrorEvent;
 
 export async function POST(request: NextRequest) {
   const body = (await request.json()) as GenerateRequestBody;
@@ -30,152 +35,199 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "At least one uploaded source video is required." }, { status: 400 });
   }
 
-  const { settings } = await listProjectState();
-  const projectId = `project-${randomUUID().slice(0, 10)}`;
-  const createdAt = new Date().toISOString();
+  const encoder = new TextEncoder();
 
-  const initialTextPackage = await generateTextPackage({
-    idea: title,
-    tonePreset: settings.tonePreset,
-    platformPreset: settings.platformPreset
-  });
-
-  await assignVideosToProject(sourceVideoIds, projectId, title);
-
-  const updatedVideos: SourceVideo[] = [];
-  for (const videoId of sourceVideoIds) {
-    const upload = await getLocalUploadByVideoId(videoId);
-    if (!upload?.sourceVideo) {
-      continue;
-    }
-
-    await updateVideoAnalysis(videoId, {
-      transcriptStatus: "transcribing",
-      analysisStatus: "analyzing",
-      projectId
-    });
-
-    const transcription = await transcribeSourceVideo(upload.sourceVideo);
-    const updatedVideo = await updateVideoAnalysis(videoId, {
-      transcriptStatus: transcription.source === "hosted" ? "available" : "fallback",
-      analysisStatus: "ready",
-      transcriptSegments: transcription.transcriptSegments,
-      transcriptPreview: transcription.transcriptSegments.slice(0, 2).map((segment) => segment.text).join(" "),
-      transcriptSource: transcription.source,
-      transcriptionProvider: transcription.provider,
-      transcriptWarning: transcription.warning,
-      projectId
-    });
-
-    if (updatedVideo) {
-      updatedVideos.push(updatedVideo);
-    }
-  }
-
-  if (updatedVideos.length === 0) {
-    return NextResponse.json({ error: "No uploaded source videos were available to generate from." }, { status: 400 });
-  }
-
-  const refinedTextPackage = await generateTextPackage({
-    idea: title,
-    transcriptSummary: summarizeTranscript(updatedVideos),
-    tonePreset: settings.tonePreset,
-    platformPreset: settings.platformPreset
-  });
-
-  // --- Vision AI moment detection (Gemini) with fallback to heuristic ---
-  let detectedMoments: DetectedMoment[] = [];
-  let usedFallbackVision = false;
-  const transcriptText = updatedVideos
-    .flatMap((video) => video.transcriptSegments ?? [])
-    .map((segment) => `[${segment.start}-${segment.end}] ${segment.text}`)
-    .join("\n");
-
-  for (const video of updatedVideos) {
-    if (video.storagePath) {
-      const visionResult = await detectMomentsWithVision(
-        projectId,
-        video.id,
-        video.storagePath,
-        title,
-        transcriptText
-      );
-
-      if (visionResult.provider === "gemini" && visionResult.moments.length > 0) {
-        detectedMoments.push(...visionResult.moments);
-      } else {
-        usedFallbackVision = true;
+  const stream = new ReadableStream({
+    async start(controller) {
+      function send(event: SSEEvent) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify(event)}\n\n`));
       }
-    } else {
-      usedFallbackVision = true;
+
+      try {
+        const { settings } = await listProjectState();
+        const projectId = `project-${randomUUID().slice(0, 10)}`;
+        const createdAt = new Date().toISOString();
+
+        // Step: text generation (initial)
+        send({ type: "step", stepId: "step-text", status: "active" });
+        const initialTextPackage = await generateTextPackage({
+          idea: title,
+          tonePreset: settings.tonePreset,
+          platformPreset: settings.platformPreset
+        });
+        send({ type: "step", stepId: "step-text", status: initialTextPackage.provider !== "openrouter" ? "fallback" : "complete" });
+
+        await assignVideosToProject(sourceVideoIds, projectId, title);
+
+        // Step: transcription
+        send({ type: "step", stepId: "step-transcribe", status: "active" });
+        const updatedVideos: SourceVideo[] = [];
+        for (const videoId of sourceVideoIds) {
+          const upload = await getLocalUploadByVideoId(videoId);
+          if (!upload?.sourceVideo) {
+            continue;
+          }
+
+          await updateVideoAnalysis(videoId, {
+            transcriptStatus: "transcribing",
+            analysisStatus: "analyzing",
+            projectId
+          });
+
+          const transcription = await transcribeSourceVideo(upload.sourceVideo);
+          const updatedVideo = await updateVideoAnalysis(videoId, {
+            transcriptStatus: transcription.source === "hosted" ? "available" : "fallback",
+            analysisStatus: "ready",
+            transcriptSegments: transcription.transcriptSegments,
+            transcriptPreview: transcription.transcriptSegments.slice(0, 2).map((segment) => segment.text).join(" "),
+            transcriptSource: transcription.source,
+            transcriptionProvider: transcription.provider,
+            transcriptWarning: transcription.warning,
+            projectId
+          });
+
+          if (updatedVideo) {
+            updatedVideos.push(updatedVideo);
+          }
+        }
+
+        if (updatedVideos.length === 0) {
+          send({ type: "error", message: "No uploaded source videos were available to generate from." });
+          controller.close();
+          return;
+        }
+
+        const usedFallbackTranscript = updatedVideos.some((video) => video.transcriptSource !== "hosted");
+        send({ type: "step", stepId: "step-transcribe", status: usedFallbackTranscript ? "fallback" : "complete" });
+
+        // Step: refined text generation
+        send({ type: "step", stepId: "step-text-refine", status: "active" });
+        const refinedTextPackage = await generateTextPackage({
+          idea: title,
+          transcriptSummary: summarizeTranscript(updatedVideos),
+          tonePreset: settings.tonePreset,
+          platformPreset: settings.platformPreset
+        });
+        const usedFallbackText = refinedTextPackage.provider !== "openrouter";
+        send({ type: "step", stepId: "step-text-refine", status: usedFallbackText ? "fallback" : "complete" });
+
+        // Step: vision AI moment detection
+        send({ type: "step", stepId: "step-vision", status: "active" });
+        let detectedMoments: DetectedMoment[] = [];
+        let usedFallbackVision = false;
+        let visionErrorMessage: string | undefined;
+        const transcriptText = updatedVideos
+          .flatMap((video) => video.transcriptSegments ?? [])
+          .map((segment) => `[${segment.start}-${segment.end}] ${segment.text}`)
+          .join("\n");
+
+        for (const video of updatedVideos) {
+          if (video.storagePath) {
+            const visionResult = await detectMomentsWithVision(
+              projectId,
+              video.id,
+              video.storagePath,
+              title,
+              transcriptText
+            );
+
+            if (visionResult.provider === "gemini" && visionResult.moments.length > 0) {
+              detectedMoments.push(...visionResult.moments);
+            } else {
+              usedFallbackVision = true;
+              if (visionResult.warning && !visionErrorMessage) {
+                visionErrorMessage = visionResult.warning;
+              }
+            }
+          } else {
+            usedFallbackVision = true;
+            visionErrorMessage = "Video has no storage path — cannot upload to Gemini.";
+          }
+        }
+
+        if (detectedMoments.length === 0) {
+          usedFallbackVision = true;
+          detectedMoments = detectMomentsFallback(projectId, updatedVideos);
+        }
+
+        detectedMoments = detectedMoments.sort((a, b) => b.score - a.score).slice(0, 8);
+        send({ type: "step", stepId: "step-vision", status: usedFallbackVision ? "fallback" : "complete" });
+
+        // Step: moments + plan
+        send({ type: "step", stepId: "step-moments", status: "active" });
+        send({ type: "step", stepId: "step-plan", status: "active" });
+
+        const warnings: string[] = [];
+        if (usedFallbackText) warnings.push("Text generation used fallback templates (OpenRouter unavailable).");
+        if (usedFallbackTranscript) warnings.push("Transcription used simulated data (Groq API unavailable).");
+        if (usedFallbackVision) warnings.push(visionErrorMessage ?? "Video analysis used keyword matching (Gemini API unavailable).");
+
+        let project: Project = {
+          id: projectId,
+          title,
+          ideaInput: title,
+          createdAt,
+          updatedAt: createdAt,
+          status: usedFallbackTranscript || usedFallbackText || usedFallbackVision ? "fallback" : "ready",
+          sourceVideoIds,
+          shortDraftIds: [],
+          primaryShortId: undefined,
+          textPackage: refinedTextPackage,
+          detectedMoments,
+          progressSteps: buildProgressSteps(
+            {
+              "step-text": usedFallbackText ? "fallback" : "complete",
+              "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
+              "step-vision": usedFallbackVision ? "fallback" : "complete",
+              "step-moments": "complete",
+              "step-plan": "complete",
+              "step-render": "pending"
+            },
+            {
+              "step-vision": usedFallbackVision ? visionErrorMessage : undefined
+            }
+          ),
+          summary: refinedTextPackage.conceptAngle,
+          warning: warnings.length > 0 ? warnings.join(" ") : undefined
+        };
+
+        const shortDrafts = buildShortDrafts(project, updatedVideos, settings);
+        project = {
+          ...project,
+          primaryShortId: shortDrafts[0]?.id,
+          shortDraftIds: shortDrafts.map((draft) => draft.id)
+        };
+
+        await upsertProject(project);
+        for (const draft of shortDrafts) {
+          await upsertShortDraft(draft);
+        }
+
+        for (const video of updatedVideos) {
+          const draftCount = shortDrafts.filter((draft) => draft.sourceVideoIds?.includes(video.id) || draft.sourceVideoId === video.id).length;
+          await updateVideoAnalysis(video.id, {
+            shortsExtracted: draftCount,
+            description: `${draftCount} short draft${draftCount === 1 ? "" : "s"} now generated from this source video.`
+          });
+        }
+
+        send({ type: "step", stepId: "step-moments", status: "complete" });
+        send({ type: "step", stepId: "step-plan", status: "complete" });
+        send({ type: "done", projectId, project, shortDrafts });
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
+        send({ type: "error", message });
+      } finally {
+        controller.close();
+      }
     }
-  }
+  });
 
-  // If vision AI returned nothing for any video, supplement with heuristic fallback
-  if (detectedMoments.length === 0) {
-    usedFallbackVision = true;
-    detectedMoments = detectMomentsFallback(projectId, updatedVideos);
-  }
-
-  // Sort all moments by score and keep the top 8
-  detectedMoments = detectedMoments.sort((a, b) => b.score - a.score).slice(0, 8);
-
-  const usedFallbackTranscript = updatedVideos.some((video) => video.transcriptSource !== "hosted");
-  const usedFallbackText = refinedTextPackage.provider !== "openrouter";
-
-  const warnings: string[] = [];
-  if (usedFallbackText) warnings.push("Text generation used fallback templates (OpenRouter unavailable).");
-  if (usedFallbackTranscript) warnings.push("Transcription used simulated data (Groq API unavailable).");
-  if (usedFallbackVision) warnings.push("Video analysis used keyword matching (Gemini API unavailable).");
-
-  let project: Project = {
-    id: projectId,
-    title,
-    ideaInput: title,
-    createdAt,
-    updatedAt: createdAt,
-    status: usedFallbackTranscript || usedFallbackText || usedFallbackVision ? "fallback" : "ready",
-    sourceVideoIds,
-    shortDraftIds: [],
-    primaryShortId: undefined,
-    textPackage: refinedTextPackage,
-    detectedMoments,
-    progressSteps: buildProgressSteps({
-      "step-text": usedFallbackText ? "fallback" : "complete",
-      "step-transcribe": usedFallbackTranscript ? "fallback" : "complete",
-      "step-vision": usedFallbackVision ? "fallback" : "complete",
-      "step-moments": "complete",
-      "step-plan": "complete",
-      "step-render": "pending"
-    }),
-    summary: refinedTextPackage.conceptAngle,
-    warning: warnings.length > 0 ? warnings.join(" ") : undefined
-  };
-
-  const shortDrafts = buildShortDrafts(project, updatedVideos, settings);
-  project = {
-    ...project,
-    primaryShortId: shortDrafts[0]?.id,
-    shortDraftIds: shortDrafts.map((draft) => draft.id)
-  };
-
-  await upsertProject(project);
-  for (const draft of shortDrafts) {
-    await upsertShortDraft(draft);
-  }
-
-  for (const video of updatedVideos) {
-    const draftCount = shortDrafts.filter((draft) => draft.sourceVideoIds?.includes(video.id) || draft.sourceVideoId === video.id).length;
-    await updateVideoAnalysis(video.id, {
-      shortsExtracted: draftCount,
-      description: `${draftCount} short draft${draftCount === 1 ? "" : "s"} now generated from this source video.`
-    });
-  }
-
-  return NextResponse.json({
-    data: {
-      project,
-      shortDrafts
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache, no-transform",
+      "Connection": "keep-alive"
     }
   });
 }

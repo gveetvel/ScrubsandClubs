@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
 import { initialAppState } from "@/lib/data/mock-data";
-import { AppState, BrandStyleSettings, EditedShort, Project, PublishingItem, ToastMessage } from "@/lib/types";
+import { AppState, BrandStyleSettings, EditedShort, Project, ProgressStepStatus, PublishingItem, ToastMessage } from "@/lib/types";
 
 interface MockAppContextValue {
   state: AppState;
@@ -10,7 +10,7 @@ interface MockAppContextValue {
   loadingPage: string | null;
   setLoadingPage: (page: string | null) => void;
   importLocalUploadPayload: (payload: { assets: AppState["mediaAssets"]; sourceVideos: AppState["sourceVideos"] }) => void;
-  generateProject: (title: string, sourceVideoIds: string[]) => Promise<string | null>;
+  generateProject: (title: string, sourceVideoIds: string[], onStepUpdate?: (stepId: string, status: ProgressStepStatus) => void) => Promise<string | null>;
   renderShortDraft: (shortId: string) => Promise<void>;
   renderAllDraftsForProject: (projectId: string) => Promise<void>;
   updateShortDraft: (
@@ -131,7 +131,7 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
     pushToast("Upload complete", `${payload.sourceVideos.length} source video${payload.sourceVideos.length === 1 ? "" : "s"} uploaded.`);
   };
 
-  const generateProject = async (title: string, sourceVideoIds: string[]) => {
+  const generateProject = async (title: string, sourceVideoIds: string[], onStepUpdate?: (stepId: string, status: ProgressStepStatus) => void) => {
     setLoadingPage("generate-project");
 
     try {
@@ -141,18 +141,42 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ title, sourceVideoIds })
       });
 
-      const payload = (await response.json()) as {
-        data?: { project?: Project; shortDrafts?: EditedShort[] };
-        error?: string;
-      };
-
-      if (!response.ok || !payload.data?.project) {
+      if (!response.ok || !response.body) {
+        const payload = (await response.json().catch(() => ({}))) as { error?: string };
         throw new Error(payload.error ?? "Failed to generate the project.");
       }
 
-      await refreshState();
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let projectId: string | null = null;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() ?? "";
+        for (const part of parts) {
+          const line = part.trim();
+          if (!line.startsWith("data:")) continue;
+          const event = JSON.parse(line.slice(5).trim()) as { type: string; stepId?: string; status?: ProgressStepStatus; projectId?: string; project?: Project; shortDrafts?: EditedShort[]; message?: string };
+          if (event.type === "step" && event.stepId && event.status) {
+            onStepUpdate?.(event.stepId, event.status);
+          } else if (event.type === "done" && event.project && event.shortDrafts) {
+            projectId = event.projectId ?? null;
+            setState((current) => mergeState(current, {
+              projects: [event.project!],
+              editedShorts: event.shortDrafts!
+            }));
+          } else if (event.type === "error") {
+            throw new Error(event.message ?? "Generation failed.");
+          }
+        }
+      }
+
       pushToast("Short generation complete", "Your project now has a text package, detected moments, and draft previews ready to review.");
-      return payload.data.project.id;
+      return projectId;
     } catch (error) {
       pushToast("Generation failed", error instanceof Error ? error.message : "Failed to generate the project.");
       return null;

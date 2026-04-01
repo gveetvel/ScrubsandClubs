@@ -29,14 +29,17 @@ function keywordBonus(text: string) {
   return score;
 }
 
-export function buildProgressSteps(statuses?: Partial<Record<ProjectProgressStep["id"], ProjectProgressStep["status"]>>): ProjectProgressStep[] {
+export function buildProgressSteps(
+  statuses?: Partial<Record<ProjectProgressStep["id"], ProjectProgressStep["status"]>>,
+  messages?: Partial<Record<ProjectProgressStep["id"], string>>
+): ProjectProgressStep[] {
   return [
-    { id: "step-text", label: "Generating text package", status: statuses?.["step-text"] ?? "pending" },
-    { id: "step-transcribe", label: "Transcribing videos", status: statuses?.["step-transcribe"] ?? "pending" },
-    { id: "step-vision", label: "Analyzing video with AI", status: statuses?.["step-vision"] ?? "pending" },
-    { id: "step-moments", label: "Finding best moments", status: statuses?.["step-moments"] ?? "pending" },
-    { id: "step-plan", label: "Building short plan", status: statuses?.["step-plan"] ?? "pending" },
-    { id: "step-render", label: "Rendering preview", status: statuses?.["step-render"] ?? "pending" }
+    { id: "step-text", label: "Generating text package", status: statuses?.["step-text"] ?? "pending", message: messages?.["step-text"] },
+    { id: "step-transcribe", label: "Transcribing videos", status: statuses?.["step-transcribe"] ?? "pending", message: messages?.["step-transcribe"] },
+    { id: "step-vision", label: "Analyzing video with AI", status: statuses?.["step-vision"] ?? "pending", message: messages?.["step-vision"] },
+    { id: "step-moments", label: "Finding best moments", status: statuses?.["step-moments"] ?? "pending", message: messages?.["step-moments"] },
+    { id: "step-plan", label: "Building short plan", status: statuses?.["step-plan"] ?? "pending", message: messages?.["step-plan"] },
+    { id: "step-render", label: "Rendering preview", status: statuses?.["step-render"] ?? "pending", message: messages?.["step-render"] }
   ];
 }
 

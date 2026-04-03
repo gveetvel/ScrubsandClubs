@@ -62,7 +62,7 @@ These are imported by the short engine, mock engine, transcription service, rend
   - simulated fallback transcript generation when API key is missing
   - all transcript segments include numeric `startSeconds`/`endSeconds` for downstream use
 - `src/lib/services/vision-ai.ts`
-  - Gemini 1.5 Flash multimodal video analysis (free tier)
+  - Gemini 2.5 Flash multimodal video analysis (free tier)
   - uploads video to the Gemini File API for processing
   - sends a structured prompt asking the AI to watch the video and identify the best moments
   - analyzes both visual content (swings, reactions, ball flight) and audio (commentary, reactions)
@@ -143,7 +143,7 @@ These are imported by the short engine, mock engine, transcription service, rend
 
 1. **Text package generation** — OpenRouter generates hooks, captions, hashtags, CTA
 2. **Audio transcription** — Groq Whisper extracts timestamped transcript segments
-3. **Video analysis** — Gemini 1.5 Flash watches the video and identifies the best moments
+3. **Video analysis** — Gemini 2.5 Flash watches the video and identifies the best moments
 4. **Moment selection** — Top 8 moments are sorted by confidence score
 5. **Short plan construction** — Selected moments are stitched into a short plan
 6. **Subtitle + overlay generation** — Transcript-derived subtitles and funny captions are mapped
@@ -193,4 +193,4 @@ Each step has an independent fallback:
 |---|---|---|---|
 | OpenRouter | Text generation | Free models available | Local templates |
 | Groq Whisper | Speech-to-text | Free tier | Simulated transcript |
-| Gemini 1.5 Flash | Video analysis | Free tier | Keyword heuristic |
+| Gemini 2.5 Flash | Video analysis | Free tier | Keyword heuristic |

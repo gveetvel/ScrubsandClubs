@@ -1,8 +1,10 @@
 import { mkdir } from "fs/promises";
 import path from "path";
 import { spawn } from "child_process";
+import ffmpegStaticPath from "ffmpeg-static";
 
-export const FFMPEG_PATH = path.join(process.cwd(), "node_modules", "ffmpeg-static", "ffmpeg.exe");
+// Use the platform-aware binary path exported by ffmpeg-static
+export const FFMPEG_PATH = ffmpegStaticPath ?? path.join(process.cwd(), "node_modules", "ffmpeg-static", "ffmpeg");
 const TEMP_DIR = path.join(process.cwd(), "data", "tmp");
 
 export async function ensureTempDir() {

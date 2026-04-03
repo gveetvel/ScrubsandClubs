@@ -10,13 +10,13 @@
         "source video"
       ],
       "sourceFolder": "Google Drive",
-      "project": "Testing",
+      "project": "Challenge of the week. Hit the Japanese flag on a course.",
       "sourceType": "google_drive",
       "mimeType": "video/mp4",
       "sizeBytes": 0,
       "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
       "uploadStatus": "uploaded",
-      "projectId": "project-e9d67316-5"
+      "projectId": "project-3720e234-d"
     }
   ],
   "sourceVideos": [
@@ -35,7 +35,7 @@
       "sizeBytes": 0,
       "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
       "uploadStatus": "uploaded",
-      "projectId": "project-e9d67316-5",
+      "projectId": "project-3720e234-d",
       "transcriptSegments": [
         {
           "id": "upload-video-3aacfbcf-2-transcript-0",

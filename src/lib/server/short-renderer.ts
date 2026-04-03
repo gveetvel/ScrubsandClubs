@@ -177,6 +177,15 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   let videoChain = "";
   let audioChain = "";
 
+  // Segments with setpts=0.85*PTS (setup/lesson) have a shorter effective
+  // video duration than their original trimmed duration. The xfade offset must
+  // be computed from the *effective* duration, otherwise ffmpeg will error with
+  // "xfade offset is after the end of the stream".
+  const effectiveDuration = (input: typeof trimmedInputs[number]) =>
+    (input.purpose === "setup" || input.purpose === "lesson")
+      ? input.durationSeconds * 0.85
+      : input.durationSeconds;
+
   if (trimmedInputs.length === 1) {
     // Single segment: no transitions needed
     videoChain = segmentFilters.join(";");
@@ -187,8 +196,8 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     // Multiple segments: chain xfade transitions
     const allFilters = [...segmentFilters, ...segmentAudioFilters];
 
-    // Video xfade chain
-    let cumulativeDuration = trimmedInputs[0].durationSeconds;
+    // Video xfade chain — uses effectiveDuration to account for speed ramp
+    let cumulativeDuration = effectiveDuration(trimmedInputs[0]);
     let prevVideoLabel = "v0";
 
     for (let i = 1; i < trimmedInputs.length; i++) {
@@ -199,20 +208,20 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
       allFilters.push(
         `[${prevVideoLabel}][v${i}]xfade=transition=${transition}:duration=${TRANSITION_DURATION}:offset=${offset.toFixed(3)}[${outLabel}]`
       );
-      cumulativeDuration += trimmedInputs[i].durationSeconds - TRANSITION_DURATION;
+      cumulativeDuration += effectiveDuration(trimmedInputs[i]) - TRANSITION_DURATION;
       prevVideoLabel = outLabel;
     }
 
-    // Audio crossfade chain
+    // Audio crossfade chain — uses effectiveDuration to stay in sync with video
     let prevAudioLabel = "a0";
-    let audioCumulativeDuration = trimmedInputs[0].durationSeconds;
+    let audioCumulativeDuration = effectiveDuration(trimmedInputs[0]);
 
     for (let i = 1; i < trimmedInputs.length; i++) {
       const outLabel = i === trimmedInputs.length - 1 ? "a" : `at${i}`;
       allFilters.push(
         `[${prevAudioLabel}][a${i}]acrossfade=d=${TRANSITION_DURATION}:c1=tri:c2=tri[${outLabel}]`
       );
-      audioCumulativeDuration += trimmedInputs[i].durationSeconds - TRANSITION_DURATION;
+      audioCumulativeDuration += effectiveDuration(trimmedInputs[i]) - TRANSITION_DURATION;
       prevAudioLabel = outLabel;
     }
 

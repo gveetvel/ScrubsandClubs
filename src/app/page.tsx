@@ -121,8 +121,7 @@ export default function CreatePage() {
     setLiveSteps(buildProgressSteps());
 
     const handleStepUpdate = (stepId: string, status: ProgressStepStatus) => {
-      const resolvedId = stepId === "step-text-refine" ? "step-text" : stepId;
-      setLiveSteps((prev) => prev.map((s) => s.id === resolvedId ? { ...s, status } : s));
+      setLiveSteps((prev) => prev.map((s) => s.id === stepId ? { ...s, status } : s));
     };
 
     let sourceVideoIds = [...selectedExistingIds];

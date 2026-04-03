@@ -48,14 +48,13 @@ export async function POST(request: NextRequest) {
         const projectId = `project-${randomUUID().slice(0, 10)}`;
         const createdAt = new Date().toISOString();
 
-        // Step: text generation (initial)
+        // Step: text generation is deferred until after transcription so the
+        // transcript summary can inform hook, caption, and CTA generation.
+        // Previous code ran two separate text-gen calls (one before transcription
+        // and one after). The first result was immediately discarded, wasting an
+        // API call and emitting a phantom "step-text-refine" SSE event that had
+        // no matching UI step. Now we call once, after transcription.
         send({ type: "step", stepId: "step-text", status: "active" });
-        const initialTextPackage = await generateTextPackage({
-          idea: title,
-          tonePreset: settings.tonePreset,
-          platformPreset: settings.platformPreset
-        });
-        send({ type: "step", stepId: "step-text", status: initialTextPackage.provider !== "openrouter" ? "fallback" : "complete" });
 
         await assignVideosToProject(sourceVideoIds, projectId, title);
 
@@ -100,8 +99,7 @@ export async function POST(request: NextRequest) {
         const usedFallbackTranscript = updatedVideos.some((video) => video.transcriptSource !== "hosted");
         send({ type: "step", stepId: "step-transcribe", status: usedFallbackTranscript ? "fallback" : "complete" });
 
-        // Step: refined text generation
-        send({ type: "step", stepId: "step-text-refine", status: "active" });
+        // Step: text generation (single call, informed by transcript summary)
         const refinedTextPackage = await generateTextPackage({
           idea: title,
           transcriptSummary: summarizeTranscript(updatedVideos),
@@ -109,7 +107,7 @@ export async function POST(request: NextRequest) {
           platformPreset: settings.platformPreset
         });
         const usedFallbackText = refinedTextPackage.provider !== "openrouter";
-        send({ type: "step", stepId: "step-text-refine", status: usedFallbackText ? "fallback" : "complete" });
+        send({ type: "step", stepId: "step-text", status: usedFallbackText ? "fallback" : "complete" });
 
         // Step: vision AI moment detection
         send({ type: "step", stepId: "step-vision", status: "active" });

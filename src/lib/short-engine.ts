@@ -107,7 +107,20 @@ function purposeForMoment(moment: DetectedMoment, index: number, total: number):
   // Last segment is always the payoff/closer
   if (index === total - 1) return "payoff";
 
-  // Use AI tags if available
+  // Prefer Gemini's direct edit hint over tag inference
+  if (moment.editHint) {
+    const hintMap: Record<string, ShortPlanSegment["purpose"]> = {
+      zoom_punch: "reaction",
+      speed_ramp: "setup",
+      hard_cut: "montage",
+      flash_transition: "reaction",
+      slow_reveal: "payoff",
+    };
+    const mapped = hintMap[moment.editHint];
+    if (mapped) return mapped;
+  }
+
+  // Fall back to tag-based logic
   const tags = moment.tags ?? [];
   if (tags.includes("reaction") || tags.includes("comedy")) return "reaction";
   if (tags.includes("setup") || tags.includes("lesson")) return "setup";

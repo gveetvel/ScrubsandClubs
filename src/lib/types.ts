@@ -109,6 +109,7 @@ export interface DetectedMoment {
   startSeconds: number;
   endSeconds: number;
   energy: "high" | "medium";
+  editHint?: "zoom_punch" | "speed_ramp" | "hard_cut" | "flash_transition" | "slow_reveal";
 }
 
 export interface ShortPlanSegment {

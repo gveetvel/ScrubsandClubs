@@ -20,6 +20,7 @@ interface MockAppContextValue {
   approveShortDraft: (shortId: string) => Promise<void>;
   rejectShortDraft: (shortId: string) => Promise<void>;
   queueShortForPublishing: (shortId: string) => Promise<void>;
+  deleteProject: (projectId: string) => Promise<void>;
   updateProject: (projectId: string, patch: Partial<Project>) => Promise<void>;
   saveBrandSettings: (patch: Partial<BrandStyleSettings>) => Promise<void>;
   clearPublishingQueue: () => Promise<void>;
@@ -188,7 +189,9 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
   const renderShortDraft = async (shortId: string) => {
     setState((current) => ({
       ...current,
-      editedShorts: current.editedShorts.map((item) => (item.id === shortId ? { ...item, renderStatus: "rendering", renderError: undefined } : item))
+      editedShorts: current.editedShorts.map((item) =>
+        item.id === shortId ? { ...item, renderStatus: "rendering", renderProgress: 0, renderMessage: "Preparing...", renderError: undefined } : item
+      )
     }));
 
     try {
@@ -197,14 +200,42 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ shortId })
       });
-      const payload = (await response.json()) as { data?: Partial<EditedShort> & { id: string }; error?: string };
 
-      if (!response.ok || !payload.data) {
+      if (!response.ok || !response.body) {
+        const payload = (await response.json().catch(() => ({}))) as { error?: string };
         throw new Error(payload.error ?? "Failed to render short draft.");
       }
 
-      setState((current) => mergeState(current, { editedShorts: [payload.data as EditedShort] }));
-      pushToast("Draft render ready", "The stitched short preview is now ready to watch and download.");
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const parts = buffer.split("\n\n");
+        buffer = parts.pop() ?? "";
+        for (const part of parts) {
+          const line = part.trim();
+          if (!line.startsWith("data:")) continue;
+          const event = JSON.parse(line.slice(5).trim()) as { type: string; message?: string; percent?: number; data?: EditedShort };
+
+          if (event.type === "progress") {
+            setState((current) => ({
+              ...current,
+              editedShorts: current.editedShorts.map((item) =>
+                item.id === shortId ? { ...item, renderProgress: event.percent, renderMessage: event.message } : item
+              )
+            }));
+          } else if (event.type === "done" && event.data) {
+            setState((current) => mergeState(current, { editedShorts: [event.data as EditedShort] }));
+            pushToast("Draft render ready", "The stitched short preview is now ready to watch and download.");
+          } else if (event.type === "error") {
+            throw new Error(event.message ?? "Render failed.");
+          }
+        }
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to render short draft.";
       setState((current) => ({
@@ -320,6 +351,16 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
     pushToast("Queued for publishing", "The draft is now ready for publishing handoff.");
   };
 
+  const deleteProject = async (projectId: string) => {
+    setState((current) => ({
+      ...current,
+      projects: current.projects.filter((p) => p.id !== projectId),
+      editedShorts: current.editedShorts.filter((s) => s.projectId !== projectId)
+    }));
+    await fetch(`/api/projects/${projectId}`, { method: "DELETE" }).catch(() => undefined);
+    pushToast("Project deleted", "The project and its drafts have been removed.");
+  };
+
   const updateProject = async (projectId: string, patch: Partial<Project>) => {
     setState((current) => ({
       ...current,
@@ -364,6 +405,7 @@ export function MockAppProvider({ children }: { children: ReactNode }) {
       setLoadingPage,
       importLocalUploadPayload,
       generateProject,
+      deleteProject,
       renderShortDraft,
       renderAllDraftsForProject,
       updateShortDraft,

@@ -92,6 +92,14 @@ export async function getShortDraftById(shortId: string) {
   return manifest.editedShorts.find((item) => item.id === shortId) ?? null;
 }
 
+export async function deleteProject(projectId: string) {
+  const manifest = await readManifest();
+  const projects = manifest.projects.filter((item) => item.id !== projectId);
+  const editedShorts = manifest.editedShorts.filter((item) => item.projectId !== projectId);
+  await writeManifest({ ...manifest, projects, editedShorts });
+  return true;
+}
+
 export async function updateProject(projectId: string, patch: Partial<Project>) {
   const manifest = await readManifest();
   const current = manifest.projects.find((item) => item.id === projectId);

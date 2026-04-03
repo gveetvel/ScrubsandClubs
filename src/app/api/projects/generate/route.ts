@@ -97,6 +97,9 @@ export async function POST(request: NextRequest) {
         }
 
         const usedFallbackTranscript = updatedVideos.some((video) => video.transcriptSource !== "hosted");
+        const transcriptWarning = usedFallbackTranscript
+          ? updatedVideos.find((v) => v.transcriptWarning)?.transcriptWarning
+          : undefined;
         send({ type: "step", stepId: "step-transcribe", status: usedFallbackTranscript ? "fallback" : "complete" });
 
         // Step: text generation (single call, informed by transcript summary)
@@ -157,7 +160,10 @@ export async function POST(request: NextRequest) {
 
         const warnings: string[] = [];
         if (usedFallbackText) warnings.push("Text generation used fallback templates (OpenRouter unavailable).");
-        if (usedFallbackTranscript) warnings.push("Transcription used simulated data (Groq API unavailable).");
+        if (usedFallbackTranscript) {
+          const reason = transcriptWarning ? ` Error: ${transcriptWarning}` : " Groq API unavailable.";
+          warnings.push(`Transcription used simulated data.${reason}`);
+        }
         if (usedFallbackVision) warnings.push(visionErrorMessage ?? "Video analysis used keyword matching (Gemini API unavailable).");
 
         let project: Project = {
@@ -182,6 +188,7 @@ export async function POST(request: NextRequest) {
               "step-render": "pending"
             },
             {
+              "step-transcribe": transcriptWarning,
               "step-vision": usedFallbackVision ? visionErrorMessage : undefined
             }
           ),

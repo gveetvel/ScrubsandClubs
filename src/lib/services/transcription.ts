@@ -106,8 +106,9 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
       headers: {
         Authorization: `Bearer ${apiKey}`
       },
-      body: formData
-    });
+      body: formData,
+      duplex: "half",
+    } as RequestInit);
 
     await unlink(audioPath).catch(() => undefined);
 
@@ -158,7 +159,10 @@ export async function transcribeSourceVideo(video: SourceVideo): Promise<Transcr
       source: "hosted",
       transcriptSegments
     };
-  } catch {
-    return fallbackTranscript(video);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error("[transcription] transcribeSourceVideo failed for %s: %s", video.id, message);
+    const fallback = fallbackTranscript(video);
+    return { ...fallback, warning: message };
   }
 }

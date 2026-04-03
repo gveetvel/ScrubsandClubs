@@ -1,6 +1,60 @@
 {
   "mediaAssets": [
     {
+      "id": "upload-asset-1c4b7085-2",
+      "filename": "1775221587393-Battleship_JP_1_.mp4",
+      "duration": "Unknown",
+      "uploadDate": "2026-04-03",
+      "tags": [
+        "google drive import",
+        "source video"
+      ],
+      "sourceFolder": "Google Drive",
+      "project": "testing something",
+      "sourceType": "google_drive",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775221587393-Battleship_JP_1_.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-e9ba9ff2-b"
+    },
+    {
+      "id": "upload-asset-6ad3f0b6-0",
+      "filename": "1775211612683-Challenge_of_the_week_1.mp4",
+      "duration": "Unknown",
+      "uploadDate": "2026-04-03",
+      "tags": [
+        "google drive import",
+        "source video"
+      ],
+      "sourceFolder": "Google Drive",
+      "project": "New challenge of the week. Hit the Japanese flag on the course.",
+      "sourceType": "google_drive",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775211612683-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-a5bf478a-8"
+    },
+    {
+      "id": "upload-asset-cc190487-e",
+      "filename": "1775210962103-Challenge_of_the_week_1.mp4",
+      "duration": "Unknown",
+      "uploadDate": "2026-04-03",
+      "tags": [
+        "google drive import",
+        "source video"
+      ],
+      "sourceFolder": "Google Drive",
+      "project": "Challenge of the week. Hit the Japanese flag on the course.",
+      "sourceType": "google_drive",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775210962103-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-5715bf57-3"
+    },
+    {
       "id": "upload-asset-b07abea3-0",
       "filename": "1775026707202-Challenge_of_the_week_1.mp4",
       "duration": "Unknown",
@@ -10,16 +64,290 @@
         "source video"
       ],
       "sourceFolder": "Google Drive",
-      "project": "Challenge of the week. Hit the Japanese flag on a course.",
+      "project": "Let's hit the Japanese flag In a new challenge.",
       "sourceType": "google_drive",
       "mimeType": "video/mp4",
       "sizeBytes": 0,
       "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
       "uploadStatus": "uploaded",
-      "projectId": "project-3720e234-d"
+      "projectId": "project-9075fa02-a"
     }
   ],
   "sourceVideos": [
+    {
+      "id": "upload-video-80dd9a68-4",
+      "title": "Battleship JP 1 ",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "Unknown",
+      "transcriptStatus": "available",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-1c4b7085-2",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775221587393-Battleship_JP_1_.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-e9ba9ff2-b",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-80dd9a68-4-transcript-0",
+          "start": "00:00",
+          "end": "00:08",
+          "startSeconds": 0,
+          "endSeconds": 7.64,
+          "source": "hosted",
+          "text": "ja eigenlijk maak je bij de rit op dat kleine"
+        },
+        {
+          "id": "upload-video-80dd9a68-4-transcript-1",
+          "start": "00:08",
+          "end": "00:08",
+          "startSeconds": 7.64,
+          "endSeconds": 8.24,
+          "source": "hosted",
+          "text": "tuurlijk"
+        },
+        {
+          "id": "upload-video-80dd9a68-4-transcript-2",
+          "start": "00:08",
+          "end": "00:17",
+          "startSeconds": 8.24,
+          "endSeconds": 17.24,
+          "source": "hosted",
+          "text": "voorzichtig rustig 15"
+        },
+        {
+          "id": "upload-video-80dd9a68-4-transcript-3",
+          "start": "00:17",
+          "end": "00:19",
+          "startSeconds": 17.24,
+          "endSeconds": 19.36,
+          "source": "hosted",
+          "text": "15"
+        }
+      ],
+      "transcriptPreview": "ja eigenlijk maak je bij de rit op dat kleine tuurlijk",
+      "transcriptSource": "hosted",
+      "transcriptionProvider": "groq"
+    },
+    {
+      "id": "upload-video-6be11787-b",
+      "title": "Challenge of the week 1",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "Unknown",
+      "transcriptStatus": "available",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-6ad3f0b6-0",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775211612683-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-a5bf478a-8",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-6be11787-b-transcript-0",
+          "start": "00:00",
+          "end": "00:07",
+          "startSeconds": 0,
+          "endSeconds": 7,
+          "source": "hosted",
+          "text": "Challenge of the week. How many shots do you need to hit the Japanese flag?"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-1",
+          "start": "00:07",
+          "end": "00:13",
+          "startSeconds": 7,
+          "endSeconds": 13,
+          "source": "hosted",
+          "text": "One."
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-2",
+          "start": "00:13",
+          "end": "00:19",
+          "startSeconds": 13,
+          "endSeconds": 19,
+          "source": "hosted",
+          "text": "Oh, I'm so content!"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-3",
+          "start": "00:19",
+          "end": "00:29",
+          "startSeconds": 19,
+          "endSeconds": 29,
+          "source": "hosted",
+          "text": "It's gonna be a long day!"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-4",
+          "start": "00:29",
+          "end": "00:31",
+          "startSeconds": 29,
+          "endSeconds": 31,
+          "source": "hosted",
+          "text": "It will be a long video"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-5",
+          "start": "00:31",
+          "end": "00:33",
+          "startSeconds": 31,
+          "endSeconds": 33,
+          "source": "hosted",
+          "text": "Go back, go back"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-6",
+          "start": "00:33",
+          "end": "00:34",
+          "startSeconds": 33,
+          "endSeconds": 34,
+          "source": "hosted",
+          "text": "No, no, no, no"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-7",
+          "start": "00:34",
+          "end": "00:36",
+          "startSeconds": 34,
+          "endSeconds": 36,
+          "source": "hosted",
+          "text": "The ball can go back and go back to the head"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-8",
+          "start": "00:36",
+          "end": "00:37",
+          "startSeconds": 36,
+          "endSeconds": 37,
+          "source": "hosted",
+          "text": "To the head of the head"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-9",
+          "start": "00:47",
+          "end": "00:49",
+          "startSeconds": 47,
+          "endSeconds": 49,
+          "source": "hosted",
+          "text": "This will be a fantastic film"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-10",
+          "start": "00:49",
+          "end": "00:53",
+          "startSeconds": 49,
+          "endSeconds": 53,
+          "source": "hosted",
+          "text": "The more you hit, the better you can film"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-11",
+          "start": "00:59",
+          "end": "01:04",
+          "startSeconds": 59,
+          "endSeconds": 64,
+          "source": "hosted",
+          "text": "Can you fly the balls?"
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-12",
+          "start": "01:04",
+          "end": "01:06",
+          "startSeconds": 64,
+          "endSeconds": 66,
+          "source": "hosted",
+          "text": "I'll see you."
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-13",
+          "start": "01:12",
+          "end": "01:15",
+          "startSeconds": 72,
+          "endSeconds": 75,
+          "source": "hosted",
+          "text": "Not super, but..."
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-14",
+          "start": "01:15",
+          "end": "01:18",
+          "startSeconds": 75,
+          "endSeconds": 78,
+          "source": "hosted",
+          "text": "That's important for this sort."
+        },
+        {
+          "id": "upload-video-6be11787-b-transcript-15",
+          "start": "01:25",
+          "end": "01:27",
+          "startSeconds": 85,
+          "endSeconds": 87.22,
+          "source": "hosted",
+          "text": "I don't know."
+        }
+      ],
+      "transcriptPreview": "Challenge of the week. How many shots do you need to hit the Japanese flag? One.",
+      "transcriptSource": "hosted",
+      "transcriptionProvider": "groq"
+    },
+    {
+      "id": "upload-video-c1e5856d-2",
+      "title": "Challenge of the week 1",
+      "description": "2 short drafts now generated from this source video.",
+      "duration": "Unknown",
+      "transcriptStatus": "fallback",
+      "analysisStatus": "ready",
+      "assetId": "upload-asset-cc190487-e",
+      "ideaIds": [],
+      "shortsExtracted": 2,
+      "sourceType": "local_upload",
+      "mimeType": "video/mp4",
+      "sizeBytes": 0,
+      "storagePath": "/uploads/1775210962103-Challenge_of_the_week_1.mp4",
+      "uploadStatus": "uploaded",
+      "projectId": "project-5715bf57-3",
+      "transcriptSegments": [
+        {
+          "id": "upload-video-c1e5856d-2-fallback-transcript-1",
+          "start": "00:08",
+          "end": "00:13",
+          "startSeconds": 8,
+          "endSeconds": 13,
+          "source": "simulated",
+          "text": "This upload starts with a moment that tells you exactly what kind of round it is."
+        },
+        {
+          "id": "upload-video-c1e5856d-2-fallback-transcript-2",
+          "start": "00:14",
+          "end": "00:19",
+          "startSeconds": 14,
+          "endSeconds": 19,
+          "source": "simulated",
+          "text": "The funniest part is that the reaction lands even before the payoff."
+        },
+        {
+          "id": "upload-video-c1e5856d-2-fallback-transcript-3",
+          "start": "00:20",
+          "end": "00:25",
+          "startSeconds": 20,
+          "endSeconds": 25,
+          "source": "simulated",
+          "text": "That is why one long video can become several tight short drafts."
+        }
+      ],
+      "transcriptPreview": "This upload starts with a moment that tells you exactly what kind of round it is. The funniest part is that the reaction lands even before the payoff.",
+      "transcriptSource": "simulated",
+      "transcriptionProvider": "fallback",
+      "transcriptWarning": "spawn D:\\GithubLocal\\ScrubsandClubs\\.next\\server\\vendor-chunks\\ffmpeg.exe ENOENT"
+    },
     {
       "id": "upload-video-3aacfbcf-2",
       "title": "Challenge of the week 1",
@@ -35,7 +363,7 @@
       "sizeBytes": 0,
       "storagePath": "/uploads/1775026707202-Challenge_of_the_week_1.mp4",
       "uploadStatus": "uploaded",
-      "projectId": "project-3720e234-d",
+      "projectId": "project-9075fa02-a",
       "transcriptSegments": [
         {
           "id": "upload-video-3aacfbcf-2-transcript-0",

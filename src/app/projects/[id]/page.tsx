@@ -9,6 +9,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingBlocks } from "@/components/ui/loading-blocks";
 import { PageHeader } from "@/components/ui/page-header";
 import { Panel } from "@/components/ui/panel";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { StatusPill } from "@/components/ui/status-pill";
 import { usePageReady } from "@/lib/use-page-ready";
 
@@ -271,12 +272,27 @@ export default function ProjectPage() {
 
                   {primaryDraft.previewUrl ? (
                     <div className="mt-4 rounded-2xl bg-slate-50 p-4">
-                      <video src={primaryDraft.previewUrl} controls className="aspect-[9/16] w-full rounded-2xl bg-black object-contain" />
+                      <video
+                        src={primaryDraft.previewUrl}
+                        controls
+                        className="aspect-[9/16] w-full rounded-2xl bg-black object-contain"
+                      />
+                    </div>
+                  ) : primaryDraft.renderStatus === "rendering" ? (
+                    <div className="mt-4 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 p-8 text-center">
+                      <div className="mx-auto max-w-sm space-y-4">
+                        <ProgressBar
+                          progress={primaryDraft.renderProgress ?? 0}
+                          message={primaryDraft.renderMessage ?? "Rendering draft..."}
+                        />
+                      </div>
                     </div>
                   ) : primaryDraft.renderError ? (
                     <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4">
                       <p className="text-sm font-semibold text-red-800">Render failed</p>
-                      <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap break-all text-xs text-red-700">{primaryDraft.renderError}</pre>
+                      <pre className="mt-2 max-h-48 overflow-auto whitespace-pre-wrap break-all text-xs text-red-700">
+                        {primaryDraft.renderError}
+                      </pre>
                     </div>
                   ) : (
                     <div className="mt-4 rounded-2xl bg-slate-100 p-4 text-center text-sm text-slate-600">

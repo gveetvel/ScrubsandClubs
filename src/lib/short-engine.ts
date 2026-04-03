@@ -136,8 +136,21 @@ function purposeForMoment(moment: DetectedMoment, index: number, total: number):
 export function buildShortPlanSegments(moments: DetectedMoment[]) {
   const selected = uniqueMomentSelection(moments);
 
-  return selected.map((moment, index) => {
-    // Cap each segment at MAX_SEGMENT_DURATION_SECONDS
+  if (selected.length === 0) return [];
+
+  // The hook (first segment) should be the highest-scoring moment
+  // It can come from any point in the video.
+  const hookMoment = selected[0];
+  
+  // The rest of the moments should be played in the order they appear in the video
+  // to maintain the natural flow of the golf round.
+  const restOfMoments = selected.slice(1).sort((a, b) => a.startSeconds - b.startSeconds);
+  
+  const finalSequence = [hookMoment, ...restOfMoments];
+
+  return finalSequence.map((moment, index) => {
+    // Cap each segment at MAX_SEGMENT_DURATION_SECONDS if exceeding it significantly
+    // (though Gemini is now instructed to give us 2-8s)
     const rawDuration = moment.endSeconds - moment.startSeconds;
     const cappedEnd = rawDuration > MAX_SEGMENT_DURATION_SECONDS
       ? moment.startSeconds + MAX_SEGMENT_DURATION_SECONDS
@@ -150,7 +163,7 @@ export function buildShortPlanSegments(moments: DetectedMoment[]) {
       end: formatTime(cappedEnd),
       startSeconds: moment.startSeconds,
       endSeconds: cappedEnd,
-      purpose: purposeForMoment(moment, index, selected.length),
+      purpose: purposeForMoment(moment, index, finalSequence.length),
       momentId: moment.id
     };
   });

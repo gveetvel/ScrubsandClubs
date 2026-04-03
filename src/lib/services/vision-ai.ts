@@ -50,24 +50,23 @@ Identify exactly 4-8 standout moments from this video. For each moment, provide:
 1. "label" — A punchy 5-8 word title for this moment
 2. "reason" — Why this moment works for short-form (hook value, comedy, relatability, visual impact)
 3. "startSeconds" — Exact start timestamp in seconds
-4. "endSeconds" — Exact end timestamp in seconds (each moment should be 2-6 seconds MAX)
+4. "endSeconds" — Exact end timestamp in seconds (each moment should be 2-8 seconds)
 5. "score" — Confidence score 0-100 of how viral/engaging this moment is
 6. "energy" — "high" or "medium"
 7. "tags" — Array of 1-3 tags from: ["hook", "setup", "reaction", "payoff", "lesson", "comedy", "visual"]
 8. "transcriptExcerpt" — The dialogue that occurs during this moment
 9. "editHint" — One of: "zoom_punch" (for reactions/hooks), "speed_ramp" (for setup/talking), "hard_cut" (for action moments), "flash_transition" (for dramatic reveals), "slow_reveal" (for payoffs)
-10. "suggestedDurationSeconds" — How long this clip should be in the final edit (2-6 seconds)
+10. "suggestedDurationSeconds" — How long this clip should be in the final edit (2-8 seconds)
 
 ## Rules
-- The FIRST moment must work as an opening hook (something that grabs attention in <2 seconds)
-- At least one moment must be a genuine reaction or funny beat
-- At least one moment should be a payoff or satisfying conclusion
-- Moments should come from DIFFERENT parts of the video — spread them out
-- Prefer moments where audio energy and visual action align
-- Keep clips TIGHT: 2-4 seconds for reactions/hooks, 4-6 seconds max for everything else
-- If someone says something genuinely funny, that beats a generic "nice shot"
-- Use "zoom_punch" editHint for reactions and hooks, "speed_ramp" for talking/setup moments
-- Return ONLY a valid JSON array. No markdown fences. No explanation outside the array.`;
+- **Sentence Integrity**: NEVER start or end a clip in the middle of a sentence. Use the provided Transcript to ensure cuts happen at natural pauses or between full thoughts.
+- **Backswing Start**: For any golf shot, the "startSeconds" MUST be the exact **beginning of the backswing**. SKIP the "addressing the ball" phase.
+- **Full Sequence**: Every shot selected must include the full sequence: Swing -> Impact -> Ball Flight -> Result/Landing.
+- **Funny Commentary**: Never skip funny or insightful commentary; ensure it is captured as part of a sequence (talk -> action -> reaction).
+- **Opening Hook**: The FIRST moment must be a standalone "Hook" (something high-energy that grabs attention in <2 seconds).
+- **Clip Length**: Ensure clips are long enough to capture the full action (4-8 seconds for shots, 2-4 seconds for reactions).
+- **Diversity**: Moments should come from DIFFERENT parts of the video — spread them out.
+- **Return JSON**: Return ONLY a valid JSON array. No markdown fences. No explanation.`;
 }
 
 async function getFileMimeType(filePath: string): Promise<string> {
@@ -136,7 +135,8 @@ async function uploadVideoToGemini(
             "X-Goog-Upload-Command": "upload, finalize",
         },
         body: Readable.toWeb(createReadStream(filePath)) as ReadableStream,
-    });
+        duplex: "half",
+    } as RequestInit);
 
     if (!uploadResponse.ok) {
         const errorBody = await uploadResponse.text().catch(() => "(unreadable)");
@@ -188,13 +188,30 @@ async function uploadVideoToGemini(
 }
 
 function extractJsonArray(text: string): VisionMomentRaw[] {
-    const start = text.indexOf("[");
-    const end = text.lastIndexOf("]");
-    if (start === -1 || end === -1 || end <= start) {
-        throw new Error("No JSON array found in Gemini response.");
+    // With response_mime_type: "application/json", the text is usually a valid JSON string.
+    // However, we still handle cases where there might be leading/trailing whitespace.
+    const trimmed = text.trim();
+    
+    try {
+        // First, try parsing the whole thing (most likely case for native JSON mode)
+        const parsed = JSON.parse(trimmed);
+        if (Array.isArray(parsed)) return parsed as VisionMomentRaw[];
+        // If it's an object with a field (sometimes happens), look for an array
+        if (typeof parsed === "object" && parsed !== null) {
+            const possibleArray = Object.values(parsed).find(v => Array.isArray(v));
+            if (possibleArray) return possibleArray as VisionMomentRaw[];
+        }
+    } catch (e) {
+        // Fallback to extraction if parsing failed
+        const start = trimmed.indexOf("[");
+        const end = trimmed.lastIndexOf("]");
+        if (start === -1 || end === -1 || end <= start) {
+            throw new Error(`Failed to find JSON array in response. Content length: ${trimmed.length}`);
+        }
+        return JSON.parse(trimmed.slice(start, end + 1)) as VisionMomentRaw[];
     }
-
-    return JSON.parse(text.slice(start, end + 1)) as VisionMomentRaw[];
+    
+    throw new Error("Gemini response was not a valid JSON array.");
 }
 
 export interface VisionDetectionResult {
@@ -257,6 +274,7 @@ export async function detectMomentsWithVision(
                         generationConfig: {
                             temperature: 0.4,
                             maxOutputTokens: 4096,
+                            response_mime_type: "application/json",
                         },
                     }),
                 }

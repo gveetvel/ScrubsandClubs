@@ -22,63 +22,52 @@ export default function PublishingPage() {
     <div className="space-y-6">
       <PageHeader
         eyebrow="Publishing"
-        title="Secondary handoff queue"
-        description="Publishing is still available, but it now sits after the core Create -> Preview -> Download flow instead of driving the whole product."
-        actions={<Button variant="secondary" onClick={() => void clearPublishingQueue()}>Clear queue</Button>}
+        title="Rendered exports"
+        description="Access your finalized MP4 drafts, subtitles, and social media assets in your local file system."
       />
 
-      <Panel className="space-y-4">
-        <div className="flex items-center justify-between">
+      <Panel className="space-y-6 py-12 text-center">
+        <div className="mx-auto max-w-lg space-y-4">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 ring-8 ring-slate-50">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-slate-600"
+            >
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
           <div>
-            <h2 className="text-xl font-semibold text-ink">Ready for handoff</h2>
-            <p className="text-sm text-slate-600">Approved drafts can be parked here with their caption and hashtag packages.</p>
+            <h2 className="text-xl font-semibold text-ink">Open local exports folder</h2>
+            <p className="mt-2 text-sm text-slate-600">
+              Click the button below to open Windows File Explorer directly to your rendered shorts folder.
+              From there, you can drag and drop assets into CapCut, Metricool, or your browser.
+            </p>
           </div>
-          <StatusPill label={`${state.publishingQueue.length} queued`} />
+          <Button
+            className="w-full py-3 text-base"
+            onClick={async () => {
+              try {
+                await fetch("/api/utils/open-exports", { method: "POST" });
+              } catch (error) {
+                console.error("Failed to open exports folder:", error);
+                alert("Failed to open folder. Check if the server is running on Windows.");
+              }
+            }}
+          >
+            Open in File Explorer
+          </Button>
+          <p className="text-xs text-slate-400">
+            Path: <code className="rounded bg-slate-100 px-1 py-0.5">public\rendered-exports</code>
+          </p>
         </div>
-
-        {state.publishingQueue.length === 0 ? (
-          <EmptyState
-            title="No drafts queued"
-            detail="Approve or queue a generated short from a project or short detail page to see it here."
-            action={<Link href="/" className="inline-flex items-center rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white">Create a new project</Link>}
-          />
-        ) : (
-          <div className="space-y-3">
-            {state.publishingQueue.map((item) => {
-              const short = state.editedShorts.find((entry) => entry.id === item.shortId);
-              return (
-                <div key={item.id} className="rounded-2xl border border-slate-200 p-4">
-                  <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-                    <div className="space-y-2">
-                      <div className="flex flex-wrap gap-2">
-                        <p className="font-semibold text-ink">{item.shortTitle}</p>
-                        <StatusPill label={item.platform} />
-                        {short?.draftStatus ? <StatusPill label={short.draftStatus} /> : null}
-                      </div>
-                      <p className="text-sm text-slate-700">{item.hook}</p>
-                      <p className="text-sm text-slate-600">{item.caption}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {item.hashtags.map((tag) => (
-                          <span key={tag} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="space-y-2 text-sm text-slate-600">
-                      <p>Scheduled: {item.scheduledDate}</p>
-                      <p>Music vibe: {item.musicVibe}</p>
-                      <p>Ready for Metricool: {item.readyForMetricool ? "Yes" : "No"}</p>
-                      {short ? (
-                        <Link href={`/shorts/${short.id}`} className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink">
-                          Open draft
-                        </Link>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
       </Panel>
     </div>
   );

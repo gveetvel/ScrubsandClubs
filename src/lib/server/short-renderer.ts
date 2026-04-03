@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "fs/promises";
+import { mkdir, writeFile, unlink } from "fs/promises";
 import path from "path";
 import { BrandStyleSettings, CapCutHandoffPackage, EditedShort, SubtitleCue } from "@/lib/types";
 import { getLocalUploadByVideoId } from "@/lib/server/local-upload-repository";
@@ -6,6 +6,8 @@ import { getRenderedExportsDir, upsertRenderedDraft } from "@/lib/server/rendere
 import { getShortDraftById, listProjectState, updateShortDraft } from "@/lib/server/project-repository";
 import { runFfmpeg } from "@/lib/server/ffmpeg";
 import { slugify as sanitize } from "@/lib/format-utils";
+
+// ── Helpers ──────────────────────────────────────────────────────────
 
 function toSrtTimestamp(value: string) {
   const parts = value.split(":");
@@ -21,17 +23,36 @@ function buildSrt(cues: SubtitleCue[]) {
     .join("\n");
 }
 
+// Helper to wrap text into multiple lines for FFmpeg drawtext
+function wrapText(text: string, maxCharsPerLine: number): string {
+  if (!text) return "";
+  const words = text.split(" ");
+  let currentLine = "";
+  const lines: string[] = [];
+
+  for (const word of words) {
+    if ((currentLine + word).length > maxCharsPerLine) {
+      if (currentLine) lines.push(currentLine.trim());
+      currentLine = word + " ";
+    } else {
+      currentLine += word + " ";
+    }
+  }
+  if (currentLine) lines.push(currentLine.trim());
+  return lines.join("\n");
+}
+
 function subtitleFilterPath(filePath: string) {
   return filePath.replace(/\\/g, "/").replace(/:/g, "\\:");
 }
 
 function escapeDrawText(input: string) {
+  // Inside a single-quoted string in an FFmpeg filter, we only need to escape 
+  // single quotes and backslashes. 
+  // BUT: expansion=none must be set for the drawtext filter to avoid % issues.
   return input
-    .replace(/\\/g, "\\\\")
-    .replace(/:/g, "\\:")
-    .replace(/'/g, "\\'")
-    .replace(/\[/g, "\\[")
-    .replace(/\]/g, "\\]");
+    .replace(/\\/g, "\\\\") // Escape backslashes first
+    .replace(/'/g, "\\'");   // Escape single quotes
 }
 
 function hexToFfmpegColor(hex: string) {
@@ -42,36 +63,188 @@ function hexToFfmpegColor(hex: string) {
   return `0x${normalized}`;
 }
 
-export async function renderShortDraftById(shortId: string) {
+function timestampToSeconds(ts: string) {
+  const parts = ts.split(":");
+  const hh = parseFloat(parts[0] || "0");
+  const mm = parseFloat(parts[1] || "0");
+  const ss = parseFloat(parts[2] || "0");
+  return hh * 3600 + mm * 60 + ss;
+}
+
+// ── Entry point ──────────────────────────────────────────────────────
+
+export async function renderShortDraftById(
+  shortId: string,
+  onProgress?: (message: string, percent: number) => void,
+  signal?: AbortSignal
+) {
   const short = await getShortDraftById(shortId);
   if (!short) {
     throw new Error("Short draft not found.");
   }
 
   const { settings } = await listProjectState();
-  return renderShortDraft(short, settings);
+  return renderShortDraft(short, settings, onProgress, signal);
 }
 
-export async function renderShortDraft(short: EditedShort, settings: BrandStyleSettings) {
+// ── Step 1: Normalize a single segment ──────────────────────────────
+
+interface SegmentInput {
+  sourceAbsolutePath: string;
+  startSeconds: number;
+  durationSeconds: number;
+  purpose: string;
+}
+
+const FADE_DURATION = 0.15; // seconds for fade in/out between clips
+
+async function normalizeSegment(
+  input: SegmentInput,
+  index: number,
+  totalSegments: number,
+  outputPath: string,
+  signal?: AbortSignal
+): Promise<void> {
+  // Build video filter: scale → pad → pixel format → fade
+  const filters: string[] = [
+    "scale=720:1280:force_original_aspect_ratio=decrease",
+    "pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black",
+    "setsar=1",
+    "fps=30",
+    "format=yuv420p",
+  ];
+
+  // Speed ramp for setup/lesson segments
+  if (input.purpose === "setup" || input.purpose === "lesson") {
+    filters.push("setpts=0.85*PTS");
+  }
+
+  // Calculate effective duration for fade placement
+  const effectiveDuration =
+    input.purpose === "setup" || input.purpose === "lesson"
+      ? input.durationSeconds * 0.85
+      : input.durationSeconds;
+
+  // Fade in on all segments except the first; fade out on all except the last
+  if (index > 0) {
+    filters.push(`fade=t=in:st=0:d=${FADE_DURATION}`);
+  }
+  if (index < totalSegments - 1) {
+    const fadeOutStart = Math.max(0, effectiveDuration - FADE_DURATION);
+    filters.push(`fade=t=out:st=${fadeOutStart.toFixed(3)}:d=${FADE_DURATION}`);
+  }
+
+  const videoFilter = filters.join(",");
+
+  // Build audio filter
+  const audioFilters: string[] = ["aresample=44100"];
+  if (input.purpose === "setup" || input.purpose === "lesson") {
+    audioFilters.push("atempo=1.18");
+  }
+  // Audio fade to match video
+  if (index > 0) {
+    audioFilters.push(`afade=t=in:st=0:d=${FADE_DURATION}`);
+  }
+  if (index < totalSegments - 1) {
+    const fadeOutStart = Math.max(0, effectiveDuration - FADE_DURATION);
+    audioFilters.push(`afade=t=out:st=${fadeOutStart.toFixed(3)}:d=${FADE_DURATION}`);
+  }
+  const audioFilter = audioFilters.join(",");
+
+  console.log(`[RENDERER] Normalizing segment ${index}: purpose=${input.purpose}, duration=${input.durationSeconds}s, effective=${effectiveDuration.toFixed(2)}s`);
+
+  await runFfmpeg([
+    "-y",
+    "-ss", String(input.startSeconds),
+    "-t", String(input.durationSeconds),
+    "-i", input.sourceAbsolutePath,
+    "-vf", videoFilter,
+    "-af", audioFilter,
+    "-c:v", "libx264",
+    "-preset", "veryfast",
+    "-crf", "23",
+    "-c:a", "aac",
+    "-ar", "44100",
+    "-ac", "2",
+    "-threads", "0",
+    "-movflags", "+faststart",
+    outputPath,
+  ], undefined, signal);
+}
+
+// ── Step 2: Concat normalized segments ──────────────────────────────
+
+async function concatSegments(
+  segmentPaths: string[],
+  concatListPath: string,
+  outputPath: string,
+  signal?: AbortSignal
+): Promise<void> {
+  // Write the concat list file
+  const concatContent = segmentPaths
+    .map((p) => {
+      // On Windows, FFmpeg concat demuxer treats '\' as an escape character. 
+      // Using forward slashes is standard and avoids this issue.
+      const normalizedPath = p.replace(/\\/g, "/");
+      return `file '${normalizedPath.replace(/'/g, "'\\''")}'`;
+    })
+    .join("\n");
+  await writeFile(concatListPath, concatContent, "utf8");
+
+  console.log(`[RENDERER] Concatenating ${segmentPaths.length} segments via concat demuxer`);
+
+  await runFfmpeg([
+    "-y",
+    "-f", "concat",
+    "-safe", "0",
+    "-i", concatListPath,
+    "-c", "copy",
+    "-movflags", "+faststart",
+    outputPath,
+  ], undefined, signal);
+}
+
+// ── Main render function ────────────────────────────────────────────
+
+export async function renderShortDraft(
+  short: EditedShort,
+  settings: BrandStyleSettings,
+  onProgress?: (message: string, percent: number) => void,
+  signal?: AbortSignal
+) {
   if (!short.shortPlanSegments?.length) {
     throw new Error("This short draft does not have any stitched segments to render.");
   }
 
+  onProgress?.("Initializing render...", 5);
+
   const exportsDir = getRenderedExportsDir();
   await mkdir(exportsDir, { recursive: true });
 
-  const sourceInputs = [];
+  // ── Gather source inputs ──
+  const sourceInputs: SegmentInput[] = [];
   for (const segment of short.shortPlanSegments) {
     const upload = await getLocalUploadByVideoId(segment.sourceVideoId);
     if (!upload?.mediaAsset?.storagePath) {
       throw new Error("Only local uploaded source videos can be rendered in the MVP.");
     }
 
+    const purpose = segment.purpose ?? "montage";
+
+    // Trim dead air from boundaries on clips longer than 4s
+    let startSeconds = segment.startSeconds;
+    let durationSeconds = Math.max(1, segment.endSeconds - segment.startSeconds);
+    if (durationSeconds > 4) {
+      startSeconds += 0.2;
+      durationSeconds -= 0.4;
+      durationSeconds = Math.max(1, durationSeconds);
+    }
+
     sourceInputs.push({
-      sourceVideoId: segment.sourceVideoId,
       sourceAbsolutePath: path.join(process.cwd(), "public", upload.mediaAsset.storagePath.replace(/^\//, "")),
-      startSeconds: segment.startSeconds,
-      durationSeconds: Math.max(1, segment.endSeconds - segment.startSeconds)
+      startSeconds,
+      durationSeconds,
+      purpose,
     });
   }
 
@@ -83,7 +256,10 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
   const hookFile = path.join(exportsDir, `${baseName}-hook.txt`);
   const briefFile = path.join(exportsDir, `${baseName}-capcut-brief.json`);
   const thumbnailFile = path.join(exportsDir, `${baseName}-thumbnail.jpg`);
+  const concatListFile = path.join(exportsDir, `${baseName}-concat.txt`);
+  const filterScriptFile = path.join(exportsDir, `${baseName}-filter.txt`);
 
+  // ── Write metadata files ──
   const subtitles = short.subtitleCues ?? [];
   const subtitleContent = buildSrt(subtitles);
   const capcutPackage: CapCutHandoffPackage =
@@ -99,160 +275,40 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
       caption: short.caption,
       cta: short.cta,
       musicVibe: short.musicVibe,
-      editingNotes: [short.notes]
+      editingNotes: [short.notes],
     };
 
   await writeFile(subtitleFile, subtitleContent, "utf8");
-  await writeFile(captionFile, `${short.caption}\n\n${short.hashtags.join(" ")}\n`, "utf8");
-  await writeFile(hookFile, short.hook, "utf8");
+  await writeFile(captionFile, `${wrapText(short.caption, 40)}\n\n${short.hashtags.join(" ")}\n`, "utf8");
+  await writeFile(hookFile, wrapText(short.hook, 25), "utf8");
   await writeFile(briefFile, JSON.stringify(capcutPackage, null, 2), "utf8");
 
-  // --- Dead-air trimming: shave silence off clip boundaries ---
-  const trimmedInputs = sourceInputs.map((input) => {
-    const purpose = short.shortPlanSegments?.find(
-      (s) => s.sourceVideoId === input.sourceVideoId && s.startSeconds === input.startSeconds
-    )?.purpose ?? "montage";
+  // ── STEP 1: Normalize each segment individually ──
+  const segmentTempFiles: string[] = [];
 
-    // Trim 0.2s from boundaries on clips longer than 4s
-    let trimmedStart = input.startSeconds;
-    let trimmedDuration = input.durationSeconds;
-    if (input.durationSeconds > 4) {
-      trimmedStart += 0.2;
-      trimmedDuration -= 0.4;
-    }
+  for (let i = 0; i < sourceInputs.length; i++) {
+    const segmentPath = path.join(exportsDir, `${baseName}-seg${i}.mp4`);
+    segmentTempFiles.push(segmentPath);
 
-    return {
-      ...input,
-      startSeconds: trimmedStart,
-      durationSeconds: Math.max(1, trimmedDuration),
-      purpose
-    };
-  });
+    const pct = 10 + Math.round((i / sourceInputs.length) * 45);
+    onProgress?.(`Normalizing segment ${i + 1} of ${sourceInputs.length}...`, pct);
 
-  const inputArgs = trimmedInputs.flatMap((input) => [
-    "-ss",
-    String(input.startSeconds),
-    "-t",
-    String(input.durationSeconds),
-    "-i",
-    input.sourceAbsolutePath
-  ]);
-
-  // --- Build per-segment video filters with effects ---
-  const TRANSITION_DURATION = 0.15;
-  const segmentFilters: string[] = [];
-  const segmentAudioFilters: string[] = [];
-
-  trimmedInputs.forEach((input, index) => {
-    const baseScale = `scale=720:1280:force_original_aspect_ratio=decrease,pad=720:1280:(ow-iw)/2:(oh-ih)/2:color=black,setsar=1,fps=30`;
-
-    if (input.purpose === "hook" || input.purpose === "reaction") {
-      // Zoom punch-in: subtle 1.08x zoom, centered
-      segmentFilters.push(
-        `[${index}:v]${baseScale},zoompan=z='min(zoom+0.001\\,1.08)':d=1:s=720x1280:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':fps=30[v${index}]`
-      );
-    } else if (input.purpose === "setup" || input.purpose === "lesson") {
-      // Speed ramp: 1.18x faster to keep pacing tight
-      segmentFilters.push(
-        `[${index}:v]${baseScale},setpts=0.85*PTS[v${index}]`
-      );
-      segmentAudioFilters.push(
-        `[${index}:a]aresample=44100,atempo=1.18[a${index}]`
-      );
-    } else {
-      segmentFilters.push(
-        `[${index}:v]${baseScale}[v${index}]`
-      );
-    }
-
-    // Default audio filter if not already set by speed ramp
-    if (!segmentAudioFilters.some((f) => f.startsWith(`[${index}:a]`))) {
-      segmentAudioFilters.push(
-        `[${index}:a]aresample=44100[a${index}]`
-      );
-    }
-  });
-
-  // --- Build xfade transition chain ---
-  let videoChain = "";
-  let audioChain = "";
-
-  // Segments with setpts=0.85*PTS (setup/lesson) have a shorter effective
-  // video duration than their original trimmed duration. The xfade offset must
-  // be computed from the *effective* duration, otherwise ffmpeg will error with
-  // "xfade offset is after the end of the stream".
-  const effectiveDuration = (input: typeof trimmedInputs[number]) =>
-    (input.purpose === "setup" || input.purpose === "lesson")
-      ? input.durationSeconds * 0.85
-      : input.durationSeconds;
-
-  if (trimmedInputs.length === 1) {
-    // Single segment: no transitions needed
-    videoChain = segmentFilters.join(";");
-    audioChain = segmentAudioFilters.join(";");
-    videoChain += `;[v0]null[v]`;
-    audioChain += `;[a0]anull[a]`;
-  } else {
-    // Multiple segments: chain xfade transitions
-    const allFilters = [...segmentFilters, ...segmentAudioFilters];
-
-    // Video xfade chain — uses effectiveDuration to account for speed ramp
-    let cumulativeDuration = effectiveDuration(trimmedInputs[0]);
-    let prevVideoLabel = "v0";
-
-    for (let i = 1; i < trimmedInputs.length; i++) {
-      const offset = Math.max(0, cumulativeDuration - TRANSITION_DURATION);
-      const outLabel = i === trimmedInputs.length - 1 ? "v" : `vt${i}`;
-      // Use fadewhite for hook transition, fadeblack for others
-      const transition = i === 1 ? "fadewhite" : "fadeblack";
-      allFilters.push(
-        `[${prevVideoLabel}][v${i}]xfade=transition=${transition}:duration=${TRANSITION_DURATION}:offset=${offset.toFixed(3)}[${outLabel}]`
-      );
-      cumulativeDuration += effectiveDuration(trimmedInputs[i]) - TRANSITION_DURATION;
-      prevVideoLabel = outLabel;
-    }
-
-    // Audio crossfade chain — uses effectiveDuration to stay in sync with video
-    let prevAudioLabel = "a0";
-    let audioCumulativeDuration = effectiveDuration(trimmedInputs[0]);
-
-    for (let i = 1; i < trimmedInputs.length; i++) {
-      const outLabel = i === trimmedInputs.length - 1 ? "a" : `at${i}`;
-      allFilters.push(
-        `[${prevAudioLabel}][a${i}]acrossfade=d=${TRANSITION_DURATION}:c1=tri:c2=tri[${outLabel}]`
-      );
-      audioCumulativeDuration += effectiveDuration(trimmedInputs[i]) - TRANSITION_DURATION;
-      prevAudioLabel = outLabel;
-    }
-
-    videoChain = allFilters.join(";");
+    await normalizeSegment(sourceInputs[i], i, sourceInputs.length, segmentPath, signal);
   }
 
-  const fullFilterComplex = audioChain ? `${videoChain};${audioChain}` : videoChain;
+  // ── STEP 2: Concat all normalized segments ──
+  onProgress?.("Joining segments...", 58);
+  await concatSegments(segmentTempFiles, concatListFile, stitchedFile, signal);
 
+  // ── Calculate total duration for progress bar ──
+  const totalDuration = sourceInputs.reduce((sum, input) => {
+    const eff = (input.purpose === "setup" || input.purpose === "lesson")
+      ? input.durationSeconds * 0.85
+      : input.durationSeconds;
+    return sum + eff;
+  }, 0);
 
-  await runFfmpeg([
-    "-y",
-    ...inputArgs,
-    "-filter_complex",
-    fullFilterComplex,
-    "-map",
-    "[v]",
-    "-map",
-    "[a]",
-    "-c:v",
-    "libx264",
-    "-preset",
-    "veryfast",
-    "-crf",
-    "23",
-    "-c:a",
-    "aac",
-    "-movflags",
-    "+faststart",
-    stitchedFile
-  ]);
-
+  // ── STEP 3: Apply overlays and subtitles ──
   const fontPath = "C\\:/Windows/Fonts/arial.ttf";
   const hookPath = subtitleFilterPath(hookFile);
   const subtitlePath = subtitleFilterPath(subtitleFile);
@@ -260,36 +316,46 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
 
   const overlayFilters =
     short.overlayCaptions?.map((caption, captionIndex) => {
-      const text = escapeDrawText(caption.text);
+      // Wrap overlay captions to 40 characters for safety
+      const wrappedText = wrapText(caption.text, 40);
+      const text = escapeDrawText(wrappedText);
       const yPos = captionIndex % 2 === 0 ? 200 : 240;
-      return `drawtext=fontfile='${fontPath}':text='${text}':fontcolor=${brandColor}:fontsize=34:box=1:boxcolor=black@0.6:boxborderw=18:x=(w-text_w)/2:y=${yPos}:enable='between(t,${caption.startSeconds},${caption.endSeconds})'`;
+      // Use 'fix_bounds=1' to clamp text within video dimensions
+      return `drawtext=fontfile='${fontPath}':text='${text}':expansion=none:fontcolor='${brandColor}':fontsize=34:box=1:boxcolor='black@0.6':boxborderw=18:x=(w-text_w)/2:y=${yPos}:fix_bounds=1:enable=between(t\\,${caption.startSeconds}\\,${caption.endSeconds})`;
     }) ?? [];
 
   const filter = [
-    `drawtext=fontfile='${fontPath}':textfile='${hookPath}':fontcolor=white:fontsize=56:box=1:boxcolor=black@0.7:boxborderw=22:x=(w-text_w)/2:y=80:enable='between(t,0,2.2)'`,
+    // Hook filter - specifically escaping the commas in the 'between' function.
+    // Increased y spacing slightly to accommodate potential multi-line wrappings.
+    `drawtext=fontfile='${fontPath}':textfile='${hookPath}':expansion=none:fontcolor='white':fontsize=56:box=1:boxcolor='black@0.7':boxborderw=22:x=(w-text_w)/2:y=120:fix_bounds=1:enable=between(t\\,0\\,2.2)`,
     ...overlayFilters,
-    `subtitles='${subtitlePath}':force_style='FontName=Arial,FontSize=22,PrimaryColour=&HFFFFFF&,OutlineColour=&H000000&,BorderStyle=3,Outline=1,Shadow=0,MarginV=100'`
+    `subtitles=filename='${subtitlePath}'`,
   ].join(",");
 
+
   try {
+    onProgress?.("Applying effects and subtitles...", 62);
+    // Write the complex filter string to a script file to avoid shell-stripping of quotes on Windows
+    await writeFile(filterScriptFile, filter, "utf8");
+
     await runFfmpeg([
       "-y",
-      "-i",
-      stitchedFile,
-      "-vf",
-      filter,
-      "-c:v",
-      "libx264",
-      "-preset",
-      "veryfast",
-      "-crf",
-      "23",
-      "-c:a",
-      "aac",
-      "-movflags",
-      "+faststart",
-      outputFile
-    ]);
+      "-i", stitchedFile,
+      "-filter_script:v", filterScriptFile,
+      "-pix_fmt", "yuv420p",
+      "-c:v", "libx264",
+      "-preset", "veryfast",
+      "-crf", "23",
+      "-c:a", "aac",
+      "-threads", "0",
+      "-movflags", "+faststart",
+      outputFile,
+    ], (time) => {
+      const seconds = timestampToSeconds(time);
+      const passPercent = Math.min(100, Math.round((seconds / totalDuration) * 100));
+      const globalPercent = 62 + (passPercent * 0.33);
+      onProgress?.(`Applying effects (${passPercent}%)...`, Math.round(globalPercent));
+    }, signal);
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to render short draft.";
     const savedFailure = {
@@ -301,36 +367,45 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
       captionFilePath: undefined,
       briefFilePath: undefined,
       thumbnailUrl: undefined,
-      renderError: message
+      renderError: message,
     };
     await upsertRenderedDraft({ id: short.id, ...savedFailure });
     await updateShortDraft(short.id, savedFailure);
     throw new Error(message);
   }
 
-  // --- Thumbnail Generation ---
+  // ── STEP 4: Thumbnail ──
   try {
     const rawTitle = short.clickbaitTitle || short.title || "Watch This!";
-    // Split long titles into two lines for better thumbnail fit
     const words = rawTitle.split(" ");
     const half = Math.ceil(words.length / 2);
     const line1 = words.slice(0, half).join(" ");
     const line2 = words.slice(half).join(" ");
     const titleText = words.length > 4 ? `${line1}\n${line2}` : rawTitle;
 
+    onProgress?.("Generating thumbnail...", 96);
     await runFfmpeg([
       "-y",
-      "-ss", "0.5", // grab frame 0.5s into the hook
+      "-ss", "0.5",
       "-i", stitchedFile,
       "-vframes", "1",
-      "-vf", `drawtext=fontfile='${fontPath}':text='${escapeDrawText(titleText)}':fontcolor=white:fontsize=80:box=1:boxcolor=${brandColor}@0.9:boxborderw=32:x=(w-text_w)/2:y=(h-text_h)/2:align=center`,
-      "-q:v", "2", // high quality jpeg
-      thumbnailFile
-    ]);
+      "-vf", `drawtext=fontfile='${fontPath}':text='${escapeDrawText(titleText)}':expansion=none:fontcolor='white':fontsize=80:box=1:boxcolor='black@0.8':boxborderw=32:x=(w-text_w)/2:y=(h-text_h)/2`,
+      "-q:v", "2",
+      thumbnailFile,
+    ], undefined, signal);
+    onProgress?.("Finalizing...", 99);
   } catch (error) {
     console.warn("Failed to generate thumbnail, proceeding without it", error);
   }
 
+  // ── Cleanup temp segment files ──
+  for (const tempFile of segmentTempFiles) {
+    try { await unlink(tempFile); } catch { /* ignore */ }
+  }
+  try { await unlink(concatListFile); } catch { /* ignore */ }
+  try { await unlink(filterScriptFile); } catch { /* ignore */ }
+
+  // ── Save results ──
   const outputUrl = `/api/renders/assets/${path.basename(outputFile)}`;
   const subtitleUrl = `/api/renders/assets/${path.basename(subtitleFile)}`;
   const captionUrl = `/api/renders/assets/${path.basename(captionFile)}`;
@@ -347,7 +422,7 @@ export async function renderShortDraft(short: EditedShort, settings: BrandStyleS
     captionFilePath: captionUrl,
     briefFilePath: briefUrl,
     thumbnailUrl,
-    renderError: undefined
+    renderError: undefined,
   };
 
   await upsertRenderedDraft(saved);

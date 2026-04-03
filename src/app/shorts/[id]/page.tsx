@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { LoadingBlocks } from "@/components/ui/loading-blocks";
 import { PageHeader } from "@/components/ui/page-header";
 import { Panel } from "@/components/ui/panel";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { StatusPill } from "@/components/ui/status-pill";
 import { usePageReady } from "@/lib/use-page-ready";
 import { GoogleDriveExport } from "@/components/google-drive-export";
@@ -66,7 +67,9 @@ export default function ShortDraftPage() {
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-1">
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-sm text-slate-500">Render status</p>
-              <p className="mt-2 text-lg font-semibold text-ink">{short.renderStatus ?? "not_started"}</p>
+              <p className="mt-2 text-lg font-semibold text-ink">
+                {short.renderStatus === "rendering" ? `${short.renderProgress ?? 0}%` : (short.renderStatus ?? "not_started")}
+              </p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-4">
               <p className="text-sm text-slate-500">Draft status</p>
@@ -121,25 +124,58 @@ export default function ShortDraftPage() {
             <p className="text-sm text-slate-600">Play the generated MP4 inside the app, then download the draft and sidecar assets for posting or CapCut polish.</p>
           </div>
 
-          {short.previewUrl ? (
+          {short.renderStatus === "rendering" ? (
+            <div className="rounded-[2rem] border-2 border-dashed border-slate-200 bg-slate-50 p-12 text-center">
+              <div className="mx-auto max-w-sm space-y-6">
+                <ProgressBar
+                  progress={short.renderProgress ?? 0}
+                  message={short.renderMessage ?? "Rendering stitching short..."}
+                  size="lg"
+                />
+                <p className="animate-pulse text-sm text-slate-500">
+                  This may take a few minutes. Terminal output is echoing FFmpeg progress.
+                </p>
+              </div>
+            </div>
+          ) : short.previewUrl ? (
             <div className="space-y-3">
-              <video src={short.previewUrl} controls className="aspect-[9/16] w-full rounded-[2rem] bg-black object-contain" />
+              <video
+                src={short.previewUrl}
+                controls
+                className="aspect-[9/16] w-full rounded-[2rem] bg-black object-contain"
+              />
               <div className="flex flex-wrap gap-3">
-                <a href={short.previewUrl} download className="inline-flex items-center rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white">
+                <a
+                  href={short.previewUrl}
+                  download
+                  className="inline-flex items-center rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white"
+                >
                   Download MP4 draft
                 </a>
                 {short.subtitleFilePath ? (
-                  <a href={short.subtitleFilePath} download className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink">
+                  <a
+                    href={short.subtitleFilePath}
+                    download
+                    className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink"
+                  >
                     Download subtitles
                   </a>
                 ) : null}
                 {short.captionFilePath ? (
-                  <a href={short.captionFilePath} download className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink">
+                  <a
+                    href={short.captionFilePath}
+                    download
+                    className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink"
+                  >
                     Download caption text
                   </a>
                 ) : null}
                 {short.briefFilePath ? (
-                  <a href={short.briefFilePath} download className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink">
+                  <a
+                    href={short.briefFilePath}
+                    download
+                    className="inline-flex items-center rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink"
+                  >
                     Download CapCut brief
                   </a>
                 ) : null}
@@ -147,7 +183,8 @@ export default function ShortDraftPage() {
             </div>
           ) : (
             <div className="rounded-3xl bg-slate-50 p-5 text-sm text-slate-700">
-              Generate the preview to create a real MP4 draft with stitched segments, transcript subtitles, and brand-color overlay captions applied.
+              Generate the preview to create a real MP4 draft with stitched segments, transcript
+              subtitles, and brand-color overlay captions applied.
             </div>
           )}
 

@@ -12,38 +12,93 @@ export async function ensureTempDir() {
   return TEMP_DIR;
 }
 
-const FFMPEG_TIMEOUT_MS = 120_000;
+const FFMPEG_TIMEOUT_MS = 1_800_000; // 30 minutes for complex renders
+const MAX_ERROR_BUFFER = 50_000; // Cap stderr collection at ~50KB
 
-export async function runFfmpeg(args: string[]) {
+export async function runFfmpeg(
+  args: string[],
+  onProgress?: (time: string) => void,
+  signal?: AbortSignal
+) {
   await ensureTempDir();
 
-  const ffmpegPromise = new Promise<void>((resolve, reject) => {
-    const ffmpeg = spawn(FFMPEG_PATH, args, { stdio: ["ignore", "pipe", "pipe"] });
-    let errorOutput = "";
+  console.log(`[FFMPEG] Running: ${FFMPEG_PATH} ${args.slice(-1)[0]}`);
 
-    ffmpeg.stderr.on("data", (chunk) => {
-      errorOutput += String(chunk);
+  let ffmpegProcess: ReturnType<typeof spawn> | null = null;
+  let processExited = false;
+
+  try {
+    const ffmpegPromise = new Promise<void>((resolve, reject) => {
+      const ffmpeg = spawn(FFMPEG_PATH, args, { stdio: ["ignore", "pipe", "pipe"] });
+      ffmpegProcess = ffmpeg;
+
+      let errorOutput = "";
+
+      ffmpeg.stderr.on("data", (chunk: Buffer) => {
+        const output = String(chunk);
+
+        // Cap error buffer to prevent memory growth on long renders
+        if (errorOutput.length < MAX_ERROR_BUFFER) {
+          errorOutput += output;
+        }
+
+        // Real-time debug logging
+        process.stderr.write(chunk);
+
+        if (onProgress) {
+          const timeMatch = output.match(/time=(\d{2}:\d{2}:\d{2}.\d{2})/);
+          if (timeMatch) {
+            onProgress(timeMatch[1]);
+          }
+        }
+      });
+
+      ffmpeg.on("error", (error) => {
+        processExited = true;
+        reject(error);
+      });
+
+      ffmpeg.on("close", (code) => {
+        processExited = true;
+        if (code === 0) {
+          resolve();
+          return;
+        }
+        reject(new Error(errorOutput || `ffmpeg exited with code ${code}`));
+      });
     });
 
-    ffmpeg.on("error", (error) => {
-      reject(error);
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      const timeoutId = setTimeout(() => {
+        reject(new Error(`ffmpeg timed out after ${FFMPEG_TIMEOUT_MS / 1000} seconds`));
+      }, FFMPEG_TIMEOUT_MS);
+
+      ffmpegPromise.finally(() => clearTimeout(timeoutId));
     });
 
-    ffmpeg.on("close", (code) => {
-      if (code === 0) {
-        resolve();
-        return;
-      }
+    // Only create the abort promise if a signal was actually provided
+    const racers: Promise<any>[] = [ffmpegPromise, timeoutPromise];
 
-      reject(new Error(errorOutput || `ffmpeg exited with code ${code}`));
-    });
-  });
+    if (signal) {
+      const abortPromise = new Promise<never>((_, reject) => {
+        if (signal.aborted) {
+          return reject(new Error("ffmpeg render aborted by user"));
+        }
+        signal.addEventListener("abort", () => {
+          reject(new Error("ffmpeg render aborted by user"));
+        }, { once: true });
+      });
+      racers.push(abortPromise);
+    }
 
-  const timeoutPromise = new Promise<never>((_, reject) =>
-    setTimeout(() => reject(new Error("ffmpeg timed out after 120 seconds")), FFMPEG_TIMEOUT_MS)
-  );
-
-  return Promise.race([ffmpegPromise, timeoutPromise]);
+    return await Promise.race(racers);
+  } finally {
+    // Only kill the process if it hasn't already exited
+    if (ffmpegProcess && !processExited) {
+      console.log(`[FFMPEG] Killing process to clean up...`);
+      (ffmpegProcess as ReturnType<typeof spawn>).kill("SIGKILL");
+    }
+  }
 }
 
 export function tempDir() {

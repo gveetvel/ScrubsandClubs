@@ -1,6 +1,51 @@
 {
   "drafts": [
     {
+      "id": "project-9075fa02-a-primary-let-s-hit-the-ja",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja.mp4",
+      "renderedFilePath": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja.mp4",
+      "subtitleFilePath": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja.srt",
+      "captionFilePath": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja-caption.txt",
+      "briefFilePath": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja-capcut-brief.json",
+      "thumbnailUrl": "/api/renders/assets/let-s-hit-the-japanese-flag-in-a-new-challenge-short-project-9075fa02-a-primary-let-s-hit-the-ja-thumbnail.jpg"
+    },
+    {
+      "id": "project-e9ba9ff2-b-primary-testing-somethin",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin.mp4",
+      "renderedFilePath": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin.mp4",
+      "subtitleFilePath": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin.srt",
+      "captionFilePath": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin-caption.txt",
+      "briefFilePath": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin-capcut-brief.json",
+      "thumbnailUrl": "/api/renders/assets/testing-something-short-project-e9ba9ff2-b-primary-testing-somethin-thumbnail.jpg"
+    },
+    {
+      "id": "project-c601e1a5-e-primary-new-challenge-of",
+      "renderStatus": "failed",
+      "exportStatus": "not_ready",
+      "renderError": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers\r\n  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)\r\n  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband\r\n  libavutil      58. 29.100 / 58. 29.100\r\n  libavcodec     60. 31.102 / 60. 31.102\r\n  libavformat    60. 16.100 / 60. 16.100\r\n  libavdevice    60.  3.100 / 60.  3.100\r\n  libavfilter     9. 12.100 /  9. 12.100\r\n  libswscale      7.  5.100 /  7.  5.100\r\n  libswresample   4. 12.100 /  4. 12.100\r\n  libpostproc    57.  3.100 / 57.  3.100\r\nInput #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\\GithubLocal\\ScrubsandClubs\\public\\rendered-exports\\new-challenge-of-the-week-hitting-the-japanese-flag-short-project-c601e1a5-e-primary-new-challenge-of-stitched.mp4':\r\n  Metadata:\r\n    major_brand     : isom\r\n    minor_version   : 512\r\n    compatible_brands: isomiso2avc1mp41\r\n    encoder         : Lavf60.16.100\r\n  Duration: 00:00:25.79, start: 0.000000, bitrate: 1751 kb/s\r\n  Stream #0:0[0x1](eng): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 720x1280 [SAR 1:1 DAR 9:16], 1617 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r\n    Metadata:\r\n      handler_name    : VideoHandle\r\n      vendor_id       : [0][0][0][0]\r\n      encoder         : Lavc60.31.102 libx264\r\n  Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 127 kb/s (default)\r\n    Metadata:\r\n      handler_name    : SoundHandle\r\n      vendor_id       : [0][0][0][0]\r\n[AVFilterGraph @ 000001b7fc089b40] No such filter: '0'\r\n[vost#0:0/libx264 @ 000001b7fc110c00] Error initializing a simple filtergraph\r\nError opening output file D:\\GithubLocal\\ScrubsandClubs\\public\\rendered-exports\\new-challenge-of-the-week-hitting-the-japanese-flag-short-project-c601e1a5-e-primary-new-challenge-of.mp4.\r\nError opening output files: Filter not found\r\n"
+    },
+    {
+      "id": "project-6ffd37d7-4-primary-let-s-try-hittin",
+      "renderStatus": "ready",
+      "exportStatus": "download_ready",
+      "previewUrl": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin.mp4",
+      "renderedFilePath": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin.mp4",
+      "subtitleFilePath": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin.srt",
+      "captionFilePath": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin-caption.txt",
+      "briefFilePath": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin-capcut-brief.json",
+      "thumbnailUrl": "/api/renders/assets/let-s-try-hitting-the-japanese-flag-short-project-6ffd37d7-4-primary-let-s-try-hittin-thumbnail.jpg"
+    },
+    {
+      "id": "project-a5bf478a-8-primary-new-challenge-of",
+      "renderStatus": "failed",
+      "exportStatus": "not_ready",
+      "renderError": "ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers\r\n  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)\r\n  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband\r\n  libavutil      58. 29.100 / 58. 29.100\r\n  libavcodec     60. 31.102 / 60. 31.102\r\n  libavformat    60. 16.100 / 60. 16.100\r\n  libavdevice    60.  3.100 / 60.  3.100\r\n  libavfilter     9. 12.100 /  9. 12.100\r\n  libswscale      7.  5.100 /  7.  5.100\r\n  libswresample   4. 12.100 /  4. 12.100\r\n  libpostproc    57.  3.100 / 57.  3.100\r\nInput #0, mov,mp4,m4a,3gp,3g2,mj2, from 'D:\\GithubLocal\\ScrubsandClubs\\public\\rendered-exports\\new-challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-a5bf478a-8-primary-new-challenge-of-stitched.mp4':\r\n  Metadata:\r\n    major_brand     : isom\r\n    minor_version   : 512\r\n    compatible_brands: isomiso2avc1mp41\r\n    encoder         : Lavf60.16.100\r\n  Duration: 00:00:12.76, start: 0.000000, bitrate: 1967 kb/s\r\n  Stream #0:0[0x1](eng): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 720x1280 [SAR 1:1 DAR 9:16], 1835 kb/s, 30 fps, 30 tbr, 15360 tbn (default)\r\n    Metadata:\r\n      handler_name    : VideoHandle\r\n      vendor_id       : [0][0][0][0]\r\n      encoder         : Lavc60.31.102 libx264\r\n  Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 126 kb/s (default)\r\n    Metadata:\r\n      handler_name    : SoundHandle\r\n      vendor_id       : [0][0][0][0]\r\n[AVFilterGraph @ 0000020c942badc0] No such filter: 'send help. 🆘:expansion=none:fontcolor=0xB8FF65:fontsize=34:box=1:boxcolor=black'\r\n[vost#0:0/libx264 @ 0000020c9412e400] Error initializing a simple filtergraph\r\nError opening output file D:\\GithubLocal\\ScrubsandClubs\\public\\rendered-exports\\new-challenge-of-the-week-hit-the-japanese-flag-on-the-course-short-project-a5bf478a-8-primary-new-challenge-of.mp4.\r\nError opening output files: Filter not found\r\n"
+    },
+    {
       "id": "project-cd36eb1b-c-primary-challenge-of-the",
       "renderStatus": "ready",
       "exportStatus": "download_ready",

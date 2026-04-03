@@ -243,6 +243,8 @@ export interface EditedShort {
   briefFilePath?: string;
   thumbnailUrl?: string;
   renderError?: string;
+  renderProgress?: number;
+  renderMessage?: string;
   projectId?: string;
   primary?: boolean;
   draftStatus?: DraftStatus;
